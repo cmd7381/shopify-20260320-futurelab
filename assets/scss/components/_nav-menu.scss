@@ -16,16 +16,17 @@
 	opacity: 0;
 	visibility: hidden;
 	overflow: hidden;
-	transition: all 0.3s; // delay hide until mask fades out
+	transition: visibility 0s 0.3s;
 
 	&.is-open {
-		opacity: 1;
-		pointer-events: auto;
 		visibility: visible;
-		// transition-delay: 0s; // show immediately
+		pointer-events: auto;
+		transition-delay: 0s;
 
 		.nav-menu__mask {
 			opacity: 1;
+			backdrop-filter: blur(5px);
+			-webkit-backdrop-filter: blur(5px);
 		}
 	}
 
@@ -34,16 +35,10 @@
 		position: absolute;
 		inset: 0;
 		background: rgba(112, 124, 134, 0.25);
-		backdrop-filter: blur(5px);
-		-webkit-backdrop-filter: blur(5px);
+		backdrop-filter: blur(0px);
+		-webkit-backdrop-filter: blur(0px);
 		opacity: 0;
-		transition: opacity 0.3s ease;
-		// z-index: $z-sticky - 2;
-		// z-index: 1;
-		// pointer-events: none;
-		// &.is-open {
-		// 	opacity: 1;
-		// }
+		transition: opacity 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
 	}
 
 	// Body wrapper
@@ -56,7 +51,7 @@
 		position: absolute;
 		width: size(444, 1440);
 		background: $color-white;
-		top: var(--nav-menu-top);
+		top: calc(var(--nav-menu-top) + var(--nav-gap));
 		left: responsive($spacing-16);
 		height: calc(100vh - var(--nav-menu-top, var(--header-height)) - var(--nav-gap) * 2);
 		max-height: calc(100vh - var(--nav-menu-top, var(--header-height)) - var(--nav-gap) * 2);
@@ -100,7 +95,7 @@
 		position: fixed;
 		width: size(444, 1440);
 		background: $color-white;
-		top: var(--nav-menu-top);
+		top: calc(var(--nav-menu-top) + var(--nav-gap));
 		left: size(calc(444 + 16), 1440);
 		height: calc(100vh - var(--nav-menu-top, var(--header-height)) - var(--nav-gap) * 2);
 		max-height: calc(100vh - var(--nav-menu-top, var(--header-height)) - var(--nav-gap) * 2);

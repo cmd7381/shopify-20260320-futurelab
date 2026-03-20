@@ -2104,24 +2104,26 @@ h6,
   opacity: 0;
   visibility: hidden;
   overflow: hidden;
-  transition: all 0.3s;
+  transition: visibility 0s 0.3s;
 }
 .nav-menu.is-open {
-  opacity: 1;
-  pointer-events: auto;
   visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
 }
 .nav-menu.is-open .nav-menu__mask {
   opacity: 1;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 .nav-menu__mask {
   position: absolute;
   inset: 0;
   background: rgba(112, 124, 134, 0.25);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
 }
 .nav-menu__body {
   height: 100%;
@@ -2130,7 +2132,7 @@ h6,
   position: absolute;
   width: 30.8333333333%;
   background: #ffffff;
-  top: var(--nav-menu-top);
+  top: calc(var(--nav-menu-top) + var(--nav-gap));
   left: clamp(16px, 1.1111111111vw, 22.2222222222px);
   height: calc(100vh - var(--nav-menu-top, var(--header-height)) - var(--nav-gap) * 2);
   max-height: calc(100vh - var(--nav-menu-top, var(--header-height)) - var(--nav-gap) * 2);
@@ -2173,7 +2175,7 @@ h6,
   position: fixed;
   width: 30.8333333333%;
   background: #ffffff;
-  top: var(--nav-menu-top);
+  top: calc(var(--nav-menu-top) + var(--nav-gap));
   left: 31.9444444444%;
   height: calc(100vh - var(--nav-menu-top, var(--header-height)) - var(--nav-gap) * 2);
   max-height: calc(100vh - var(--nav-menu-top, var(--header-height)) - var(--nav-gap) * 2);
