@@ -470,13 +470,13 @@ var App = (function($) {
 					close();
 					// Find next focusable header item after Shop
 					var $trigger = $shopToggle.filter(":visible").first();
-					var $allNav = $(".header__nav-item a, .header__icon a, .header__icon button").filter(":visible");
-					var idx = $allNav.index($trigger);
-					var $next = $allNav.eq(idx + 1);
-					if ($next.length) {
-						$next.focus();
+					var $header = $(".header");
+					var $allNav = $header.find(".header__nav-item, .header__cta, .header__icon").not("[data-shop-toggle]").filter(":visible");
+					var $nextItem = $allNav.first();
+					if ($nextItem.is("a, button")) {
+						$nextItem.focus();
 					} else {
-						$trigger.focus();
+						$nextItem.find("a, button").first().focus();
 					}
 				}
 			});
