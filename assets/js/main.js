@@ -1030,7 +1030,8 @@ var App = (function($) {
 				options: {
 					speed: 300,
 					fade: false,
-					autoplay: false
+					autoplay: true,
+					autoplaySpeed: 3000
 				}
 			});
 
