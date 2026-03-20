@@ -427,6 +427,20 @@ var App = (function($) {
 
 			$menu.find(".nav-menu__close").on("click", close);
 			$mask.on("click", close);
+
+			// ---- Keyboard: Tab/focus opens, Escape closes ----
+			$shopToggle.on("focus", function() {
+				if (isMobile()) return;
+				clearTimeout(hoverTimer);
+				if (!$l1.hasClass("is-active")) open();
+			});
+
+			$(document).on("keydown", function(e) {
+				if (e.key === "Escape" && $l1 && $l1.hasClass("is-active")) {
+					close();
+					$shopToggle.first().focus();
+				}
+			});
 		}
 
 		return {
@@ -469,6 +483,26 @@ var App = (function($) {
 			$("[data-sub-toggle]").on("mouseleave", function() {
 				if (window.innerWidth < 1024) return;
 				closeDropdown();
+			});
+
+			// ---- Keyboard: Tab/focus opens dropdown ----
+			$("[data-sub-toggle]").on("focusin", function() {
+				if (window.innerWidth < 1024) return;
+				if (NavMenu.isOpen()) NavMenu.close();
+				closeDropdown();
+				$(this).addClass("is-open");
+				$(this).find(".header__dropdown").addClass("is-open");
+				$menu.addClass("is-open");
+			});
+
+			$("[data-sub-toggle]").on("focusout", function(e) {
+				if (window.innerWidth < 1024) return;
+				var $toggle = $(this);
+				setTimeout(function() {
+					if (!$toggle.find(":focus").length) {
+						closeDropdown();
+					}
+				}, 0);
 			});
 		}
 
