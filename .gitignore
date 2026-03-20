@@ -1,0 +1,14 @@
+# Only track: *.html, assets/, prepros.config, .gitignore
+*
+
+# Allow
+!*.html
+!assets/
+!assets/**
+!prepros.config
+!.gitignore
+
+# Always ignore
+.DS_Store
+.unison.*
+node_modules/
