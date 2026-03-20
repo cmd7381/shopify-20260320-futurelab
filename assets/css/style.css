@@ -209,6 +209,7 @@ html .wowo.animated {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  user-select: text;
 }
 
 html {
@@ -2530,6 +2531,12 @@ h6,
 .carousel .slick-track {
   height: 100%;
 }
+.carousel .slick-list {
+  cursor: grab;
+}
+.carousel .slick-list:active {
+  cursor: grabbing;
+}
 .carousel .slick-track {
   display: flex !important;
 }
@@ -4080,7 +4087,7 @@ h6,
   }
 }
 .card--health:hover {
-  transform: translateY(-2px);
+  transform: translateY(calc(-1 * clamp(6px, 0.4166666667vw, 8.3333333333px)));
 }
 .card--health .card__image {
   flex: 1;

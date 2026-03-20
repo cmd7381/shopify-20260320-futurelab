@@ -7,6 +7,14 @@
 		height: 100%;
 	}
 
+	.slick-list {
+		cursor: grab;
+
+		&:active {
+			cursor: grabbing;
+		}
+	}
+
 	.slick-track {
 		display: flex !important;
 	}
