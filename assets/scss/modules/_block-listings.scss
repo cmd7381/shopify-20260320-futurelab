@@ -1,0 +1,39 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+.listings {
+  // Products variant (3 cols)
+  &.listings--products {
+    @include card-layout(3, responsive($spacing-24));
+
+    @include tablet-down {
+      @include card-layout(2, $spacing-8);
+      row-gap: $spacing-16;
+    }
+  }
+
+  // Experts variant
+  &.listings--testimonials {
+    @include card-layout(2, $spacing-32, $spacing-24);
+
+    @include tablet-down {
+      @include card-layout(1, $spacing-32);
+    }
+  }
+
+  // Blogs variant
+  &.listings--blogs {
+    @include card-layout(3, responsive($spacing-24));
+    row-gap: responsive(48px);
+
+    @include tablet-down {
+      @include card-layout(2, $spacing-24);
+      row-gap: $spacing-32;
+    }
+
+    @include mobile {
+      @include card-layout(1, $spacing-24);
+      row-gap: $spacing-32;
+    }
+  }
+}

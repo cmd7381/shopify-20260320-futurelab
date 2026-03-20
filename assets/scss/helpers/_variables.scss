@@ -1,0 +1,165 @@
+// ============================================
+// Design Tokens — extracted from Figma
+// ============================================
+
+// Colors — Brand
+$color-neon-tide: #1d4ed8;
+$color-neon-tide-300: #93affd;
+$color-neon-tide-500: #3b6cf6;
+$color-neon-tide-600: #2559eb;
+$color-neon-tide-900: #1e3a8a;
+
+$color-brand-purple: #9e77ed;
+
+// Colors — Neutrals
+$color-dark: #232527;
+$color-dark-alt: #262525;
+$color-dark-secondary: #53545a;
+$color-grey-900: #414651;
+$color-grey-800: #535862;
+$color-grey-700: #717680;
+$color-grey-600: #8b9298;
+$color-slate: #707c86;
+$color-stone: #90959a;
+$color-mist: #c9d3dc;
+$color-mist-50: #e6eaed;
+$color-teal: #4dd7fa;
+$color-sky: #a6c8eb;
+$color-cloud: #f1f5fa;
+$color-cloud-alt: #f9fbfb;
+$color-frost: #eff3ff;
+$color-white: #ffffff;
+$color-black: #000000;
+
+// Colors — Borders
+$color-border: #e9eaeb;
+$color-border-medium: #d5d7da;
+$color-border-light: #cccccc;
+
+// Colors — Backgrounds
+$color-bg-hover: #fafafa;
+$color-bg-subtle: #f5f5f5;
+$color-bg-selected: #fcfcfc;
+$color-navy: #020251;
+
+// Colors — Effects
+$color-shadow-xs: rgba(10, 13, 18, 0.05);
+$color-shadow-inner: rgba(10, 13, 18, 0.05);
+$color-shadow-inner-border: rgba(10, 13, 18, 0.18);
+
+// Colors — Tints
+$color-black-alpha-10: rgba(0, 0, 0, 0.1);
+$color-white-alpha-10: rgba(255, 255, 255, 0.1);
+$color-white-alpha-20: rgba(255, 255, 255, 0.2);
+$color-white-alpha-30: rgba(255, 255, 255, 0.3);
+$color-white-alpha-40: rgba(255, 255, 255, 0.4);
+$color-white-alpha-50: rgba(255, 255, 255, 0.5);
+$color-white-alpha-60: rgba(255, 255, 255, 0.6);
+$color-white-alpha-70: rgba(255, 255, 255, 0.7);
+$color-white-alpha-80: rgba(255, 255, 255, 0.8);
+$color-white-alpha-90: rgba(255, 255, 255, 0.9);
+
+// Typography — Fonts
+$font-heading: 'BDO Grotesk', sans-serif;
+$font-body: 'Neue Haas Grotesk Text', sans-serif;
+$font-system: 'Inter', sans-serif;
+
+// Typography — Sizes (Desktop)
+$font-size-display: 80px;
+$font-size-h1: 56px;
+$font-size-h2: 48px;
+$font-size-h3: 40px;
+$font-size-h4: 28px;
+$font-size-h5: 20px;
+$font-size-h6: 18px;
+$font-size-p1: 20px;
+$font-size-p2: 16px;
+$font-size-p3: 14px;
+$font-size-caption: 12px;
+
+// Typography — Sizes (Mobile)
+$font-size-p2-mobile: 14px;
+$font-size-p3-mobile: 12px;
+
+// Typography — Line Heights
+$lh-display: 1;
+$lh-h1: 1.05;
+$lh-h2: 1;
+$lh-h3: 1.1;
+$lh-h4: 1.15;
+$lh-h5: 1.2;
+$lh-h6: 1.35;
+$lh-p1: 1.5;
+$lh-p2: 1.5;
+$lh-p3: 1.6;
+$lh-caption: 1.35;
+
+// Typography — Letter Spacing
+$ls-display: -2.4px;
+$ls-h1: -1.68px;
+$ls-h2: -1.44px;
+$ls-h3: -0.8px;
+$ls-h4: 0;
+$ls-h5: 0;
+
+// Spacing
+$spacing-2: 2px;
+$spacing-4: 4px;
+$spacing-8: 8px;
+$spacing-12: 12px;
+$spacing-16: 16px;
+$spacing-18: 18px;
+$spacing-20: 20px;
+$spacing-24: 24px;
+$spacing-32: 32px;
+$spacing-34: 34px;
+$spacing-40: 40px;
+$spacing-44: 44px;
+$spacing-48: 48px;
+$spacing-50: 50px;
+$spacing-56: 56px;
+$spacing-64: 64px;
+$spacing-68: 68px;
+$spacing-80: 80px;
+$spacing-96: 96px;
+$spacing-120: 120px;
+
+// Breakpoints
+$bp-mobile: 428px;
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+$bp-wide: 1440px;
+
+// Proportional scaling
+$scale-max-viewport: 2000px;
+
+// Container
+$container-max-width: 1440px;
+$container-padding: 48px;
+$container-padding-mobile: 16px;
+
+// Borders
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 16px;
+$radius-full: 9999px;
+
+// Shadows
+$shadow-xs: 0px 1px 2px 0px $color-shadow-xs;
+$shadow-card: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
+$shadow-skeuomorphic: inset 0px 0px 0px 1px $color-shadow-inner-border, inset 0px -2px 0px 0px $color-shadow-inner;
+$shadow-glass: inset 0.689px 0.689px 2px 0px $color-white, inset -0.689px -0.689px 2px 0px $color-white;
+
+// Z-index
+$z-dropdown: 100;
+$z-sticky: 200;
+$z-modal-backdrop: 300;
+$z-modal: 400;
+
+// Buttons
+$btn-radius: var(--radius-md);
+$btn-desktop-reg-h: 48px;
+$btn-desktop-large-h: 56px;
+$btn-mobile-reg-px: 16px;
+$btn-desktop-reg-px: 20px;
+$btn-desktop-large-px: 28px;

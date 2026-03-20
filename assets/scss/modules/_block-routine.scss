@@ -1,0 +1,390 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+.block-routine {
+  padding-top: size(430, 1440);
+  padding-bottom: responsive($spacing-50);
+  position: relative;
+  overflow: hidden;
+  background-color: $color-neon-tide;
+
+  @include mobile {
+    padding-top: 0;
+    padding-bottom: 0;
+    >.img{
+      display:none;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: responsive($spacing-24);
+    position: relative;
+    z-index: 1;
+
+    @include mobile {
+      margin-inline: calc(-1 * var(--container-padding));
+      gap: 0;
+    }
+  }
+
+  &__before {
+    width: size(430, 1344);
+    background-color: $color-white;
+    border-radius: var(--radius-md);
+    padding: responsive(46px) responsive(48px) responsive(52px);
+    >.img{
+      display: none;
+    }
+    @include tablet-down {
+      width: 100%;
+      padding: 28px 24px;
+    }
+
+    @include mobile {
+      position: relative;
+      background-color: transparent;
+      border-radius: 0;
+      // padding: 28px 16px 76px;
+      padding: 28px 16px 306px;
+      margin-bottom: -230px;
+      &:after{
+        content: '';
+        display: block;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%,0%);
+        background: linear-gradient(180deg, rgba(29, 78, 216, 0) 0%, #1D4ED8 100%);
+        padding-top: size(178,428);
+        z-index: 1;
+        pointer-events: none;
+      }
+      .img ~ *{
+        position: relative;
+        z-index: 2;
+      }
+      >.img{
+        display: block;
+      }
+    }
+  }
+
+  &__after {
+    width: size(888, 1344);
+    background-color: $color-neon-tide;
+    border-radius: var(--radius-md);
+    padding: responsive($spacing-48);
+    color: $color-white;
+    overflow: hidden;
+
+    @include tablet-down {
+      width: 100%;
+      padding: $spacing-24;
+    }
+
+    @include mobile {
+      border-radius: 0;
+      padding: $spacing-24 $spacing-16;
+      overflow: visible;
+      background-color: transparent;
+    }
+  }
+
+  &__heading {
+    @include heading(32px, 400, 1.2, calc(-1 * responsive(0.96px)));
+    color: $color-dark;
+    margin-bottom: responsive(42px);
+
+    @include mobile {
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    &--white {
+      color: $color-white;
+      margin-bottom: 0;
+
+      @include mobile {
+        margin-bottom: 0;
+        text-align: center;
+      }
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: responsive(8px);
+    display: flex;
+    flex-direction: column;
+    @include mobile{
+      gap: 12px;
+    }
+  }
+
+  &__list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @include body-text($font-size-caption, 400, 16px);
+    font-size: responsive($font-size-caption);
+    color: $color-dark;
+    padding: 0 responsive($spacing-16);
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  &__total-old {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $color-neon-tide;
+    color: $color-white;
+    border-radius: var(--radius-md);
+    padding: responsive($spacing-16);
+    margin-top: responsive(14px);
+    @include body-text($font-size-caption, 400, $lh-caption);
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  // After card layout
+  &__after {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include mobile {
+      gap: 24px;
+      align-items: center;
+    }
+  }
+
+  &__after-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: responsive($spacing-24);
+
+    @include mobile {
+      display: contents;
+    }
+  }
+
+  &__cta {
+    color: $color-neon-tide;
+    flex-shrink: 0;
+
+    @include mobile {
+      width: 100%;
+      order: 10;
+      justify-content: center;
+      margin-top: -14px;
+    }
+  }
+
+  &__after-body {
+    display: flex;
+    justify-content: space-between;
+    gap: responsive($spacing-24);
+
+    @include tablet-down {
+      flex-direction: column;
+    }
+
+    @include mobile {
+      display: contents;
+    }
+  }
+
+  &__after-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: size(343, 792);
+    flex-shrink: 0;
+    margin-bottom: calc(-1 * responsive(4px));
+
+    @include tablet-down {
+      width: 100%;
+    }
+
+    @include mobile {
+      display: contents;
+    }
+  }
+
+  &__after-right {
+    width: size(385, 792);
+    flex-shrink: 0;
+
+    @include tablet-down {
+      width: 100%;
+    }
+
+    @include mobile {
+      display: contents;
+    }
+  }
+
+  &__price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @include body-text($font-size-p2, 400, 1.5);
+    color: $color-white;
+    padding: responsive($spacing-16) 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+    strong {
+      font-weight: 500;
+      font-size: responsive($font-size-p2);
+    }
+
+    @include mobile {
+      width: 100%;
+      order: 2;
+    }
+  }
+
+  &__price-old {
+    text-decoration: line-through;
+    color: $color-neon-tide-300;
+    margin-right: responsive($spacing-8);
+  }
+
+  &__benefits-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-8);
+    margin-top: responsive($spacing-20);
+
+    @include mobile {
+      width: 100%;
+      order: 3;
+      margin-top: -6px;
+    }
+    li {
+      display: flex;
+      align-items: center;
+      gap: responsive($spacing-8);
+      @include body-text($font-size-p3, 400, 1.4);
+      color: $color-white;
+
+      [class*="icon-"] {
+        font-size: responsive(16px);
+        flex-shrink: 0;
+      }
+    }
+
+  }
+
+  &__savings {
+    display: flex;
+    align-items: center;
+    gap: responsive(28px);
+    background-color: $color-neon-tide-900;
+    border-radius: var(--radius-md);
+    padding: responsive(12px) responsive(26px);
+    margin-bottom: responsive($spacing-20);
+
+    @include mobile {
+      display: contents;
+    }
+  }
+
+  &__savings-image {
+    width: responsive(105px);
+    flex-shrink: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+
+    .img {
+      border-radius: 0;
+    }
+
+    .img-box {
+      padding-top: size(125, 105);
+    }
+
+    .img-box img {
+      object-fit: contain;
+    }
+
+    @include mobile {
+      order: -1;
+      width: 181px;
+      border-radius: 0;
+
+      .img-box {
+        padding-top: size(215, 181);
+      }
+    }
+  }
+
+  &__savings-info {
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-8);
+
+    p {
+      display: flex;
+      align-items: center;
+      gap: responsive($spacing-8);
+      @include body-text($font-size-p2, 400, 1.5);
+      color: $color-teal;
+
+      [class*="icon-"] {
+        font-size: responsive(16px);
+        flex-shrink: 0;
+      }
+
+      strong {
+        font-weight: 500;
+      }
+    }
+
+    @include mobile {
+      flex-flow: row wrap;
+      gap: 4px;
+      width: 100%;
+      justify-content: space-between;
+      background-color: $color-neon-tide-900;
+      border-radius: var(--radius-md);
+      padding: $spacing-16 $spacing-24;
+      order: 5;
+      margin-top: 4px;
+
+      p {
+        font-size: 16px;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  &__footnote {
+    @include body-text($font-size-caption, 400, 1.4);
+    color: $color-neon-tide-300;
+
+    @include mobile {
+      text-align: center;
+      order: 11;
+    }
+  }
+}

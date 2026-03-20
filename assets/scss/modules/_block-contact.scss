@@ -1,0 +1,78 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+.block-contact {
+	background-color: $color-white;
+
+	padding: responsive($spacing-40) 0 responsive($spacing-96) 0;
+
+	@include tablet-down {
+		padding: $spacing-32 0;
+	}
+
+	.content {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: responsive($spacing-64);
+
+		@include tablet-down {
+			gap: $spacing-32;
+		}
+	}
+
+	&__image {
+		width: size(660, 1344);
+
+		@include tablet-down {
+			width: 100%;
+		}
+
+		.img-box {
+			padding-top: size(660, 660);
+		}
+	}
+
+	&__form {
+		width: size(546, 1344);
+
+		@include desktop-small {
+			flex: 1;
+		}
+
+		@include tablet-down {
+			width: 100%;
+		}
+	}
+
+	.text {
+		margin-bottom: responsive($spacing-48);
+
+		@include tablet-down {
+			margin-bottom: $spacing-32;
+		}
+
+		h1 {
+			font-size: responsive($font-size-h2);
+			line-height: $lh-h2;
+			letter-spacing: $ls-h2;
+			margin-bottom: responsive($spacing-20);
+
+			@include tablet-down {
+				font-size: $font-size-h3;
+				letter-spacing: $ls-h3;
+			}
+		}
+
+		p {
+			font-size: responsive($font-size-p1);
+			line-height: $lh-p1;
+			color: $color-slate;
+
+			@include tablet-down {
+				font-size: $font-size-p2;
+			}
+		}
+	}
+}

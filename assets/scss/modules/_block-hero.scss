@@ -1,0 +1,378 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+.block-hero {
+	.container {
+		padding: 0 responsive($spacing-16);
+	}
+
+	.content {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		@include tablet-down {
+			border-radius: 8px;
+			padding-bottom: 32px;
+		}
+		@include mobile {
+			margin-inline: calc(-1 * var(--container-padding));
+			padding: 0 var(--container-padding) 32px;
+		}
+	}
+
+	.item {
+		flex-direction: row;
+		min-height: responsive(568px);
+
+		@include tablet-down {
+			min-height: 0;
+			flex-direction: column-reverse;
+		}
+	}
+
+	&__info {
+		width: 50%;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		border: 1px solid $color-mist;
+		border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+		overflow: hidden;
+
+		@include tablet-down {
+			width: 100%;
+			border-radius: 0;
+			border: none;
+		}
+	}
+
+	&__info-bg {
+		border-radius: var(--radius-lg);
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background-color: $color-white;
+			z-index: -1;
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background-color: rgba(166, 200, 235, 0.4);
+			mix-blend-mode: color;
+			z-index: 1;
+		}
+
+		.img-box img {
+			opacity: 0.4;
+		}
+	}
+
+	&__info-overlay {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		flex: 1;
+		padding: responsive($spacing-56);
+
+		@include tablet-down {
+			padding-bottom: 0;
+		}
+
+		@include mobile {
+			padding: 28px 0 0;
+			align-items: center;
+			text-align: center;
+		}
+	}
+
+	&__top {
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-32);
+
+		@include mobile {
+			gap: $spacing-16;
+			align-items: center;
+		}
+	}
+
+	.badge {
+		align-self: flex-start;
+
+		@include mobile {
+			display: none;
+		}
+	}
+
+	&__text-group {
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-24);
+
+		@include mobile {
+			gap: 20px;
+			align-items: center;
+		}
+	}
+
+	&__title {
+		font-family: $font-heading;
+		color: $color-dark;
+		@media (min-width: 1280px) {
+			font-size: responsive(72px);
+			font-weight: 400;
+			line-height: 1;
+			letter-spacing: calc(-1 * responsive(2.16px));
+			transform: translate(0, -5%);
+		}
+
+		@include desktop-small {
+			font-size: 62px;
+			letter-spacing: -2px;
+		}
+
+		@include tablet-down {
+			font-size: 48px;
+			letter-spacing: -1.68px;
+			br {
+				display: none;
+			}
+		}
+
+		@include mobile {
+			font-size: 32px;
+			letter-spacing: -0.96px;
+			line-height: 1.2;
+			transform: none;
+			text-align: center;
+		}
+	}
+
+	&__description {
+		@include body-text($font-size-p2, 400);
+		font-size: responsive($font-size-p2);
+		color: $color-dark;
+		max-width: responsive(408px);
+
+		strong {
+			font-weight: 700;
+		}
+
+		@include mobile {
+			font-size: $font-size-p2-mobile;
+			line-height: 1.4;
+			max-width: 344px;
+		}
+	}
+
+	&__bottom {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		margin-top: responsive($spacing-24);
+
+		@include tablet-down {
+			width: 100%;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: $spacing-16;
+		}
+
+		@include mobile {
+			width: 100%;
+			align-items: center;
+			.btn {
+				width: 100%;
+			}
+		}
+	}
+
+	&__bullets {
+		display: none;
+
+		@include mobile {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
+			gap: 8px 16px;
+		}
+	}
+
+	&__bullet {
+		display: flex;
+		align-items: center;
+		gap: $spacing-8;
+
+		[class*='icon-'] {
+			font-size: 17px;
+			flex-shrink: 0;
+			color: $color-neon-tide;
+		}
+
+		span {
+			font-family: $font-body;
+			font-size: 12px;
+			line-height: 1.4;
+			color: $color-dark;
+			white-space: nowrap;
+		}
+	}
+
+	&__dots {
+		position: absolute;
+		bottom: responsive($spacing-56);
+		left: 50%;
+		transform: translateX(-100%);
+		margin-left: calc(-1 * responsive($spacing-56));
+		z-index: 2;
+
+		@include tablet-down {
+			position: static;
+			transform: none;
+			margin-left: 0;
+			margin-top: 26px;
+			display: flex;
+			justify-content: center;
+		}
+
+		.slick-dots {
+			@include desktop {
+				gap: responsive($spacing-16);
+				padding: responsive($spacing-12);
+			}
+		}
+		li {
+			@include desktop {
+				width: responsive(10px);
+				height: responsive(10px);
+				button {
+					width: responsive(10px);
+					height: responsive(10px);
+				}
+			}
+		}
+	}
+
+	// Right panel — product showcase
+	&__product {
+		width: 50%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: responsive($spacing-32);
+		padding: 0 responsive($spacing-48) responsive($spacing-16);
+		border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+		position: relative;
+		overflow: hidden;
+		background-color: $color-neon-tide;
+
+		@include tablet-down {
+			width: 100%;
+			border-radius: 0;
+			padding: $spacing-24 var(--container-padding);
+		}
+		@include mobile {
+			border-radius: 8px;
+			padding: 28px var(--container-padding);
+			gap: 24px;
+		}
+	}
+
+	&__product-bg {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		z-index: 0;
+
+		video {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(180deg, #1d4ed8 0%, rgba(29, 78, 216, 0) 26.14%);
+		}
+	}
+
+	&__trust {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: responsive($spacing-4);
+		position: relative;
+		z-index: 1;
+	}
+
+	&__trust-text {
+		@include body-text($font-size-p1, 400);
+		color: $color-white;
+		text-align: center;
+
+		strong {
+			font-weight: 700;
+		}
+
+		@include mobile {
+			font-size: $font-size-p2;
+		}
+	}
+
+	&__rating {
+		display: flex;
+		align-items: center;
+		gap: responsive($spacing-8);
+	}
+
+	&__stars {
+		display: flex;
+		align-items: center;
+		gap: 2px;
+		padding: 1px 0 responsive(4px);
+	}
+
+	&__star {
+		font-size: responsive(16px);
+		color: $color-white;
+	}
+
+	&__rating-text {
+		font-family: $font-heading;
+		font-size: responsive($font-size-p3);
+		line-height: $lh-p3;
+		color: $color-white;
+	}
+
+	&__product-image {
+		width: responsive(352px);
+		position: relative;
+		z-index: 1;
+
+		.img-box {
+			padding-top: 100%;
+		}
+
+		.img-box img {
+			object-fit: contain;
+		}
+
+		@include tablet-down {
+			width: 280px;
+		}
+
+		@include mobile {
+			width: 222px;
+		}
+	}
+}

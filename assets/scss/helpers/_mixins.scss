@@ -1,0 +1,276 @@
+@use 'sass:math';
+@use 'sass:meta';
+@use 'variables' as *;
+
+// ============================================
+// Responsive Scaling Functions
+// ============================================
+@function strip-unit($number) {
+	@if meta.type-of($number) == 'number' and not math.is-unitless($number) {
+		@return math.div($number, $number * 0 + 1);
+	}
+	@return $number;
+}
+
+@function responsive($value) {
+	$num: strip-unit($value);
+	$min: math.div($num * 1440, strip-unit($bp-wide));
+	$vw: math.div($num, strip-unit($bp-wide)) * 100;
+	$max: math.div($num * strip-unit($scale-max-viewport), strip-unit($bp-wide));
+	@return clamp(#{$min}px, #{$vw}vw, #{$max}px);
+}
+
+// ============================================
+// Responsive Breakpoints
+// ============================================
+@mixin mobile {
+	@media (max-width: #{$bp-tablet - 1}) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media (min-width: $bp-tablet) and (max-width: #{$bp-desktop - 1}) {
+		@content;
+	}
+}
+
+@mixin tablet-up {
+	@media (min-width: $bp-tablet) {
+		@content;
+	}
+}
+
+@mixin tablet-down {
+	@media (max-width: #{$bp-desktop - 1}) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media (min-width: $bp-desktop) {
+		@content;
+	}
+}
+
+@mixin desktop-small {
+	@media (min-width: $bp-desktop) and (max-width: 1279px) {
+		@content;
+	}
+}
+
+@mixin wide {
+	@media (min-width: $bp-wide) {
+		@content;
+	}
+}
+
+// ============================================
+// Size Helper
+// ============================================
+@function size($value, $parent) {
+	@return calc($value / $parent * 100%);
+}
+
+// ============================================
+// Layout
+// ============================================
+@mixin container {
+	width: 100%;
+	max-width: $container-max-width;
+	margin: 0 auto;
+	padding: 0 var(--container-padding);
+}
+
+@mixin flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin flex-between {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+// ============================================
+// Typography
+// ============================================
+@mixin heading($size, $weight: 400, $lh: 1.1, $ls: 0) {
+	font-family: $font-heading;
+	font-size: $size;
+	@include desktop {
+		font-size: responsive($size);
+	}
+	font-weight: $weight;
+	line-height: $lh;
+	@if $ls != 0 {
+		letter-spacing: $ls;
+	}
+}
+
+@mixin body-text($size: $font-size-p2, $weight: 400, $lh: $lh-p2) {
+	font-family: $font-body;
+	font-size: $size;
+	font-weight: $weight;
+	line-height: $lh;
+}
+
+@mixin display-text {
+	@include heading($font-size-display, 400, $lh-display, $ls-display);
+}
+
+@mixin h1 {
+	@include heading($font-size-display, 400, $lh-display, $ls-display);
+	@include tablet-down {
+		font-size: 56px;
+		letter-spacing: -1.68px;
+	}
+}
+
+@mixin h2 {
+	@include heading($font-size-h2, 400, $lh-h2, $ls-h2);
+	@include tablet-down {
+		font-size: 40px;
+		letter-spacing: -1.2px;
+	}
+}
+
+@mixin h3 {
+	@include heading($font-size-h3, 400, $lh-h3, $ls-h3);
+	@include tablet-down {
+		font-size: 32px;
+		letter-spacing: -0.64px;
+	}
+}
+
+@mixin h4 {
+	@include heading($font-size-h4, 400, $lh-h4);
+	@include tablet-down {
+		font-size: 26px;
+	}
+}
+
+@mixin h5 {
+	@include heading($font-size-h5, 600, $lh-h5);
+	@include tablet-down {
+		font-size: 18px;
+	}
+}
+
+@mixin h6 {
+	@include heading($font-size-h6, 600, $lh-h6);
+	@include tablet-down {
+		font-size: 16px;
+	}
+}
+
+// ============================================
+// Buttons
+// ============================================
+@mixin btn-base {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	border-radius: $btn-radius;
+	font-family: $font-body;
+	font-weight: 500;
+	cursor: pointer;
+	text-decoration: none;
+	transition: background-color 0.2s ease;
+	position: relative;
+}
+
+@mixin btn-primary {
+	@include btn-base;
+	background-color: $color-neon-tide;
+	color: $color-white;
+	box-shadow: $shadow-xs;
+}
+
+@mixin btn-outline {
+	@include btn-base;
+	background-color: transparent;
+	border: 2px solid $color-white;
+	box-shadow: $shadow-xs;
+}
+
+// ============================================
+// Utilities
+// ============================================
+@mixin hover-img-scale($scale: 1.05, $duration: 0.3s) {
+	.img-box {
+		transition: transform $duration ease;
+	}
+
+	&:hover .img-box {
+		transform: scale($scale);
+	}
+}
+
+@mixin text-truncate($lines: 1) {
+	@if $lines == 1 {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	} @else {
+		display: -webkit-box;
+		-webkit-line-clamp: $lines;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+}
+
+@mixin visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+@mixin card-layout($cols: 3, $gap: responsive($spacing-24), $gap2: $gap) {
+	display: flex;
+	flex-wrap: wrap;
+	gap: $gap $gap2;
+
+	> div {
+		width: calc((100% - $gap * ($cols - 1)) / $cols);
+	}
+}
+
+@mixin glass-card {
+	position: relative;
+	border-radius: var(--radius-lg);
+	box-shadow: $shadow-card;
+	overflow: hidden;
+	background: rgba(255, 255, 255, 0.65);
+
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: rgba(255, 255, 255, 0.5);
+		mix-blend-mode: overlay;
+		border-radius: inherit;
+		pointer-events: none;
+	}
+}
+
+@mixin slick-visible {
+	overflow: hidden;
+	margin-inline-end: calc(-1 * var(--container-padding));
+	padding-right: var(--container-padding);
+
+	.carousel {
+		.slick-list {
+			overflow: visible;
+		}
+	}
+}

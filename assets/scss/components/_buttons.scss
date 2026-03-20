@@ -1,0 +1,159 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+.btn {
+	@include btn-base;
+	border: 2px solid transparent;
+	padding: responsive(9px) responsive($spacing-16);
+	font-size: responsive($font-size-p2);
+	font-weight: 500;
+	line-height: 1.6;
+	text-align: center;
+
+	@include tablet-down {
+		padding: 9px $spacing-16;
+		font-size: $font-size-p2;
+	}
+
+	// Solid variants
+	&--neon-tide {
+		background-color: $color-neon-tide;
+		color: $color-white;
+		border-color: rgba(255, 255, 255, 0.12);
+		box-shadow: $shadow-xs, $shadow-skeuomorphic;
+
+		&:hover {
+			background-color: $color-neon-tide-500;
+		}
+	}
+
+	&--white {
+		background-color: $color-white;
+		color: $color-dark;
+		border: none;
+		padding-top: responsive(11px);
+		padding-bottom: responsive(11px);
+		box-shadow: $shadow-xs, $shadow-skeuomorphic;
+		backdrop-filter: blur(34.46px);
+		-webkit-backdrop-filter: blur(34.46px);
+
+		&:hover {
+			background-color: $color-cloud;
+		}
+
+		@include tablet-down {
+			padding-top: 11px;
+			padding-bottom: 11px;
+		}
+
+		&.btn--md {
+			padding-top: responsive(13px);
+			padding-bottom: responsive(13px);
+
+			@include tablet-down {
+				padding-top: 13px;
+				padding-bottom: 13px;
+			}
+		}
+
+		&.btn--lg {
+			padding-top: responsive(16px);
+			padding-bottom: responsive(16px);
+
+			@include tablet-down {
+				padding-top: 16px;
+				padding-bottom: 16px;
+			}
+		}
+	}
+
+	// Outline variants
+	&--outline-dark {
+		background-color: transparent;
+		border-color: $color-dark;
+		color: $color-dark;
+	}
+
+	&--outline-white {
+		background-color: transparent;
+		border-color: $color-white;
+		color: $color-white;
+	}
+
+	&--glass {
+		background-color: rgba(255, 255, 255, 0);
+		border-color: $color-white;
+		color: $color-dark;
+		box-shadow: $shadow-xs;
+		backdrop-filter: blur(17px);
+		-webkit-backdrop-filter: blur(17px);
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.5);
+		}
+	}
+
+	// Size: small (42px)
+	&--sm {
+		padding-top: responsive(6px);
+		padding-bottom: responsive(6px);
+
+		@include tablet-down {
+			padding-top: 6px;
+			padding-bottom: 6px;
+		}
+	}
+
+	// Size: medium (56px)
+	&--md {
+		font-size: responsive($font-size-p1);
+		line-height: $lh-p1;
+		padding: responsive(11px) responsive(28px);
+
+		@include tablet-down {
+			// font-size: $font-size-p1;
+			// padding: 11px 28px;
+			// font-size: $font-size-p2;
+			// padding: 11px $spacing-16;
+		}
+	}
+
+	// Size: large (62px)
+	&--lg {
+		font-size: responsive($font-size-p1);
+		line-height: $lh-p1;
+		padding: responsive(14px) responsive(24px);
+
+		@include tablet-down {
+			// font-size: $font-size-p1;
+			// padding: 14px 24px;
+			// font-size: $font-size-p2;
+			// padding: 14px $spacing-16;
+		}
+	}
+
+	// Width modifier
+	&--full {
+		width: 100%;
+	}
+
+	// Icon
+	&__icon {
+		font-size: responsive(20px);
+		flex-shrink: 0;
+		transition: all 0.2s ease;
+
+		&--lg {
+			font-size: responsive(22px);
+		}
+	}
+
+	&:hover &__icon,
+	&:hover [class*='icon-'] {
+		transform: translateX(4px);
+	}
+
+	// icon transition for elements without .btn__icon
+	[class*='icon-'] {
+		transition: all 0.2s ease;
+	}
+}

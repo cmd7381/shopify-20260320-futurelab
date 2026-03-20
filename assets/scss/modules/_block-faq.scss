@@ -1,0 +1,117 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+.block-faq {
+	padding: responsive($spacing-80) 0 responsive($spacing-40);
+
+	@include mobile {
+		padding: 37px 0;
+	}
+
+	.content {
+		display: flex;
+		gap: responsive($spacing-24);
+
+		@include tablet-down {
+			flex-direction: column;
+			gap: 38px;
+		}
+	}
+
+	&__header {
+		flex: 1;
+		padding-bottom: responsive($spacing-40);
+		@include desktop {
+			margin-top: responsive(-4px);
+		}
+		@include tablet-down {
+			padding-bottom: 0;
+		}
+	}
+
+	&__title {
+		margin-bottom: responsive(18px);
+
+		@include mobile {
+			font-size: 32px;
+			line-height: 1.2;
+			letter-spacing: -0.96px;
+			margin-bottom: 20px;
+		}
+	}
+
+	&__subtitle {
+		@include body-text($font-size-p2, 400);
+		color: $color-stone;
+		max-width: responsive(456px);
+	}
+
+	&__list {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		@include tablet-down {
+			border-bottom: 1px solid $color-border;
+		}
+	}
+
+	&__item {
+		border-top: 1px solid $color-border;
+	}
+
+	&__question {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: responsive(24px) 0 responsive(15px);
+		cursor: pointer;
+		background: none;
+		border: none;
+		text-align: left;
+		gap: responsive($spacing-16);
+
+		@include mobile {
+			padding: 20px 0 14px;
+		}
+
+		&:hover .block-faq__question-text {
+			color: $color-neon-tide;
+		}
+	}
+
+	&__question-text {
+		flex: 1;
+		font-family: $font-body;
+		font-size: responsive($font-size-p2);
+		font-weight: 600;
+		line-height: 1.5;
+		color: $color-dark;
+		transition: color 0.2s ease;
+		max-width: responsive(295px);
+		@include tablet-down {
+			line-height: 1.4;
+		}
+	}
+
+	&__icon {
+		font-size: responsive(24px);
+		flex-shrink: 0;
+		transition: transform 0.3s ease;
+		color: $color-grey-600;
+	}
+
+	&__item--open &__icon {
+		transform: rotate(180deg);
+	}
+
+	&__answer {
+		display: none;
+	}
+
+	&__answer-text {
+		@include body-text($font-size-p2, 400);
+		color: $color-slate;
+		padding: responsive($spacing-8) 0 responsive($spacing-24);
+	}
+}

@@ -1,0 +1,195 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+.block-text-image {
+	.content {
+		display: flex;
+		flex-direction: row-reverse;
+
+		@include tablet-down {
+			flex-direction: column;
+		}
+	}
+
+	&__text {
+		flex: 1;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: responsive(52px) responsive(56px) responsive(56px);
+		gap: responsive(22px);
+
+		@include tablet-down {
+			gap: 50px;
+		}
+
+		@include mobile {
+			padding: 32px 24px;
+		}
+	}
+
+	&__bg {
+		.img-box img {
+			opacity: 0.4;
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background-color: rgba($color-sky, 0.4);
+			mix-blend-mode: color;
+			z-index: 1;
+		}
+	}
+
+	&__image {
+		width: size(660, 1344);
+		flex-shrink: 0;
+		border-radius: 0;
+
+		@include tablet-down {
+			width: 100%;
+		}
+
+		.img-box {
+			padding-top: size(624, 660);
+			@include desktop {
+				height: 100%;
+			}
+
+			@include tablet-down {
+				padding-top: size(320, 396);
+			}
+		}
+	}
+
+	&__header {
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-32);
+		@include tablet {
+			gap: 20px;
+		}
+		@include mobile {
+			gap: 12px;
+		}
+	}
+
+	&__overline {
+		font-size: responsive($font-size-p3);
+		line-height: 1.32;
+		letter-spacing: 1.54px;
+		text-transform: uppercase;
+		color: $color-dark;
+
+		@include mobile {
+			font-size: 10px;
+			letter-spacing: 1px;
+			line-height: 1.4;
+		}
+	}
+
+	&__title {
+		font-size: responsive($font-size-h1);
+		line-height: $lh-h1;
+		letter-spacing: $ls-h1;
+
+		@include tablet-down {
+			font-size: $font-size-h3;
+			letter-spacing: $ls-h3;
+		}
+
+		@include mobile {
+			font-size: 32px;
+			letter-spacing: -0.96px;
+			line-height: 1.2;
+		}
+	}
+
+	&__body {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: responsive($spacing-24);
+
+		p {
+			font-family: $font-body;
+			font-size: responsive($font-size-p2);
+			font-weight: 400;
+			line-height: $lh-p2;
+			color: $color-dark;
+		}
+	}
+
+	// --reverse: image-left, text-right
+	&--reverse .content {
+		@include desktop {
+			flex-direction: row;
+		}
+	}
+
+	// --equal: 50/50 split
+	&--equal {
+		padding: 0;
+		.section-nogap & {
+			padding: responsive(40px) 0;
+		}
+	}
+
+	&--equal .content {
+		@include tablet-down {
+			flex-direction: column-reverse;
+		}
+	}
+
+	&--equal &__image {
+		width: 50%;
+
+		@include tablet-down {
+			width: 100%;
+		}
+
+		.img-box {
+			@include desktop {
+				padding-top: size(624, 672);
+			}
+		}
+	}
+
+	&--equal &__text {
+		// padding: responsive(56px);
+		width: 50%;
+		flex: none;
+
+		@include tablet-down {
+			width: 100%;
+			padding: $spacing-32;
+		}
+	}
+
+	&--equal &__header {
+		@include desktop {
+			gap: responsive(24px);
+		}
+	}
+
+	&--equal &__body {
+		gap: responsive($spacing-40);
+
+		p {
+			font-size: responsive($font-size-p1);
+			line-height: $lh-p1;
+
+			@include mobile {
+				font-size: 14px;
+				line-height: 1.4;
+			}
+		}
+
+		@include mobile {
+			gap: $spacing-24;
+		}
+	}
+}

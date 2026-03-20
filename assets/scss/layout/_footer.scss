@@ -1,0 +1,240 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+// ============================================
+// Footer
+// ============================================
+.footer {
+  background-color: $color-neon-tide;
+  color: $color-white;
+  padding: responsive($spacing-64) 0 responsive($spacing-48);
+
+  @media (max-width: 1280px) {
+    padding: $spacing-48 0 $spacing-24;
+  }
+
+  a {
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    gap: responsive($spacing-32);
+    padding-bottom: responsive($spacing-32);
+
+    @media (max-width: 1280px) {
+      flex-direction: column;
+      gap: $spacing-48;
+      padding-bottom: $spacing-24;
+    }
+  }
+
+  &__right {
+    width: 55%;
+    max-width: responsive(660px);
+
+    @media (max-width: 1280px) {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    row-gap: responsive($spacing-64);
+
+    @media (max-width: 1280px) {
+      row-gap: $spacing-80;
+    }
+
+    nav {
+      width: 100%;
+    }
+  }
+
+  &__social {
+    display: flex;
+    align-items: center;
+    gap: responsive($spacing-24);
+
+    @media (max-width: 1280px) {
+      gap: $spacing-24;
+    }
+  }
+
+  &__nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: responsive($spacing-44) responsive($spacing-24);
+  }
+
+  &__column {
+    flex: 1;
+
+    @include mobile {
+      flex: none;
+      width: calc(50% - #{$spacing-4});
+    }
+  }
+
+  &__column-title {
+    display: block;
+    font-family: $font-body;
+    font-size: responsive($font-size-p2);
+    font-weight: 500;
+    line-height: 1.6;
+    color: $color-neon-tide-300;
+    margin-bottom: responsive($spacing-16);
+
+    @media (max-width: 1280px) {
+      line-height: 1.4;
+      margin-bottom: $spacing-16;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-12);
+
+    @media (max-width: 1280px) {
+      gap: $spacing-12;
+    }
+  }
+
+  &__link {
+    display: block;
+    font-family: $font-body;
+    font-size: responsive($font-size-p2);
+    font-weight: 500;
+    line-height: 1.6;
+    color: $color-white;
+
+    @media (max-width: 1280px) {
+      line-height: 1.4;
+    }
+  }
+
+  &__logo {
+    width: responsive(204px);
+    height: auto;
+
+    @media (max-width: 1280px) {
+      width: 153px;
+    }
+  }
+
+  &__social-icon {
+    font-size: responsive(27px);
+    flex-shrink: 0;
+
+    @media (max-width: 1280px) {
+      font-size: 27px;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: responsive($spacing-16);
+    padding-top: responsive($spacing-32);
+    border-top: 1px solid $color-neon-tide-500;
+
+    @media (max-width: 1280px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-8;
+      padding-top: $spacing-32;
+    }
+
+    .footer__right {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: responsive($spacing-16);
+
+      @media (max-width: 1280px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $spacing-24;
+        width: 100%;
+      }
+    }
+  }
+
+  &__legal {
+    font-family: $font-heading;
+    font-size: responsive($font-size-p3);
+    font-weight: 400;
+    line-height: 1.6;
+    color: $color-white;
+
+    @media (max-width: 1280px) {
+      font-size: $font-size-caption;
+      line-height: 1.4;
+    }
+  }
+
+  &__copyright {
+    font-family: $font-body;
+    font-size: responsive($font-size-p3);
+    font-weight: 500;
+    line-height: 1.6;
+    color: $color-white;
+
+    @media (max-width: 1280px) {
+      font-size: $font-size-caption;
+      line-height: 1.4;
+    }
+  }
+
+  &__payments {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: responsive(4px) responsive(8px);
+    padding: responsive($spacing-8);
+    background-color: $color-neon-tide-600;
+    border-radius: var(--radius-md);
+
+    @media (max-width: 1280px) {
+      width: 100%;
+      padding: $spacing-8;
+      gap: 4px;
+    }
+
+    img {
+      width: responsive(38px);
+      height: responsive(24px);
+      flex-shrink: 0;
+
+      @media (max-width: 1280px) {
+        width: 38px;
+        height: 24px;
+      }
+
+      &:last-child {
+        width: responsive(35px);
+
+        @media (max-width: 1280px) {
+          width: 35px;
+        }
+      }
+    }
+  }
+}

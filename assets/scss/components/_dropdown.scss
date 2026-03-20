@@ -1,0 +1,109 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+.dropdown {
+	position: relative;
+	flex-shrink: 0;
+
+	&__toggle {
+		display: flex;
+		align-items: center;
+		gap: responsive($spacing-8);
+		min-width: responsive(168px);
+		text-align: left;
+		padding: responsive(9px) responsive(14px);
+		border: 1px solid $color-border-medium;
+		border-radius: var(--radius-md);
+		background-color: $color-white;
+		box-shadow: $shadow-xs;
+		font-family: $font-body;
+		font-size: responsive($font-size-p3);
+		font-weight: 500;
+		line-height: 1.6;
+		letter-spacing: 0;
+		color: $color-dark;
+		cursor: pointer;
+		white-space: nowrap;
+
+		span {
+			flex: 1;
+			font-family: $font-heading;
+			font-weight: 400;
+		}
+
+		[class*='icon-'] {
+			font-size: responsive(20px);
+			flex-shrink: 0;
+			transition: transform 0.3s ease;
+			color: $color-grey-600;
+			flex: none;
+		}
+
+		&.is-active [class*='icon-'] {
+			transform: rotate(180deg);
+		}
+	}
+
+	&__menu {
+		display: none;
+		position: absolute;
+		top: calc(100% + $spacing-4);
+		right: 0;
+		min-width: 100%;
+		margin: 0;
+		padding: responsive($spacing-4) 0;
+		list-style: none;
+		background-color: $color-white;
+		border: 1px solid $color-border-medium;
+		border-radius: var(--radius-md);
+		box-shadow: $shadow-card;
+		z-index: 10;
+	}
+
+	&__item {
+		padding: responsive($spacing-8) responsive(14px);
+		font-family: $font-heading;
+		font-size: responsive($font-size-p3);
+		font-weight: 400;
+		line-height: 1.6;
+		color: $color-dark;
+		cursor: pointer;
+		white-space: nowrap;
+		transition: background-color 0.15s ease;
+
+		&:hover {
+			background-color: $color-cloud;
+		}
+
+		&.is-selected {
+			font-weight: 600;
+			color: $color-neon-tide;
+		}
+	}
+
+	// Footer variant (dark background)
+	&--footer {
+		.dropdown__toggle {
+			min-width: 0;
+			gap: responsive(10px);
+			padding: responsive(11px) responsive(18px);
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			border-radius: 32px;
+			background-color: transparent;
+			box-shadow: none;
+			font-size: responsive(12px);
+			font-weight: 700;
+			color: $color-bg-selected;
+
+			[class*='icon-'] {
+				font-size: responsive(16px);
+				color: $color-white;
+			}
+		}
+
+		.dropdown__menu {
+			bottom: calc(100% + $spacing-4);
+			top: auto;
+		}
+	}
+}

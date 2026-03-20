@@ -1,0 +1,190 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+.block-blog-hero {
+
+  &__link {
+    display: block;
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-decoration: none;
+    color: $color-white;
+
+    &:hover {
+      .block-blog-hero__image {
+        transform: scale(1.02);
+      }
+    }
+
+    .block-blog-hero__arrow {
+      flex-shrink: 0;
+      font-size: responsive(24px);
+      margin-top: responsive(4px);
+    }
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: responsive(624px);
+    object-fit: cover;
+    transition: transform 0.4s ease;
+
+    @include tablet-down {
+      height: 360px;
+    }
+  }
+
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 40%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+    pointer-events: none;
+  }
+
+  &__panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: responsive($spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-24);
+
+    @include tablet-down {
+      padding: $spacing-24 $spacing-16;
+      gap: $spacing-16;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-8);
+  }
+
+  &__title-row {
+    display: flex;
+    gap: responsive($spacing-16);
+    align-items: flex-start;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: responsive(24px);
+    font-weight: 600;
+    line-height: 1.33;
+    letter-spacing: 0;
+    color: $color-white;
+    flex: 1;
+
+    @include tablet-down {
+      font-size: 20px;
+    }
+  }
+
+  &__excerpt {
+    font-family: $font-body;
+    font-size: responsive($font-size-p2);
+    font-weight: 400;
+    line-height: $lh-p2;
+    color: $color-white;
+    max-width: responsive(752px);
+    @include text-truncate(2);
+
+    @include tablet-down {
+      display: none;
+    }
+  }
+
+  &__attribution {
+    display: flex;
+    gap: responsive($spacing-32);
+    align-items: flex-start;
+
+    @include tablet-down {
+      flex-wrap: wrap;
+      gap: $spacing-16;
+    }
+  }
+
+  &__attr-group {
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-8);
+
+    &:last-child {
+      margin-left: auto;
+
+      @include tablet-down {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__attr-label {
+    font-family: $font-body;
+    font-size: responsive($font-size-p3);
+    font-weight: 600;
+    line-height: 1.43;
+    color: $color-white;
+  }
+
+  &__author {
+    display: flex;
+    align-items: center;
+    gap: responsive($spacing-8);
+  }
+
+  &__avatar {
+    width: responsive(40px);
+    height: responsive(40px);
+    border-radius: $radius-full;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background-color: #e0e0e0;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @include tablet-down {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &__author-name {
+    font-family: $font-body;
+    font-size: responsive($font-size-p3);
+    font-weight: 600;
+    line-height: 1.43;
+    color: $color-white;
+  }
+
+  &__date {
+    font-family: $font-body;
+    font-size: responsive($font-size-p2);
+    font-weight: 600;
+    line-height: $lh-p2;
+    color: $color-white;
+    padding: responsive($spacing-8) 0;
+  }
+
+  &__categories {
+    display: flex;
+    gap: responsive($spacing-8);
+    flex-wrap: wrap;
+    align-items: center;
+    padding: responsive($spacing-8) 0;
+  }
+}
