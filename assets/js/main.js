@@ -429,10 +429,42 @@ var App = (function($) {
 			$mask.on("click", close);
 
 			// ---- Keyboard: Tab/focus opens, Escape closes ----
-			$shopToggle.on("focus", function() {
+			$shopToggle.on("keydown", function(e) {
 				if (isMobile()) return;
-				clearTimeout(hoverTimer);
-				if (!$l1.hasClass("is-active")) open();
+				if (e.key === "Enter" || e.key === " ") {
+					e.preventDefault();
+					if (!$l1.hasClass("is-active")) {
+						open();
+						// Focus first focusable element inside menu
+						setTimeout(function() {
+							$menu.find(".nav-menu__body a, .nav-menu__body button").filter(":visible").first().focus();
+						}, 100);
+					} else {
+						close();
+					}
+				}
+			});
+
+			// When menu is open, trap Tab inside menu body
+			$menu.on("keydown", function(e) {
+				if (e.key === "Tab" && $l1.hasClass("is-active")) {
+					var $focusable = $menu.find("a:visible, button:visible").filter(function() {
+						return $(this).closest(".nav-menu__panel--l2").length === 0 || $l2.hasClass("is-open");
+					});
+					if (!$focusable.length) return;
+					var first = $focusable.first()[0];
+					var last = $focusable.last()[0];
+					if (e.shiftKey && document.activeElement === first) {
+						e.preventDefault();
+						last.focus();
+					} else if (!e.shiftKey && document.activeElement === last) {
+						e.preventDefault();
+						close();
+						// Move focus to next header element after shop toggle
+						$shopToggle.first().next().find("a, button").first().focus() ||
+							$shopToggle.first().focus();
+					}
+				}
 			});
 
 			$(document).on("keydown", function(e) {
