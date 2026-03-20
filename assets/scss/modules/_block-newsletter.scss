@@ -1,0 +1,113 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+// ============================================
+// Newsletter CTA
+// ============================================
+.newsletter {
+	padding: responsive(8px) 0 responsive($spacing-48);
+
+	@include mobile {
+		padding: 8px 0 $spacing-32;
+	}
+
+	.content {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: responsive($spacing-24);
+		padding: responsive($spacing-64) responsive($spacing-56);
+
+		@include mobile {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: $spacing-16;
+			padding: $spacing-24;
+		}
+	}
+
+	&__content {
+		max-width: responsive(560px);
+		min-width: responsive(480px);
+
+		@include mobile {
+			min-width: auto;
+		}
+	}
+
+	&__title {
+		@include h4;
+		letter-spacing: 0;
+		margin-bottom: responsive($spacing-8);
+	}
+
+	&__text {
+		@include body-text($font-size-p2, 400);
+		color: $color-stone;
+	}
+
+	&__form {
+		display: flex;
+		gap: responsive($spacing-16);
+
+		@include mobile {
+			flex-direction: column;
+			width: 100%;
+		}
+	}
+
+	&__input-wrap {
+		display: flex;
+		align-items: center;
+		gap: responsive($spacing-8);
+		width: responsive(432px);
+		height: responsive(56px);
+		padding: 0 responsive($spacing-16);
+		border: 1px solid $color-border-light;
+		border-radius: var(--radius-md);
+		background-color: $color-white;
+
+		@include mobile {
+			width: 100%;
+		}
+	}
+
+	&__input-icon {
+		font-size: responsive(24px);
+		flex-shrink: 0;
+		opacity: 0.5;
+	}
+
+	&__input {
+		flex: 1;
+		height: 100%;
+		border: none;
+		background: none;
+		font-family: $font-body;
+		font-size: responsive($font-size-p2);
+		color: $color-dark;
+
+		&::placeholder {
+			color: $color-dark;
+			opacity: 0.5;
+		}
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	&__submit {
+		white-space: nowrap;
+		width: responsive(145px);
+		padding-top: responsive(13px);
+		padding-bottom: responsive(13px);
+
+		@include mobile {
+			width: 100%;
+			padding-top: 13px;
+			padding-bottom: 13px;
+		}
+	}
+}

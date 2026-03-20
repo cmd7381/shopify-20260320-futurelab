@@ -1,0 +1,81 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+.page-header {
+  .content {
+    padding: responsive($spacing-32) 0 responsive($spacing-48);
+
+    @include mobile {
+      padding: $spacing-8 0 $spacing-32;
+    }
+  }
+
+  &__title {
+    max-width: size(950px, 1344px);
+    color: $color-dark;
+    margin-bottom: responsive($spacing-24);
+    transform: translate(0, -10%);
+
+    @include desktop-small {
+      max-width: 85%;
+    }
+
+    @include tablet {
+      max-width: 90%;
+      font-size: $font-size-h3;
+      letter-spacing: $ls-h2;
+      margin-bottom: $spacing-16;
+    }
+
+    @include mobile {
+      max-width: 100%;
+      font-size: 32px;
+      line-height: 1.2;
+      letter-spacing: -0.96px;
+      margin-bottom: $spacing-12;
+      transform: none;
+    }
+  }
+
+  &__description {
+    max-width: size(896px, 1344px);
+
+    @include desktop-small {
+      max-width: 80%;
+    }
+
+    @include tablet {
+      max-width: 90%;
+    }
+
+    font-family: $font-body;
+    font-size: responsive($font-size-p1);
+    font-weight: 400;
+    line-height: $lh-p1;
+    color: $color-stone;
+
+    @include mobile {
+      max-width: 100%;
+      font-size: $font-size-p2;
+      line-height: 1.5;
+    }
+  }
+
+  // Hidden variant — keeps H1 for SEO/accessibility, visually hidden
+  &--hidden {
+    display: none;
+  }
+
+  // Article variant
+  &--article {
+    .content {
+      padding-top: responsive(74px);
+      padding-bottom: responsive(56px);
+    }
+
+    .page-header__title {
+      margin-bottom: responsive(30px);
+      transform: translate(0, 0);
+    }
+  }
+}

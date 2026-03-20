@@ -1,0 +1,48 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+// ============================================
+// Article Hero (author + image, inside page-header)
+// ============================================
+
+.block-article-hero {
+  display: flex;
+  flex-direction: column;
+  gap: responsive(64px);
+  margin-top: responsive($spacing-32);
+
+  @include tablet-down {
+    gap: $spacing-32;
+    margin-top: $spacing-24;
+  }
+
+  &__image {
+    .img-box {
+      padding-top: size(640, 1216);
+
+      @include tablet-down {
+        padding-top: size(240, 396);
+      }
+    }
+  }
+}
+
+// ============================================
+// Article Footer (author + share)
+// ============================================
+
+.block-article-footer {
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: responsive($spacing-24);
+    border-top: 1px solid $color-border;
+    padding-top: responsive($spacing-24);
+
+    @include tablet-down {
+      padding-top: $spacing-16;
+    }
+  }
+}

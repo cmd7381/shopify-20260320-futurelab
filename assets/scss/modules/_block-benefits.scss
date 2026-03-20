@@ -1,0 +1,112 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+.block-benefits {
+	padding: responsive(52px) 0 responsive(56px);
+	background-color: $color-neon-tide;
+	position: relative;
+	overflow: hidden;
+
+	@include mobile {
+		padding: $spacing-40 0;
+	}
+
+	.intro-text {
+		padding-bottom: responsive($spacing-32);
+		@include mobile {
+			text-align: left;
+		}
+
+		h2 {
+			color: $color-white;
+
+			@include mobile {
+				margin-bottom: $spacing-12;
+			}
+		}
+
+		p {
+			@include body-text($font-size-p1, 400, $lh-p1);
+			color: $color-white;
+
+			@include mobile {
+				font-size: 16px;
+				line-height: 1.5;
+			}
+		}
+	}
+
+	.content {
+		@include mobile {
+			@include slick-visible;
+		}
+	}
+
+	.carousel {
+		--gap: 4px;
+
+		@include mobile {
+			width: 170px;
+		}
+	}
+
+	.item {
+		background-color: $color-white;
+		border-radius: var(--radius-md);
+		padding: responsive($spacing-24);
+
+		@include mobile {
+			padding: $spacing-16;
+			min-height: 208px;
+		}
+	}
+
+	&__icon {
+		width: responsive(64px);
+		height: responsive(64px);
+		flex-shrink: 0;
+		border-radius: $radius-full;
+		background-color: $color-neon-tide;
+		@include flex-center;
+		margin-bottom: responsive(18px);
+
+		img {
+			width: responsive(42px);
+			height: responsive(42px);
+			flex-shrink: 0;
+		}
+
+		@include mobile {
+			width: 64px;
+			height: 64px;
+			margin-bottom: 24px;
+
+			img {
+				width: 42px;
+				height: 42px;
+			}
+		}
+	}
+
+	&__card-title {
+		@include body-text(16px, 500, 1.4);
+		font-size: responsive(16px);
+		color: $color-dark;
+		margin-bottom: responsive($spacing-4);
+	}
+
+	&__card-text {
+		@include body-text(12px, 400, 1.4);
+		font-size: responsive(12px);
+		color: $color-slate;
+	}
+
+	.carousel__arrows {
+		justify-content: center;
+		margin-top: responsive($spacing-32);
+
+		@include mobile {
+			justify-content: flex-start;
+		}
+	}
+}

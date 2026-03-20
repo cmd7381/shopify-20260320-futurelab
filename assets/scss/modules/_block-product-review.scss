@@ -1,0 +1,122 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+.block-product-review {
+  padding: responsive($spacing-64) 0 responsive(72px);
+  background-color: $color-neon-tide;
+  position: relative;
+  overflow: hidden;
+
+  @include mobile {
+    padding: $spacing-40 0;
+  }
+
+  &__bg {
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(29, 78, 216, 0.4);
+      z-index: 1;
+    }
+  }
+
+  .content {
+    @include desktop {
+      max-width: size(1076, 1344);
+    }
+    @include mobile{
+      @include slick-visible;
+    }
+  }
+
+  .intro-text {
+    padding-bottom: responsive(36px);
+
+    @include mobile {
+      padding-bottom: $spacing-32;
+    }
+
+    h2 {
+      color: $color-white;
+
+      @include mobile {
+        font-size: 28px;
+        letter-spacing: -0.84px;
+        line-height: 1.15;
+      }
+    }
+
+  }
+
+  .carousel {
+    --gap: 6px;
+    @include mobile {
+      width: 344px;
+    }
+  }
+
+  &__dots {
+    margin-top: responsive(28px);
+    text-align: center;
+  }
+}
+
+// Card — Review
+.card--review {
+  display: flex;
+  flex-direction: column;
+  gap: responsive($spacing-12);
+  background-color: $color-white;
+  border-radius: var(--radius-lg);
+  padding: responsive($spacing-32) responsive($spacing-24);
+
+  @include mobile {
+    border-radius: $radius-lg;
+  }
+
+  .card__stars {
+    height: responsive(24px);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    [class*="icon-"] {
+      font-size: responsive(16px);
+      flex-shrink: 0;
+      color: $color-neon-tide;
+    }
+  }
+
+  .card__text {
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-16);
+    flex: 1;
+
+    @include mobile {
+      gap: 12px;
+    }
+  }
+
+  .card__title {
+    @include body-text($font-size-p2, 500, $lh-p2);
+    letter-spacing: 0;
+    color: $color-dark;
+  }
+
+  .card__quote {
+    @include body-text($font-size-p3, 400, 1.4);
+    color: $color-slate;
+    flex: 1;
+  }
+
+  .card__author {
+    @include body-text(12px, 400, 1.4);
+    color: $color-slate;
+
+    strong {
+      font-weight: 500;
+      color: $color-dark;
+    }
+  }
+}

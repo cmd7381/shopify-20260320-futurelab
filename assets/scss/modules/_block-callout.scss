@@ -1,0 +1,44 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+.block-callout {
+  .text {
+    background-color: $color-frost;
+    border-radius: var(--radius-lg);
+    padding: responsive($spacing-32);
+
+    @include tablet-down {
+      padding: $spacing-24;
+    }
+
+    h2,
+    h3,
+    h4 {
+      font-family: $font-heading;
+      font-size: responsive($font-size-h4);
+      font-weight: 400;
+      line-height: $lh-h4;
+      letter-spacing: 0;
+      color: $color-dark;
+      margin-bottom: responsive($spacing-16);
+      margin-top: 0;
+
+      @include tablet-down {
+        font-size: 22px;
+      }
+    }
+
+    p {
+      font-family: $font-body;
+      font-size: responsive($font-size-p2);
+      font-weight: 400;
+      line-height: $lh-p2;
+      color: $color-dark;
+      margin-bottom: responsive(10px);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

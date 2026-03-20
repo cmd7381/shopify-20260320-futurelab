@@ -1,0 +1,61 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+// ============================================
+// About — Hero (image + product bottles)
+// ============================================
+.block-about-hero {
+
+  .content {
+    position: relative;
+    padding-bottom: 11.7%;
+
+    // @include mobile {
+    //   padding-bottom: 20%;
+    // }
+  }
+
+  &__image {
+    .img-box {
+      padding-top: size(472, 1344);
+
+      @include mobile {
+        padding-top: size(240, 396);
+      }
+    }
+  }
+
+  &__products {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-51.5%);
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  &__product {
+    width: 24.9%;
+    height: auto;
+    object-fit: contain;
+
+    // @include mobile {
+    //   width: 33%;
+    // }
+
+    &--center {
+      margin: 0 -12.3%;
+      position: relative;
+      top: responsive(48px);
+      z-index: 1;
+
+      // @include mobile {
+      //   margin: 0 -10%;
+      //   top: 24px;
+      // }
+    }
+  }
+}

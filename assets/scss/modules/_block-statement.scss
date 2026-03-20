@@ -1,0 +1,148 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+.block-statement {
+	.content:not([class*='bg-']) {
+		padding: responsive($spacing-80) 0;
+
+		@include mobile {
+			padding: $spacing-56 0;
+		}
+	}
+
+	.content[class*='bg-'] {
+		padding: responsive($spacing-64) responsive($spacing-48) responsive($spacing-68);
+
+		@include mobile {
+			padding: $spacing-56 $spacing-16;
+		}
+	}
+
+	&__overline {
+		font-family: $font-body;
+		font-size: responsive(14px);
+		font-weight: 400;
+		line-height: 1.324;
+		letter-spacing: responsive(1.54px);
+		text-transform: uppercase;
+		color: $color-dark;
+		margin-bottom: responsive(22px);
+
+		@include mobile {
+			font-size: 10px;
+			letter-spacing: 1px;
+			line-height: 1.4;
+			margin-bottom: $spacing-32;
+		}
+	}
+
+	&__text {
+		font-family: $font-heading;
+		font-size: responsive(56px);
+		font-weight: 400;
+		line-height: 1.05;
+		letter-spacing: calc(-1 * responsive(1.68px));
+		max-width: responsive(888px);
+		color: $color-dark;
+		margin-bottom: responsive(60px);
+		overflow: hidden;
+
+		@include tablet-down {
+			font-size: $font-size-h2;
+			letter-spacing: $ls-h2;
+			margin-bottom: $spacing-32;
+		}
+
+		@include mobile {
+			font-size: 40px;
+			line-height: 1.1;
+			letter-spacing: -1.2px;
+			margin-bottom: $spacing-32;
+		}
+
+		.line {
+			display: block;
+			position: relative;
+		}
+
+		.line__default {
+			color: #8b9298;
+		}
+
+		.line__mask {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 0;
+			overflow: hidden;
+		}
+
+		.line__mask-content {
+			white-space: nowrap;
+			color: $color-dark;
+		}
+	}
+
+	&__cta {
+		margin-top: $spacing-56;
+
+		@include tablet-down {
+			margin-top: $spacing-32;
+		}
+	}
+}
+
+// ============================================
+// About — Big Statement
+// ============================================
+// .block-statement {
+//   padding: responsive($spacing-64) 0 responsive($spacing-120);
+
+//   @include mobile {
+//     padding: $spacing-48 0;
+//   }
+
+//   .content[class*=bg-]{
+//     padding: 0 responsive($spacing-48);
+//     @include mobile {
+//       padding: 0 $spacing-20;
+//     }
+//   }
+
+//   &__overline {
+//     font-family: $font-body;
+//     font-size: $font-size-p3;
+//     font-weight: 400;
+//     line-height: $lh-p3;
+//     letter-spacing: 1.54px;
+//     text-transform: uppercase;
+//     color: $color-dark;
+//     margin-bottom: responsive($spacing-32);
+
+//     @include mobile {
+//       margin-bottom: $spacing-24;
+//     }
+//   }
+
+//   &__text {
+//     max-width: responsive(888px);
+//     font-family: $font-heading;
+//     font-size: responsive($font-size-h1);
+//     font-weight: 400;
+//     line-height: $lh-h1;
+//     letter-spacing: $ls-h1;
+
+//     @include mobile {
+//       font-size: $font-size-h3;
+//       letter-spacing: $ls-h3;
+//     }
+
+//     &--dark {
+//       color: $color-dark;
+//     }
+
+//     &--grey {
+//       color: $color-stone;
+//     }
+//   }
+// }

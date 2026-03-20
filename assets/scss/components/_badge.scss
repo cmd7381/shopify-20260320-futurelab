@@ -1,0 +1,49 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: $font-body;
+  font-size: responsive($font-size-caption);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 1.32px;
+  padding: 2.5px responsive(12px);
+  border-radius: $radius-sm;
+
+  &--overline {
+    text-transform: uppercase;
+    color: $color-dark;
+    background-color: $color-white;
+    border: 1px solid $color-mist-50;
+    padding: 1.5px responsive(12px);
+  }
+
+  &--tag {
+    padding: responsive($spacing-4) responsive($spacing-12);
+    font-size: responsive($font-size-p3);
+    font-weight: 500;
+    line-height: 1.43;
+    letter-spacing: 0;
+    background-color: $color-neon-tide;
+    color: $color-white;
+
+    @include mobile {
+      padding: 2px $spacing-8;
+      font-size: $font-size-caption;
+      line-height: 1.5;
+    }
+  }
+
+  &--outline {
+    padding: 1px responsive($spacing-8);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0;
+    border: 1px solid $color-white;
+    border-radius: $radius-full;
+    color: $color-white;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,153 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+.block-ingredients {
+	padding: responsive(40px) 0;
+	.content {
+		border-radius: 16px;
+		padding: responsive(60px) responsive(60px) responsive(64px);
+
+		@include mobile {
+			padding: 30px 16px;
+		}
+	}
+
+	.intro-text {
+		padding-bottom: responsive(36px);
+
+		@include mobile {
+			padding-bottom: 34px;
+		}
+
+		h2 {
+			color: $color-dark;
+		}
+	}
+
+	&__grid {
+		max-width: responsive(1116px);
+		margin: 0 auto;
+		@include card-layout(3, $spacing-12);
+
+		@include tablet-down {
+			@include card-layout(2, $spacing-12);
+		}
+
+		@include mobile {
+			--gap: 8px;
+			width: 100%;
+			max-width: 364px;
+		}
+		.slick-slide {
+			@include mobile {
+				border-radius: 16px;
+				overflow: hidden;
+			}
+			> div {
+				@include mobile {
+					display: flex;
+					+ div {
+						border-top: solid 1px $color-mist;
+					}
+				}
+			}
+		}
+	}
+	&__dots {
+		text-align: center;
+		@include mobile {
+			margin-top: 30px;
+		}
+	}
+}
+
+// Card — Ingredient
+.card--ingredient {
+	background-color: $color-white;
+	border-radius: var(--radius-md);
+	padding: responsive($spacing-16) responsive($spacing-16) responsive($spacing-20);
+	display: flex;
+	flex-direction: column;
+	gap: responsive($spacing-16);
+	overflow: hidden;
+
+	@include mobile {
+		border-radius: 0;
+	}
+
+	.card__top {
+		display: flex;
+		align-items: flex-start;
+		gap: responsive($spacing-16);
+	}
+
+	.card__image {
+		width: responsive(74px);
+		flex-shrink: 0;
+		border-radius: var(--radius-md);
+		.img-box {
+			padding-top: 100%;
+		}
+	}
+
+	.card__meta {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: responsive(9px);
+	}
+
+	.card__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: responsive(20px);
+	}
+
+	.card__name {
+		@include body-text(16px, 400, 1.5);
+		font-size: responsive(16px);
+		color: $color-dark;
+		letter-spacing: 0;
+		flex: 1;
+	}
+
+	.card__dose {
+		@include body-text(14px, 500, 1.4);
+		font-size: responsive(14px);
+		color: $color-dark;
+		flex-shrink: 0;
+		text-align: right;
+	}
+
+	.card__benefits {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: responsive(5px);
+
+		li {
+			display: flex;
+			align-items: center;
+			gap: responsive($spacing-8);
+			@include body-text(14px, 400, 1.4);
+			font-size: responsive(14px);
+			color: $color-dark;
+
+			[class*='icon-'] {
+				font-size: responsive(17px);
+				flex-shrink: 0;
+				color: $color-neon-tide;
+			}
+		}
+	}
+
+	.card__desc {
+		@include body-text(12px, 400, 1.4);
+		font-size: responsive(12px);
+		color: $color-slate;
+		margin-top: auto;
+	}
+}

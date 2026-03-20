@@ -1,0 +1,153 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+.block-stats {
+	position: relative;
+	padding: responsive($spacing-80) 0;
+
+	@include mobile {
+		padding: $spacing-40 0;
+		border-radius: 8px;
+		overflow: hidden;
+	}
+
+	.intro-text {
+		margin-top: calc(-1 * responsive(5px));
+		padding-bottom: 0;
+
+		@include mobile {
+			padding: 0 16px;
+		}
+
+		h2 {
+			@include heading($font-size-h1, 400, $lh-h1, $ls-h1);
+			color: $color-white;
+			margin-bottom: responsive(30px);
+
+			@include tablet-down {
+				font-size: 44px;
+				letter-spacing: -1.32px;
+			}
+
+			@include mobile {
+				font-size: 32px;
+				letter-spacing: -0.96px;
+				line-height: 1.2;
+				margin-bottom: 20px;
+			}
+		}
+
+		p {
+			@include body-text($font-size-p1, 400, 1.5);
+			color: $color-white;
+
+			@include mobile {
+				font-size: 14px;
+				line-height: 1.5;
+			}
+		}
+	}
+
+	&__grid {
+		// display: flex;
+		// flex-wrap: wrap;
+		// gap: responsive($spacing-24);
+
+		width: 100%;
+		margin-top: responsive(74px);
+		@include card-layout($cols: 4, $gap: responsive($spacing-24));
+
+		@media (max-width: 1280px) {
+			@include card-layout($cols: 2, $gap: responsive($spacing-24));
+		}
+
+		@include mobile {
+			gap: $spacing-8;
+			margin-top: 30px;
+		}
+	}
+
+	&__card {
+		// flex: 1;
+		min-height: responsive(256px);
+		padding: responsive($spacing-32);
+		border-radius: var(--radius-md);
+		backdrop-filter: blur(20px);
+		background-color: rgba(0, 0, 0, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		@include mobile {
+			flex: 1 0 calc(50% - 4px);
+			min-height: 185px;
+			padding: 20px 16px 16px;
+		}
+	}
+
+	&__card-number {
+		position: relative;
+		font-family: $font-heading;
+		font-size: responsive(80px);
+		font-weight: 400;
+		line-height: 1;
+		letter-spacing: calc(-1 * responsive(2.4px));
+		color: $color-white;
+		margin-top: calc(-1 * responsive(8px));
+
+		@include tablet-down {
+			font-size: 56px;
+			letter-spacing: -1.68px;
+		}
+
+		@include mobile {
+			font-size: 40px;
+			letter-spacing: -1.2px;
+			line-height: 1.1;
+		}
+
+		.countUp-placeholder {
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		.countUp-num {
+			position: absolute;
+			inset: 0;
+		}
+	}
+
+	&__card-text {
+		font-family: $font-body;
+		font-size: responsive($font-size-p3);
+		font-weight: 400;
+		line-height: 1.5;
+		color: $color-white;
+
+		@include mobile {
+			font-size: 12px;
+			line-height: 1.4;
+		}
+	}
+
+	&__cta {
+		margin-top: responsive($spacing-32);
+		text-align: center;
+		@include mobile {
+			.btn {
+				width: 100%;
+			}
+		}
+	}
+
+	&__footnote {
+		margin-top: responsive(56px);
+		font-family: $font-body;
+		font-size: responsive($font-size-caption);
+		font-weight: 400;
+		line-height: 1.35;
+		color: $color-white;
+		text-align: center;
+	}
+}

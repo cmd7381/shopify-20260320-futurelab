@@ -1,0 +1,43 @@
+@use "sass:meta";
+@use "sass:string";
+@use "sass:color" as sasscolor;
+@use "../helpers/variables" as vars;
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+// ============================================
+// Background Color Utilities
+// Auto-generated from all $color-* variables
+// ============================================
+@each $name, $value in meta.module-variables("vars") {
+  @if string.index($name, "color-") ==
+    1 and
+    meta.type-of($value) ==
+    "color" and
+    sasscolor.alpha($value) ==
+    1
+  {
+    .bg-#{string.slice($name, 7)} {
+      background-color: $value;
+    }
+  }
+}
+
+// Responsive visibility
+.desktop-only {
+  @include tablet-down {
+    display: none !important;
+  }
+}
+
+.mobile-only {
+  @include desktop {
+    display: none !important;
+  }
+}
+
+// When .content has a bg- class, add border-radius and clip
+.content[class*="bg-"] {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}

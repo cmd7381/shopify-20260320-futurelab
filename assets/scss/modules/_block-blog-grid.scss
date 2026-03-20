@@ -1,0 +1,93 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+// Card — Blog
+.card--blog {
+  display: flex !important;
+  flex-direction: column;
+  gap: responsive($spacing-16);
+
+  @include hover-img-scale;
+
+  @include mobile {
+    gap: 18px;
+  }
+
+  .card__image .img-box {
+    padding-top: size(256, 384);
+  }
+
+  .card__content {
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-4);
+    @include mobile {
+      gap: 8px;
+    }
+  }
+
+  .card__title {
+    font-family: $font-heading;
+    font-size: responsive($font-size-h6);
+    font-weight: 600;
+    line-height: $lh-h6;
+    letter-spacing: 0;
+    color: $color-dark;
+    @include tablet-down {
+      font-size: 16px;
+    }
+    @include mobile {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .card__excerpt {
+    font-family: $font-heading;
+    font-size: responsive($font-size-p3);
+    font-weight: 400;
+    line-height: $lh-p3;
+    color: $color-slate;
+    @include text-truncate(3);
+
+    @include mobile {
+      font-family: $font-body;
+      -webkit-line-clamp: 2;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+  }
+}
+
+// Blog listing section wrapper
+.block-blog-listing {
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-64);
+    padding-top: responsive(34px);
+    padding-bottom: responsive(96px);
+
+    @include tablet-down {
+      gap: $spacing-32;
+      padding-top: $spacing-40;
+      padding-bottom: $spacing-40;
+    }
+  }
+  .title-block {
+    padding: responsive(48px) 0 responsive(24px);
+  }
+
+  .dropdown__toggle{
+		font-size: responsive($font-size-p2);
+		line-height: $lh-p2;
+  }
+}

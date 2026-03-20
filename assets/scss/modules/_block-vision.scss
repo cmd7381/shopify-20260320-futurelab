@@ -1,0 +1,161 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+.block-vision {
+	position: relative;
+	margin: responsive($spacing-56) 0 responsive($spacing-32);
+
+	.content {
+		position: relative;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		row-gap: responsive($spacing-32);
+		padding: responsive($spacing-48) 0;
+		min-height: responsive(640px);
+
+		@include mobile {
+			padding: $spacing-32 0;
+			min-height: 0;
+		}
+	}
+
+	&__helix {
+		position: absolute;
+		top: responsive($spacing-48);
+		right: 0;
+		width: responsive(86px);
+		height: responsive(80px);
+		overflow: visible;
+		border-radius: 0;
+		transform: none;
+
+		@include mobile {
+			width: 60px;
+			height: 56px;
+			top: $spacing-24;
+			right: 0;
+		}
+	}
+
+	&__text {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		width: size(430, 1344);
+		z-index: 1;
+		gap: $spacing-16;
+
+		@include tablet-down {
+			width: 100%;
+		}
+	}
+
+	&__title {
+		font-family: $font-heading;
+		font-size: responsive($font-size-h1);
+		font-weight: 400;
+		line-height: $lh-h1;
+		letter-spacing: $ls-h1;
+		color: $color-white;
+		max-width: responsive(350px);
+
+		@include tablet-down {
+			font-size: 44px;
+			letter-spacing: -1.32px;
+		}
+
+		@include mobile {
+			font-size: $font-size-h3;
+			letter-spacing: $ls-h3;
+			max-width: calc(100% - 80px);
+		}
+	}
+
+	&__description {
+		display: flex;
+		flex-direction: column;
+		gap: responsive(10px);
+
+		p {
+			font-family: $font-body;
+			font-size: responsive($font-size-p2);
+			font-weight: 400;
+			line-height: $lh-p2;
+			color: $color-white;
+		}
+	}
+
+	&__cards {
+		columns: 2;
+		column-gap: responsive($spacing-12);
+		width: size(659, 1344);
+		align-self: flex-end;
+		z-index: 1;
+
+		@include desktop {
+			margin-bottom: -5px;
+		}
+
+		@include tablet-down {
+			width: 100%;
+		}
+
+		@include mobile {
+			columns: 1;
+		}
+	}
+
+	&__card {
+		display: flex;
+		align-items: center;
+		margin-bottom: responsive($spacing-12);
+		break-inside: avoid;
+		height: responsive(84px);
+		border-radius: var(--radius-md);
+		background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.06) 100%);
+		backdrop-filter: blur(15px);
+		overflow: hidden;
+
+		@include mobile {
+			height: 72px;
+		}
+	}
+
+	&__number {
+		flex-shrink: 0;
+		width: responsive(84px);
+		height: responsive(84px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: $color-frost;
+		font-family: $font-heading;
+		font-size: responsive($font-size-h2);
+		font-weight: 400;
+		line-height: 1;
+		letter-spacing: $ls-h2;
+		color: $color-neon-tide;
+
+		@include tablet-down {
+			font-size: 40px;
+			letter-spacing: -1.2px;
+		}
+
+		@include mobile {
+			width: 72px;
+			height: 72px;
+			font-size: $font-size-h3;
+		}
+	}
+
+	&__card-title {
+		padding: 0 responsive($spacing-24);
+		font-family: $font-body;
+		font-size: responsive($font-size-p2);
+		font-weight: 500;
+		line-height: 1.2;
+		letter-spacing: 0;
+		color: $color-white;
+	}
+}

@@ -1,0 +1,140 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+:root {
+  --container-padding: #{$container-padding};
+  --section-padding: 40px;
+  --radius-md: #{$radius-md};
+  --radius-lg: #{$radius-lg};
+  --menu-width: 444px;
+  --menu-padding: #{responsive(24px)};
+  --card-height: #{responsive(136px)};
+  --header-height: #{responsive(86px)};
+  --nav-gap: 16px;
+
+  @include tablet-down {
+    --container-padding: #{$container-padding-mobile};
+    --radius-lg: #{$radius-lg * 0.5};
+    --nav-gap: 0px;
+    --header-height: 56px;
+  }
+}
+
+#main-content {
+  display: flex;
+  flex-direction: column;
+  gap: responsive($spacing-24);
+
+  @include mobile {
+    gap: 0;
+  }
+  &.section-nogap {
+    gap: 0;
+    // .block-experts {
+    //   padding-top: 0;
+    // }
+    section:not(.section--has-bg) {
+      padding-top: var(--section-padding);
+      padding-bottom: var(--section-padding);
+      // &:first-child{
+      //   padding-top:0;
+      // }
+      + section:not(.section--has-bg) {
+        padding-top: 0;
+      }
+    }
+  }
+}
+
+.block-blog-listing:last-child,
+.article-body:last-child,
+.block-product-grid + .block-seo-text {
+  margin-bottom: responsive($spacing-24);
+}
+
+.container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+
+  @media (min-width: #{$bp-wide + 1}) and (max-width: $scale-max-viewport) {
+    max-width: 100%;
+  }
+
+  @media (min-width: #{$scale-max-viewport + 1}) {
+    max-width: $scale-max-viewport;
+  }
+}
+
+.content {
+  margin: 0 auto;
+}
+
+.container--narrow {
+  width: 100%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+// ---- Image system ----
+.img {
+  transform: translateZ(0);
+  overflow: hidden;
+  transition: all 0.3s;
+  border-radius: $radius-lg;
+
+  .img-box {
+    width: 100%;
+    position: relative;
+
+    video,
+    iframe,
+    img {
+      position: absolute;
+      transform-origin: center;
+      width: 100%;
+      height: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+    }
+  }
+
+  &--bg {
+    position: absolute !important;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    .img-box {
+      width: 100%;
+      height: 100%;
+    }
+
+    ~ * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  &--decorative {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+
+    img {
+      position: static;
+      transform: none;
+      width: auto;
+      height: auto;
+    }
+  }
+}

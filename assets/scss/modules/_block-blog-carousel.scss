@@ -1,0 +1,36 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+.block-blog-carousel {
+  padding-bottom: responsive($spacing-40);
+  @include mobile {
+    padding: $spacing-40 0;
+  }
+
+  .title-block {
+    margin-bottom: responsive($spacing-24);
+    @include mobile {
+      padding: 0;
+      margin-bottom: 18px;
+    }
+  }
+
+  .title-block__title{
+    @include mobile {
+      font-size: 32px;
+    }
+  }
+
+  .content{
+    @include mobile {
+      @include slick-visible;
+    }
+  }
+
+  .carousel {
+    --gap: 12px;
+    @include mobile{
+      width: 329px;
+    }
+  }
+}

@@ -1,0 +1,95 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+.block-product-carousel {
+	padding: responsive($spacing-64) 0;
+
+	@include mobile {
+		padding: $spacing-40 0;
+	}
+
+	.title-block {
+		padding-top: 0;
+	}
+
+	.carousel {
+		width: 100%;
+		--gap: #{responsive($spacing-12)};
+
+		@include mobile {
+			--gap: 4px;
+		}
+	}
+
+	.carousel-box {
+		position: relative;
+	}
+
+	.carousel__arrows {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		padding-top: calc(318 / 1344 * 100% / 2);
+		justify-content: space-between;
+		padding-left: 8px;
+		padding-right: 8px;
+		@include tablet-down {
+			padding-top: calc(315 / 991 * 100% / 2);
+		}
+		@include mobile {
+			padding-top: calc(364 / 735 * 100% / 2);
+		}
+		.slick-arrow {
+			border: none;
+			background: $color-white;
+			transform: translate(0, -50%);
+			@include mobile {
+				width: 32px;
+				height: 32px;
+			}
+		}
+	}
+
+	.card--product {
+		@include desktop {
+			padding-bottom: responsive($spacing-16);
+			gap: responsive(12px);
+			.card__badge {
+				top: responsive($spacing-16);
+				left: responsive($spacing-16);
+			}
+
+			.card__text {
+				gap: 0;
+			}
+
+			.card__content {
+				padding: 0 responsive($spacing-16);
+				flex: 1;
+			}
+
+			.card__actions {
+				padding: 0 responsive($spacing-16);
+			}
+
+			.card__price {
+				padding-top: responsive(14px);
+				margin-top: auto;
+			}
+		}
+
+		@include mobile {
+			padding-bottom: $spacing-12;
+
+			.card__badge {
+				top: $spacing-8;
+				left: $spacing-8;
+			}
+
+			.card__actions {
+				padding: 8px 12px;
+			}
+		}
+	}
+}

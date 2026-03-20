@@ -1,0 +1,112 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+.block-cta {
+	padding: responsive($spacing-80) 0;
+
+	@include tablet-down {
+		padding: $spacing-48 0;
+	}
+
+	.content {
+		display: flex;
+		gap: responsive($spacing-32);
+
+		@include tablet-down {
+			flex-direction: column;
+			gap: $spacing-32;
+		}
+	}
+
+	&__title {
+		flex: 1;
+		font-family: $font-heading;
+		font-size: responsive($font-size-h1);
+		font-weight: 400;
+		line-height: $lh-h1;
+		letter-spacing: $ls-h1;
+		color: $color-dark;
+
+		@include tablet-down {
+			font-size: $font-size-h3;
+			letter-spacing: $ls-h3;
+		}
+	}
+
+	&__right {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-32);
+
+		@include tablet-down {
+			gap: $spacing-24;
+		}
+	}
+
+	&__description {
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-12);
+
+		p {
+			font-family: $font-body;
+			font-size: responsive($font-size-p1);
+			font-weight: 400;
+			line-height: $lh-p1;
+			color: $color-dark;
+
+			@include tablet-down {
+				font-size: $font-size-p2;
+			}
+		}
+	}
+
+	&__links {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	&__link-item {
+		border-bottom: 1px solid $color-border;
+
+		&:last-child {
+			border-bottom: none;
+		}
+
+		a {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: responsive($spacing-16);
+			font-family: $font-body;
+			font-size: responsive($font-size-h6);
+			font-weight: 700;
+			line-height: 1.35;
+			letter-spacing: -0.54px;
+			color: $color-dark;
+			transition: color 0.2s ease;
+
+			.icon-arrow-right {
+				flex: none;
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: center;
+				align-items: center;
+				width: responsive(24px);
+				height: responsive(24px);
+				transition: all 0.2s ease;
+				color: $color-grey-600;
+			}
+
+			&:hover {
+				color: $color-neon-tide;
+
+				.icon-arrow-right {
+					color: inherit;
+				}
+			}
+		}
+	}
+}

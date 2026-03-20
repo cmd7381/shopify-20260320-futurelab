@@ -1,0 +1,44 @@
+@use "../helpers/variables" as *;
+@use "../helpers/mixins" as *;
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: responsive($spacing-12);
+}
+
+.avatar {
+  width: responsive(48px);
+  height: responsive(48px);
+  border-radius: $radius-full;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  font-family: $font-body;
+  font-size: responsive($font-size-p2);
+  font-weight: 600;
+  line-height: 1.6;
+  color: $color-dark;
+}
+
+.author-text {
+  font-family: $font-body;
+  font-size: responsive($font-size-p2);
+  font-weight: 400;
+  line-height: $lh-p2;
+  color: $color-slate;
+}
