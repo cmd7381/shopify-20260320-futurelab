@@ -2101,7 +2101,6 @@ h6,
   inset: 0;
   z-index: 199;
   pointer-events: none;
-  opacity: 0;
   visibility: hidden;
   overflow: hidden;
   transition: visibility 0s 0.3s;
@@ -2109,21 +2108,21 @@ h6,
 .nav-menu.is-open {
   visibility: visible;
   pointer-events: auto;
-  transition-delay: 0s;
+  transition: visibility 0s 0s;
 }
 .nav-menu.is-open .nav-menu__mask {
-  opacity: 1;
+  background: rgba(112, 124, 134, 0.25);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 }
 .nav-menu__mask {
   position: absolute;
   inset: 0;
-  background: rgba(112, 124, 134, 0.25);
+  background: transparent;
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
-  opacity: 0;
-  transition: opacity 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
+  will-change: backdrop-filter;
+  transition: background 0.3s ease;
 }
 .nav-menu__body {
   height: 100%;
@@ -9636,3 +9635,5 @@ html.lenis body {
 .lenis.lenis-smooth [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
+
+/*# sourceMappingURL=style.css.map */
