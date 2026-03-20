@@ -428,49 +428,65 @@ var App = (function($) {
 			$menu.find(".nav-menu__close").on("click", close);
 			$mask.on("click", close);
 
-			// ---- Keyboard: Tab/focus opens, Escape closes ----
+			// ---- Keyboard: Tab opens menu and navigates inside ----
+			var skipNextFocus = false;
+
+			$shopToggle.on("focus", function() {
+				if (isMobile() || skipNextFocus) {
+					skipNextFocus = false;
+					return;
+				}
+				clearTimeout(hoverTimer);
+				if (!$l1.hasClass("is-active")) open();
+			});
+
+			// Tab on shop toggle → jump into menu
 			$shopToggle.on("keydown", function(e) {
 				if (isMobile()) return;
-				if (e.key === "Enter" || e.key === " ") {
+				if (e.key === "Tab" && !e.shiftKey && $l1.hasClass("is-active")) {
 					e.preventDefault();
-					if (!$l1.hasClass("is-active")) {
-						open();
-						// Focus first focusable element inside menu
-						setTimeout(function() {
-							$menu.find(".nav-menu__body a, .nav-menu__body button").filter(":visible").first().focus();
-						}, 100);
-					} else {
-						close();
-					}
+					var $first = $menu.find(".nav-menu__body a:visible, .nav-menu__body button:visible").first();
+					if ($first.length) $first.focus();
 				}
 			});
 
-			// When menu is open, trap Tab inside menu body
+			// Tab within menu: navigate through items
 			$menu.on("keydown", function(e) {
-				if (e.key === "Tab" && $l1.hasClass("is-active")) {
-					var $focusable = $menu.find("a:visible, button:visible").filter(function() {
-						return $(this).closest(".nav-menu__panel--l2").length === 0 || $l2.hasClass("is-open");
-					});
-					if (!$focusable.length) return;
-					var first = $focusable.first()[0];
-					var last = $focusable.last()[0];
-					if (e.shiftKey && document.activeElement === first) {
-						e.preventDefault();
-						last.focus();
-					} else if (!e.shiftKey && document.activeElement === last) {
-						e.preventDefault();
-						close();
-						// Move focus to next header element after shop toggle
-						$shopToggle.first().next().find("a, button").first().focus() ||
-							$shopToggle.first().focus();
+				if (e.key !== "Tab" || !$l1.hasClass("is-active")) return;
+				var $focusable = $menu.find("a:visible, button:visible");
+				if (!$focusable.length) return;
+
+				var first = $focusable.first()[0];
+				var last = $focusable.last()[0];
+
+				if (e.shiftKey && document.activeElement === first) {
+					e.preventDefault();
+					skipNextFocus = true;
+					close();
+					$shopToggle.filter(":visible").first().focus();
+				} else if (!e.shiftKey && document.activeElement === last) {
+					e.preventDefault();
+					skipNextFocus = true;
+					close();
+					// Find next focusable header item after Shop
+					var $trigger = $shopToggle.filter(":visible").first();
+					var $allNav = $(".header__nav-item a, .header__icon a, .header__icon button").filter(":visible");
+					var idx = $allNav.index($trigger);
+					var $next = $allNav.eq(idx + 1);
+					if ($next.length) {
+						$next.focus();
+					} else {
+						$trigger.focus();
 					}
 				}
 			});
 
+			// Escape closes menu
 			$(document).on("keydown", function(e) {
 				if (e.key === "Escape" && $l1 && $l1.hasClass("is-active")) {
+					skipNextFocus = true;
 					close();
-					$shopToggle.first().focus();
+					$shopToggle.filter(":visible").first().focus();
 				}
 			});
 		}
