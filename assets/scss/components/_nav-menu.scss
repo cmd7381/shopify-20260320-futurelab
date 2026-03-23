@@ -16,6 +16,10 @@
 	visibility: hidden;
 	overflow: hidden;
 	transition: visibility 0s 0.3s;
+	@include tablet-down {
+		overflow: hidden;
+		background-color: $color-white;
+	}
 
 	&.is-open {
 		visibility: visible;
@@ -52,14 +56,15 @@
 		background: $color-white;
 		top: calc(var(--nav-menu-top) + var(--nav-gap));
 		left: responsive($spacing-16);
-		height: calc(100vh - var(--nav-menu-top, var(--header-height)) - var(--nav-gap) * 2);
-		max-height: calc(100vh - var(--nav-menu-top, var(--header-height)) - var(--nav-gap) * 2);
+		height: calc(100vh - var(--nav-menu-top) - var(--nav-gap) * 2);
+		max-height: calc(100vh - var(--nav-menu-top) - var(--nav-gap) * 2);
 		overflow-x: hidden;
 		overflow-y: auto;
 		overscroll-behavior: contain;
 		-webkit-overflow-scrolling: touch;
 		border-radius: var(--radius-lg);
-		padding: var(--menu-padding) var(--menu-padding) 0;
+		// padding: var(--menu-padding) var(--menu-padding) 0;
+		padding: var(--menu-padding) var(--menu-padding) calc(var(--menu-padding) * 2 + 48px);
 		display: flex;
 		flex-direction: column;
 		opacity: 0;
@@ -67,6 +72,28 @@
 		gap: responsive(8px);
 		@media (max-width: 1440px) {
 			width: var(--menu-width);
+		}
+
+		@include tablet-down{
+			position: static;
+			width: 100%;
+			height: 100%;
+			max-height: none;
+			// overflow: visible;
+			border-radius: 0;
+			// padding: var(--menu-padding) var(--menu-padding) 120px;
+			opacity: 1;
+			transform: none;
+			transition: none;
+			overflow: auto;
+
+			&.is-active {
+				transform: none;
+			}
+
+			&.has-l2 {
+				border-radius: 0;
+			}
 		}
 		&::after {
 			content: '';
@@ -92,12 +119,13 @@
 	// ---- L2 Panel (nested inside nav-menu__link) ----
 	&__panel--l2 {
 		position: fixed;
+		z-index: 2;
 		width: size(444, 1440);
 		background: $color-white;
 		top: calc(var(--nav-menu-top) + var(--nav-gap));
-		left: size(calc(444 + 16), 1440);
-		height: calc(100vh - var(--nav-menu-top, var(--header-height)) - var(--nav-gap) * 2);
-		max-height: calc(100vh - var(--nav-menu-top, var(--header-height)) - var(--nav-gap) * 2);
+		left: calc(size(444, 1440) + 16px);
+		height: calc(100vh - var(--nav-menu-top) - var(--nav-gap) * 2);
+		max-height: calc(100vh - var(--nav-menu-top) - var(--nav-gap) * 2);
 		overflow-y: auto;
 		overscroll-behavior: contain;
 		-webkit-overflow-scrolling: touch;
@@ -112,11 +140,39 @@
 			width: var(--menu-width);
 			left: calc(var(--menu-width) + 16px);
 		}
+
+		@include tablet-down {
+			position: fixed;
+			top: 86px;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 100%;
+			max-height: none;
+			background: $color-white;
+			z-index: 2;
+			border-radius: 0;
+			border-left: none;
+			overflow-y: auto;
+			-webkit-overflow-scrolling: touch;
+			transform: translateX(100%);
+			opacity: 1;
+			visibility: visible;
+			pointer-events: auto;
+			transition: transform 0.3s ease;
+			height: calc(100% - var(--header-height) - 120px);
+			padding: 35px var(--menu-padding) calc(var(--menu-padding) * 2 + 48px);
+		}
+
 		&.is-open {
 			opacity: 1;
 			visibility: visible;
 			pointer-events: auto;
 			transition: opacity 0.3s ease, visibility 0s;
+			@include mobile {
+				transform: translateX(0);
+				transition: transform 0.3s ease;
+			}
 		}
 
 		.nav-menu__l2-links {
@@ -124,23 +180,6 @@
 				margin-top: responsive(40px);
 			}
 		}
-	}
-
-	// Close button (desktop only)
-	&__panel-close {
-		padding-bottom: responsive(16px);
-	}
-
-	&__close {
-		width: responsive(24px);
-		height: responsive(24px);
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border: none;
-		background: none;
-		padding: 0;
 	}
 
 	// Back button (mobile only, hidden on desktop)
@@ -218,6 +257,12 @@
 				top: 50%;
 				transform: translate(-4%, -38%) rotate(12.48deg);
 				left: auto;
+			}
+		}
+
+		&:nth-child(n+3){
+			@include desktop  {
+				display:none;
 			}
 		}
 	}
@@ -329,11 +374,28 @@
 		display: flex;
 		align-items: center;
 		gap: responsive($spacing-8);
-		padding-bottom: responsive($spacing-16);
-		padding-top: responsive(112px);
+		// padding-bottom: responsive($spacing-16);
+		// padding-top: responsive(112px);
 		margin-top: auto;
+
+		flex-wrap: wrap;
+		position: absolute;
+		z-index: 1;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		padding: var(--menu-padding);
+		background-color: $color-white;
 	}
 
+
+	// Close button (desktop only)
+	&__panel-close {
+		// padding-bottom: responsive(16px);
+		margin-right: auto;
+	}
+
+	&__close ,
 	&__social {
 		display: flex;
 		align-items: center;
@@ -346,10 +408,18 @@
 		flex-shrink: 0;
 		transition: border-color 0.3s ease;
 		color: $color-grey-600;
+		cursor: pointer;
 
 		&:hover {
 			border-color: $color-mist;
 		}
+	}
+
+	&__close {
+		border-radius: 50%;
+	}
+
+	&__social {
 		[class*=' icon-'],
 		[class^='icon-'] {
 			font-size: responsive(20px);
@@ -364,7 +434,7 @@
 		font-size: 14px;
 		text-decoration: none;
 		white-space: nowrap;
-		height: 100%;
+		height: 48px;
 		gap: 12px;
 		@include mobile {
 			flex: 1;
@@ -389,8 +459,7 @@
 // ============================================
 @include tablet-down {
 	.nav-menu {
-		overflow: hidden;
-		background-color: $color-white;
+
 		&__mask {
 			display: none;
 		}
@@ -403,74 +472,12 @@
 			padding-top: var(--nav-menu-top);
 		}
 
-		&__panel--l1 {
-			position: static;
-			width: 100%;
-			height: 100%;
-			max-height: none;
-			// overflow: visible;
-			border-radius: 0;
-			padding: 16px 16px calc(80px + 40px);
-			opacity: 1;
-			transform: none;
-			transition: none;
-
-			overflow: auto;
-
-			&.is-active {
-				transform: none;
-			}
-
-			&.has-l2 {
-				border-radius: 0;
-			}
-		}
-
-		&__panel--l2 {
-			position: fixed;
-			top: 86px;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			width: 100%;
-			max-height: none;
-			background: $color-white;
-			z-index: 2;
-			border-radius: 0;
-			border-left: none;
-			overflow-y: auto;
-			-webkit-overflow-scrolling: touch;
-			transform: translateX(100%);
-			opacity: 1;
-			visibility: visible;
-			pointer-events: auto;
-			transition: transform 0.3s ease;
-
-			height: calc(100% - var(--header-height) - 80px);
-			padding: 35px 16px 40px;
-
-			&.is-open {
-				transform: translateX(0);
-				transition: transform 0.3s ease;
-			}
-		}
-
 		&__panel-close {
 			display: none;
 		}
 
 		&__back {
 			display: block;
-		}
-
-		&__footer {
-			flex-wrap: wrap;
-			position: absolute;
-			left: 0;
-			bottom: 0;
-			width: 100%;
-			padding: 16px;
-			background-color: $color-white;
 		}
 
 		&__card {
