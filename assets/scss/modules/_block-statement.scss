@@ -25,7 +25,6 @@
 		line-height: 1.324;
 		letter-spacing: responsive(1.54px);
 		text-transform: uppercase;
-		color: $color-dark;
 		margin-bottom: responsive(22px);
 
 		@include mobile {
@@ -37,25 +36,18 @@
 	}
 
 	&__text {
-		font-family: $font-heading;
-		font-size: responsive(56px);
-		font-weight: 400;
-		line-height: 1.05;
-		letter-spacing: calc(-1 * responsive(1.68px));
+		@include h1;
 		max-width: responsive(888px);
-		color: $color-dark;
 		margin-bottom: responsive(60px);
 		overflow: hidden;
 
 		@include tablet-down {
-			font-size: $font-size-h2;
-			letter-spacing: $ls-h2;
+			@include h2;
 			margin-bottom: $spacing-32;
 		}
 
 		@include mobile {
-			font-size: 40px;
-			line-height: 1.1;
+			@include h3;
 			letter-spacing: -1.2px;
 			margin-bottom: $spacing-32;
 		}

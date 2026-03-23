@@ -13,15 +13,15 @@
     h6 {
       letter-spacing: 0;
       color: $color-dark;
-      margin-top: responsive($spacing-32);
+      margin-top: responsive(28px);
 
       @include tablet-down {
         margin-top: $spacing-24;
       }
 
       &:first-child {
-        margin-top: 0;
-        margin-bottom: responsive($spacing-20);
+        // margin-top: 0;
+        margin-bottom: responsive($spacing-24);
       }
     }
 
@@ -51,7 +51,9 @@
     }
 
     > p {
-      margin-bottom: responsive(10px);
+      &:has(+ul, +ol){
+        margin-bottom: responsive(10px);
+      }
     }
 
     ol > li {

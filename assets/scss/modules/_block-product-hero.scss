@@ -103,22 +103,17 @@
 		}
 
 		.card__heading {
-			@include heading($font-size-h1, 400, $lh-h1, $ls-h1);
-			color: $color-dark;
+			@include h1;
 			margin-bottom: responsive(22px);
 
 			@include tablet-down {
-				font-size: 44px;
-				letter-spacing: -1.32px;
 				br {
 					display: none;
 				}
 			}
 
 			@include mobile {
-				font-size: 32px;
-				letter-spacing: -0.96px;
-				line-height: 1.2;
+				@include h1-mobile;
 				margin-bottom: 16px;
 			}
 		}

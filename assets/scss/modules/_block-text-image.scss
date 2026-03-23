@@ -92,19 +92,9 @@
 	}
 
 	&__title {
-		font-size: responsive($font-size-h1);
-		line-height: $lh-h1;
-		letter-spacing: $ls-h1;
-
-		@include tablet-down {
-			font-size: $font-size-h3;
-			letter-spacing: $ls-h3;
-		}
-
+		@include h1;
 		@include mobile {
-			font-size: 32px;
-			letter-spacing: -0.96px;
-			line-height: 1.2;
+			@include h1-mobile;
 		}
 	}
 

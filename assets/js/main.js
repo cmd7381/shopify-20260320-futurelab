@@ -320,7 +320,32 @@ var App = (function($) {
 		};
 	})();
 
+	// ============================================
+	// Copy Link
+	// ============================================
+	var CopyLink = (function() {
+		function init() {
+			$(".copy-btn").on("click", function() {
+				var $btn = $(this);
+				navigator.clipboard.writeText(window.location.href).then(function() {
+					var $text = $btn.contents().filter(function() {
+						return this.nodeType === 3 && $.trim(this.nodeValue).length > 0;
+					}).last();
+					var original = $text.text();
+					$text.replaceWith(" Copied!");
+					setTimeout(function() {
+						$btn.contents().filter(function() {
+							return this.nodeType === 3 && $.trim(this.nodeValue).length > 0;
+						}).last().replaceWith(original);
+					}, 2000);
+				});
+			});
+		}
 
+		return {
+			init: init
+		};
+	})();
 
 	// ============================================
 	// Nav Menu (Shop Flyout — L1 + L2)
@@ -1343,6 +1368,7 @@ var App = (function($) {
 
 		CarouselFactory.initAll();
 
+		CopyLink.init();
 		ExpertsTabs.init();
 		PdpConsole.init();
 		StickyCta.init();

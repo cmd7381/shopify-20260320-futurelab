@@ -62,17 +62,9 @@
   }
 
   &__title {
-    @include heading($font-size-h1, 400, $lh-h1, $ls-h1);
-    color: $color-dark;
-
-    @include tablet{
-      @include heading($font-size-h2, 400, $lh-h2, $ls-h2);
-    }
-
+    @include h1;
     @include mobile {
-      font-size: 32px;
-      line-height: 1.2;
-      letter-spacing: -0.96px;
+      @include h1-mobile;
     }
   }
 

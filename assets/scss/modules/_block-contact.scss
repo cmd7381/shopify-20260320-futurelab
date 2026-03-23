@@ -44,35 +44,46 @@
 		@include tablet-down {
 			width: 100%;
 		}
-	}
-
-	.text {
-		margin-bottom: responsive($spacing-48);
-
-		@include tablet-down {
-			margin-bottom: $spacing-32;
-		}
-
-		h1 {
-			font-size: responsive($font-size-h2);
-			line-height: $lh-h2;
-			letter-spacing: $ls-h2;
-			margin-bottom: responsive($spacing-20);
-
-			@include tablet-down {
-				font-size: $font-size-h3;
-				letter-spacing: $ls-h3;
-			}
-		}
-
-		p {
+		&-desc {
 			font-size: responsive($font-size-p1);
 			line-height: $lh-p1;
-			color: $color-slate;
 
 			@include tablet-down {
 				font-size: $font-size-p2;
 			}
 		}
+	}
+
+	.text {
+		max-width: 85%;
+		margin-bottom: responsive($spacing-48);
+
+		@include tablet-down {
+			max-width: 100%;
+			margin-bottom: $spacing-32;
+		}
+
+		p{
+			color: $color-slate;
+		}
+
+		a{
+			color: inherit;
+    	text-decoration: none;
+		}
+	}
+	.social-btn{
+		[class*="icon-"] {
+			@include desktop  {
+				font-size: responsive(32px);
+			}
+		}
+	}
+	a:has( .social-btn ){
+		display: inline-flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 14px;
 	}
 }

@@ -19,6 +19,7 @@ $color-grey-900: #414651;
 $color-grey-800: #535862;
 $color-grey-700: #717680;
 $color-grey-600: #8b9298;
+$color-grey-400: #A4A7AE;
 $color-slate: #707c86;
 $color-stone: #90959a;
 $color-mist: #c9d3dc;
@@ -78,12 +79,16 @@ $font-size-p3: 14px;
 $font-size-caption: 12px;
 
 // Typography — Sizes (Mobile)
+$font-size-display-mobile: 40px;
+$font-size-h1-mobile: 32px;
 $font-size-p2-mobile: 14px;
 $font-size-p3-mobile: 12px;
 
 // Typography — Line Heights
 $lh-display: 1;
+$lh-display-mobile: 1.1;
 $lh-h1: 1.05;
+$lh-h1-mobile: 1.2;
 $lh-h2: 1;
 $lh-h3: 1.1;
 $lh-h4: 1.15;
@@ -96,7 +101,10 @@ $lh-caption: 1.35;
 
 // Typography — Letter Spacing
 $ls-display: -2.4px;
-$ls-h1: -1.68px;
+$ls-display-mobile: -1.2px;
+// $ls-h1: -0.02em;
+$ls-h1: -0.03em;
+$ls-h1-mobile: -0.96px;
 $ls-h2: -1.44px;
 $ls-h3: -0.8px;
 $ls-h4: 0;

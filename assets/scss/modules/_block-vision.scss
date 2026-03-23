@@ -12,11 +12,9 @@
 		justify-content: space-between;
 		row-gap: responsive($spacing-32);
 		padding: responsive($spacing-48) 0;
-		min-height: responsive(640px);
 
 		@include mobile {
 			padding: $spacing-32 0;
-			min-height: 0;
 		}
 	}
 
@@ -44,30 +42,24 @@
 		justify-content: space-between;
 		width: size(430, 1344);
 		z-index: 1;
-		gap: $spacing-16;
+		gap: responsive(88px);
 
 		@include tablet-down {
 			width: 100%;
 		}
+
+		@include mobile {
+			gap: 16px;
+		}
 	}
 
 	&__title {
-		font-family: $font-heading;
-		font-size: responsive($font-size-h1);
-		font-weight: 400;
-		line-height: $lh-h1;
-		letter-spacing: $ls-h1;
+		@include h1;
 		color: $color-white;
 		max-width: responsive(350px);
 
-		@include tablet-down {
-			font-size: 44px;
-			letter-spacing: -1.32px;
-		}
-
 		@include mobile {
-			font-size: $font-size-h3;
-			letter-spacing: $ls-h3;
+			@include h3;
 			max-width: calc(100% - 80px);
 		}
 	}
@@ -95,6 +87,10 @@
 
 		@include desktop {
 			margin-bottom: -5px;
+		}
+
+		@include desktop-small  {
+			width: 60%;
 		}
 
 		@include tablet-down {

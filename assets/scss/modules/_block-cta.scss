@@ -10,55 +10,45 @@
 
 	.content {
 		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
 		gap: responsive($spacing-32);
 
 		@include tablet-down {
-			flex-direction: column;
 			gap: $spacing-32;
 		}
 	}
 
-	&__title {
-		flex: 1;
-		font-family: $font-heading;
-		font-size: responsive($font-size-h1);
-		font-weight: 400;
-		line-height: $lh-h1;
-		letter-spacing: $ls-h1;
-		color: $color-dark;
-
+	&__left {
+		width: size(456,1344);
 		@include tablet-down {
-			font-size: $font-size-h3;
-			letter-spacing: $ls-h3;
+			width: 100%;
+		}
+		h2{
+			margin-bottom: responsive($spacing-18);
+		}
+		p {
+			// font-family: $font-body;
+			// font-size: responsive($font-size-p1);
+			// font-weight: 400;
+			// line-height: $lh-p1;
+			color: $color-stone;
+
+			// @include tablet-down {
+			// 	font-size: $font-size-p2;
+			// }
 		}
 	}
 
 	&__right {
-		flex: 1;
+		width: size(656,1344);
 		display: flex;
 		flex-direction: column;
 		gap: responsive($spacing-32);
 
 		@include tablet-down {
+			width: 100%;
 			gap: $spacing-24;
-		}
-	}
-
-	&__description {
-		display: flex;
-		flex-direction: column;
-		gap: responsive($spacing-12);
-
-		p {
-			font-family: $font-body;
-			font-size: responsive($font-size-p1);
-			font-weight: 400;
-			line-height: $lh-p1;
-			color: $color-dark;
-
-			@include tablet-down {
-				font-size: $font-size-p2;
-			}
 		}
 	}
 
