@@ -52,79 +52,43 @@ body {
 
 h1,
 .h1 {
-	font-family: $font-heading;
-	font-size: responsive($font-size-display);
-	font-weight: 400;
-	line-height: $lh-display;
-	letter-spacing: $ls-display;
+	@include h1;
 	@include desktop-small {
-		font-size: 66px;
-		letter-spacing: -2px;
+		@include h2;
 	}
-
 	@include tablet-down {
-		font-size: 56px;
-		letter-spacing: -1.68px;
+		@include h3;
 	}
-
 	@include mobile {
-		font-size: 36px;
-		letter-spacing: -1.08px;
-		line-height: 1.1;
+		@include h1-mobile;
 	}
 }
 
 h2,
 .h2 {
-	font-family: $font-heading;
-	font-size: responsive($font-size-h2);
-	font-weight: 400;
-	line-height: $lh-h2;
-	letter-spacing: $ls-h2;
-
+	@include h2;
 	@include tablet-down {
-		font-size: 40px;
-		letter-spacing: -1.2px;
+		@include h3;
 	}
-
 	@include mobile {
-		font-size: 32px;
-		letter-spacing: -0.96px;
-		line-height: 1.2;
+		@include h1-mobile;
 	}
 }
 
 h3,
 .h3 {
-	font-family: $font-heading;
-	font-size: responsive($font-size-h3);
-	font-weight: 400;
-	line-height: $lh-h3;
-	letter-spacing: $ls-h3;
-
+	@include h3;
 	@include tablet-down {
-		font-size: 32px;
-		letter-spacing: -0.64px;
+		@include h4;
 	}
-
 	@include mobile {
-		font-size: $font-size-h4;
-		letter-spacing: $ls-h4;
-		line-height: $lh-h4;
+		@include h4;
 	}
 }
 
 h4,
 .h4 {
-	font-family: $font-heading;
-	font-size: responsive($font-size-h4);
-	font-weight: 400;
-	line-height: $lh-h4;
-
-	@include tablet-down {
-		font-size: 26px;
-	}
-
+	@include h4;
 	@include mobile {
 		font-size: 24px;
 		line-height: 1.2;
@@ -140,10 +104,6 @@ h5,
 
 	@include tablet-down {
 		font-size: 18px;
-	}
-
-	@include mobile {
-		font-size: 18px;
 		line-height: 1.3;
 	}
 }
@@ -156,10 +116,6 @@ h6,
 	line-height: $lh-h6;
 
 	@include tablet-down {
-		font-size: 16px;
-	}
-
-	@include mobile {
 		font-size: 16px;
 		line-height: 1.4;
 	}

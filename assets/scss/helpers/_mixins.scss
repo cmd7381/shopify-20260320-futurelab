@@ -121,35 +121,28 @@
 	@include heading($font-size-display, 400, $lh-display, $ls-display);
 }
 
+@mixin display-text-mobile {
+	@include heading($font-size-display-mobile, 400, $lh-display-mobile, $ls-display-mobile);
+}
+
 @mixin h1 {
-	@include heading($font-size-display, 400, $lh-display, $ls-display);
-	@include tablet-down {
-		font-size: 56px;
-		letter-spacing: -1.68px;
-	}
+	@include heading($font-size-h1, 400, $lh-h1, $ls-h1);
+}
+
+@mixin h1-mobile {
+	@include heading($font-size-h1-mobile, 400, $lh-h1-mobile, $ls-h1-mobile);
 }
 
 @mixin h2 {
 	@include heading($font-size-h2, 400, $lh-h2, $ls-h2);
-	@include tablet-down {
-		font-size: 40px;
-		letter-spacing: -1.2px;
-	}
 }
 
 @mixin h3 {
 	@include heading($font-size-h3, 400, $lh-h3, $ls-h3);
-	@include tablet-down {
-		font-size: 32px;
-		letter-spacing: -0.64px;
-	}
 }
 
 @mixin h4 {
 	@include heading($font-size-h4, 400, $lh-h4);
-	@include tablet-down {
-		font-size: 26px;
-	}
 }
 
 @mixin h5 {
@@ -240,7 +233,7 @@
 	flex-wrap: wrap;
 	gap: $gap $gap2;
 
-	> div {
+	> * {
 		width: calc((100% - $gap * ($cols - 1)) / $cols);
 	}
 }

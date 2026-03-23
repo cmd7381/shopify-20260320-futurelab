@@ -62,7 +62,7 @@
 	&__question {
 		width: 100%;
 		display: flex;
-		align-items: center;
+		align-items: flex-start;
 		justify-content: space-between;
 		padding: responsive(24px) 0 responsive(15px);
 		cursor: pointer;

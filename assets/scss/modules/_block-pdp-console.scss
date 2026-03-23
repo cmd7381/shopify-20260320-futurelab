@@ -255,6 +255,10 @@
 			width: responsive(41px);
 			height: responsive(41px);
 			flex-shrink: 0;
+			background: $color-neon-tide;
+			border-radius: 50%;
+			overflow: hidden;
+			padding: 10px;
 		}
 
 		span {

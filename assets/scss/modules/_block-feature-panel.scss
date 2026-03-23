@@ -193,13 +193,19 @@
 		}
 	}
 
+	&__annotation {
+		position: absolute;
+		border-style: solid;
+		border-radius: 0;
+	}
+
 	&__annotation-text {
 		position: absolute;
 		font-family: $font-heading;
 		font-size: responsive($font-size-p3);
 		font-weight: 400;
 		line-height: 1.6;
-		width: size(130, $ann-w);
+		width: 100%;
 		@include mobile {
 			font-family: $font-body;
 			font-weight: 400;
@@ -207,12 +213,6 @@
 			line-height: 140%;
 			letter-spacing: 0px;
 		}
-	}
-
-	&__annotation-line {
-		position: absolute;
-		border-style: solid;
-		border-radius: 0;
 	}
 
 	&__annotation-dot {
@@ -224,96 +224,89 @@
 
 	// Top-left: text → └ line → dot
 	&__annotation--top {
-		.block-feature-panel__annotation-text {
-			top: size(-4, $ann-h);
-			left: size(3, $ann-w);
-		}
+		top: size(34, $ann-h);
+		left: size(20, $ann-w);
+		width: size(144, $ann-w);
+		height: size(24, $ann-h);
+		border-width: 0 0 $border $border;
 
-		.block-feature-panel__annotation-line {
-			top: size(34, $ann-h);
-			left: size(20, $ann-w);
-			width: size(144, $ann-w);
-			height: size(24, $ann-h);
-			border-width: 0 0 $border $border;
+		.block-feature-panel__annotation-text {
+			bottom: 100%;
+			left: 0;
+			transform: translate(-14%, -65%);
 		}
 
 		.block-feature-panel__annotation-dot {
-			top: size(54, $ann-h);
-			left: size(162, $ann-w);
+			top: 100%;
+			right: 0;
+			transform: translate(50%, -50%);
 		}
 	}
 
 	// Top-right: text → ┘ line → dot
 	&__annotation--right {
-		.block-feature-panel__annotation-text {
-			top: size(29, $ann-h);
-			right: size(6, $ann-w);
-			text-align: right;
-		}
+		top: size(70, $ann-h);
+		right: size(19, $ann-w);
+		width: size(112, $ann-w);
+		height: size(24, $ann-h);
+		border-width: 0 $border $border 0;
 
-		.block-feature-panel__annotation-line {
-			top: size(70, $ann-h);
-			right: size(19, $ann-w);
-			width: size(112, $ann-w);
-			height: size(24, $ann-h);
-			border-width: 0 $border $border 0;
+		.block-feature-panel__annotation-text {
+			bottom: 100%;
+			right: 0;
+			text-align: right;
+			transform: translate(12%, -75%);
 		}
 
 		.block-feature-panel__annotation-dot {
-			top: size(89, $ann-h);
-			right: size(130, $ann-w);
+			top: 100%;
+			left: 0;
+			transform: translate(-50%, -50%);
 		}
 	}
 
 	// Bottom-left: dot → ┌ line → text
 	&__annotation--bottom-left {
-		.block-feature-panel__annotation-text {
-			bottom: size(6, $ann-h);
-			left: 0;
-			@include mobile {
-				bottom: -1%;
-			}
-		}
+		bottom: size(64, $ann-h);
+		left: size(20, $ann-w);
+		width: size(128, $ann-w);
+		height: size(24, $ann-h);
+		border-width: $border 0 0 $border;
 
-		.block-feature-panel__annotation-line {
-			bottom: size(64, $ann-h);
-			left: size(20, $ann-w);
-			width: size(128, $ann-w);
-			height: size(24, $ann-h);
-			border-width: $border 0 0 $border;
+		.block-feature-panel__annotation-text {
+			width: 101%;
+			top: 100%;
+			left: 0;
+			transform: translate(-16%, 28%);
 		}
 
 		.block-feature-panel__annotation-dot {
-			bottom: size(82, $ann-h);
-			left: size(147, $ann-w);
+			bottom: 100%;
+			right: 0;
+			transform: translate(50%, 50%);
 		}
 	}
 
 	// Bottom-right: dot → ┐ line → text
 	&__annotation--bottom-right {
+		bottom: size(150, $ann-h);
+		right: size(18, $ann-w);
+		width: size(131, $ann-w);
+		height: size(24, $ann-h);
+		border-width: $border $border 0 0;
+
 		.block-feature-panel__annotation-text {
-			bottom: size(95, $ann-h);
+			top: 100%;
 			right: 0;
 			text-align: right;
-			@include desktop {
-				width: size(110, $ann-w);
-			}
-			@include mobile {
-				bottom: 20%;
-			}
-		}
-
-		.block-feature-panel__annotation-line {
-			bottom: size(150, $ann-h);
-			right: size(18, $ann-w);
-			width: size(131, $ann-w);
-			height: size(24, $ann-h);
-			border-width: $border $border 0 0;
+			transform: translate(17%, 20%);
+			width: 88%;
 		}
 
 		.block-feature-panel__annotation-dot {
-			bottom: size(170, $ann-h);
-			right: size(148, $ann-w);
+			bottom: 100%;
+			left: 0;
+			transform: translate(-50%, 50%);
 		}
 	}
 
@@ -344,10 +337,10 @@
 		}
 
 		.block-feature-panel__annotation-text {
-			color: $color-slate;
+			color: $color-dark-secondary;
 		}
 
-		.block-feature-panel__annotation-line {
+		.block-feature-panel__annotation {
 			border-color: $color-mist;
 		}
 
@@ -390,7 +383,7 @@
 			color: $color-cloud;
 		}
 
-		.block-feature-panel__annotation-line {
+		.block-feature-panel__annotation {
 			border-color: rgba($color-white, 0.4);
 		}
 

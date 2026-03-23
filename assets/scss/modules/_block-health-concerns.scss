@@ -17,16 +17,7 @@
 		padding-bottom: responsive($spacing-56);
 
 		h2 {
-			@include heading($font-size-h1, 400, $lh-h1, $ls-h1);
-
-			@include tablet-down {
-				font-size: 44px;
-				letter-spacing: -1.32px;
-			}
-		}
-
-		p {
-			color: $color-dark;
+			@include h1;
 		}
 
 		@include mobile {

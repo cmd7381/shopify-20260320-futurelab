@@ -20,19 +20,12 @@
 		}
 
 		h2 {
-			@include heading($font-size-h1, 400, $lh-h1, $ls-h1);
+			@include h1;
 			color: $color-white;
 			margin-bottom: responsive(30px);
 
-			@include tablet-down {
-				font-size: 44px;
-				letter-spacing: -1.32px;
-			}
-
 			@include mobile {
-				font-size: 32px;
-				letter-spacing: -0.96px;
-				line-height: 1.2;
+				@include h1-mobile;
 				margin-bottom: 20px;
 			}
 		}

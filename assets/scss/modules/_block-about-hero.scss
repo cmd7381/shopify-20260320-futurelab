@@ -6,22 +6,23 @@
 // ============================================
 .block-about-hero {
 
-  .content {
-    position: relative;
-    padding-bottom: 11.7%;
+  // .content {
+  //   position: relative;
+  //   padding-bottom: 11.7%;
 
-    // @include mobile {
-    //   padding-bottom: 20%;
-    // }
-  }
+  //   // @include mobile {
+  //   //   padding-bottom: 20%;
+  //   // }
+  // }
 
   &__image {
     .img-box {
-      padding-top: size(472, 1344);
+      padding-top: size(707, 1344);
+      // padding-top: size(472, 1344);
 
-      @include mobile {
-        padding-top: size(240, 396);
-      }
+      // @include mobile {
+      //   padding-top: size(240, 396);
+      // }
     }
   }
 
