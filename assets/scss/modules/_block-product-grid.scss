@@ -163,32 +163,28 @@
     border: none;
     margin-bottom: responsive(12px);
 
+    @include mobile {
+      height: 40px;
+      padding: 0 $spacing-16;
+      margin-bottom: 0;
+    }
+
     span {
       font-family: $font-body;
       font-size: responsive($font-size-p3);
       font-weight: 400;
       line-height: 1.4;
       color: $color-slate;
+
+      @include mobile {
+        font-size: $font-size-caption;
+      }
     }
 
     [class*="icon-"] {
       font-size: responsive(20px);
       flex-shrink: 0;
-      color: $color-grey-600;
-    }
-
-    @include mobile {
-      height: 40px;
-      padding: 0 $spacing-16;
-      margin-bottom: 0;
-
-      span {
-        font-size: $font-size-caption;
-      }
-
-      [class*="icon-"] {
-        font-size: 20px;
-      }
+      color: $color-black;
     }
   }
 
