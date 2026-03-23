@@ -80,30 +80,4 @@
 			color: $color-neon-tide;
 		}
 	}
-
-	// Footer variant (dark background)
-	&--footer {
-		.dropdown__toggle {
-			min-width: 0;
-			gap: responsive(10px);
-			padding: responsive(11px) responsive(18px);
-			border: 1px solid rgba(255, 255, 255, 0.2);
-			border-radius: 32px;
-			background-color: transparent;
-			box-shadow: none;
-			font-size: responsive(12px);
-			font-weight: 700;
-			color: $color-bg-selected;
-
-			[class*='icon-'] {
-				font-size: responsive(16px);
-				color: $color-white;
-			}
-		}
-
-		.dropdown__menu {
-			bottom: calc(100% + $spacing-4);
-			top: auto;
-		}
-	}
 }
