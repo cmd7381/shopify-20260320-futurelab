@@ -100,11 +100,11 @@
 @mixin heading($size, $weight: 400, $lh: 1.1, $ls: 0) {
 	font-family: $font-heading;
 	font-size: $size;
+	font-weight: $weight;
+	line-height: $lh;
 	@include desktop {
 		font-size: responsive($size);
 	}
-	font-weight: $weight;
-	line-height: $lh;
 	@if $ls != 0 {
 		letter-spacing: $ls;
 	}
@@ -115,6 +115,9 @@
 	font-size: $size;
 	font-weight: $weight;
 	line-height: $lh;
+	@include desktop {
+		font-size: responsive($size);
+	}
 }
 
 @mixin display-text {
