@@ -1,0 +1,397 @@
+@use '../helpers/variables' as *;
+@use '../helpers/mixins' as *;
+
+// ============================================
+// Cart Drawer — Shopify cart slide-out panel
+// Overrides Horizon theme defaults
+// ============================================
+
+// ---- Backdrop / Mask ----
+// Shopify uses <dialog>::backdrop — style like nav-menu__mask
+.cart-drawer__dialog::backdrop {
+	background: rgba(112, 124, 134, 0.25);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+}
+
+// ---- Dialog Container ----
+.cart-drawer__dialog {
+	position: fixed;
+	top: responsive($spacing-24);
+	right: responsive($spacing-24);
+	bottom: responsive($spacing-24);
+	left: auto;
+	width: size(444, 1440);
+	max-width: calc(100% - responsive($spacing-24) * 2);
+	background: $color-white;
+	border: none;
+	border-radius: $radius-lg;
+	overflow: hidden;
+	padding: 0;
+	display: flex;
+	flex-flow: column nowrap;
+	z-index: $z-modal;
+	box-shadow: 0 12px 16px rgba(10, 13, 18, 0.08), 0 4px 6px rgba(10, 13, 18, 0.03);
+
+	@include tablet-down {
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		max-width: 100%;
+		border-radius: 0;
+	}
+}
+
+// ---- Inner ----
+.cart-drawer__inner {
+	display: flex;
+	flex-flow: column nowrap;
+	height: 100%;
+}
+
+.cart-items-component {
+	display: flex;
+	flex-flow: column nowrap;
+	height: 100%;
+}
+
+// ---- Header ----
+.cart-drawer__header {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: responsive($spacing-24) responsive($spacing-24) responsive($spacing-16);
+	flex-shrink: 0;
+}
+
+.cart-drawer__heading {
+	@include heading($font-size-h4, 400, $lh-h4);
+	color: $color-dark;
+}
+
+.cart-drawer__close-button {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	flex-shrink: 0;
+	color: $color-dark;
+
+	.svg-wrapper svg {
+		width: 14px;
+		height: 14px;
+	}
+}
+
+// ---- Cart Bubble (item count) ----
+.cart-bubble {
+	display: inline-flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	margin-left: responsive($spacing-4);
+	vertical-align: middle;
+}
+
+.cart-bubble__background {
+	position: absolute;
+	inset: 0;
+	background: $color-neon-tide;
+	border-radius: $radius-full;
+}
+
+.cart-bubble__text {
+	position: relative;
+	z-index: 1;
+	@include body-text($font-size-caption, 500, 1.5);
+	color: $color-white;
+	min-width: 24px;
+	height: 24px;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+// ---- Scrollable Content Area ----
+.cart-drawer__content {
+	display: flex;
+	flex-flow: column nowrap;
+	flex: 1 1 auto;
+	overflow: hidden;
+}
+
+.cart-drawer__items {
+	flex: 1 1 auto;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	-webkit-overflow-scrolling: touch;
+	padding: 0 responsive($spacing-24);
+}
+
+// ---- Cart Items Table ----
+.cart-items__table {
+	width: 100%;
+}
+
+.cart-items__table-row {
+	display: flex;
+	flex-flow: row wrap;
+	gap: responsive($spacing-8) responsive($spacing-16);
+	padding: responsive($spacing-16) 0;
+	border-bottom: 1px solid $color-mist-50;
+
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
+// Full-width variants: image+details top row, quantity full width below
+.cart-items__table-row--full-width-variants {
+	.cart-items__quantity {
+		flex-basis: 100%;
+		padding-top: responsive($spacing-8);
+	}
+}
+
+// ---- Product Image ----
+.cart-items__media {
+	flex-shrink: 0;
+}
+
+.cart-items__media-container {
+	display: block;
+	width: 93px;
+	height: 93px;
+	border-radius: $radius-md;
+	overflow: hidden;
+	flex-shrink: 0;
+}
+
+.cart-items__media-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: $radius-md;
+}
+
+// ---- Product Details ----
+.cart-items__details {
+	flex: 1 1 0;
+	min-width: 0;
+	display: flex;
+	flex-flow: column nowrap;
+	gap: responsive($spacing-4);
+}
+
+.cart-items__title {
+	@include body-text($font-size-p2, 500, 1.4);
+	color: $color-dark;
+	text-decoration: none;
+}
+
+// ---- Price Display ----
+.cart-items__price-wrapper {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	gap: responsive($spacing-4);
+}
+
+.cart-items__original-price {
+	@include body-text($font-size-p3, 500, 1.4);
+	color: $color-slate;
+	text-decoration: line-through;
+}
+
+.cart-items__sale-price {
+	@include body-text($font-size-p3, 500, 1.4);
+	color: $color-dark;
+}
+
+// ---- Product Description ----
+.cart-items__description {
+	@include body-text($font-size-caption, 400, 1.4);
+	color: $color-slate;
+}
+
+.cart-items__unit-price-wrapper {
+	@include body-text($font-size-caption, 400, 1.4);
+	color: $color-slate;
+}
+
+// ---- Quantity Controls ----
+.cart-items__quantity {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	width: 100%;
+}
+
+.cart-items__quantity-controls {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.quantity-selector {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	gap: responsive($spacing-24);
+	padding: responsive($spacing-12);
+	border: 1px solid $color-mist-50;
+	border-radius: $radius-md;
+	background: $color-white;
+	box-shadow: $shadow-xs;
+
+	input[type='number'] {
+		width: 24px;
+		text-align: center;
+		border: none;
+		outline: none;
+		@include body-text($font-size-caption, 500, 1.3);
+		color: $color-black;
+		-moz-appearance: textfield;
+
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+	}
+
+	.quantity-minus,
+	.quantity-plus {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		justify-content: center;
+		width: 16px;
+		height: 16px;
+		flex-shrink: 0;
+		color: $color-dark;
+	}
+}
+
+// ---- Remove Button ----
+.cart-items__remove {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+	padding: responsive($spacing-12);
+	border-radius: $radius-full;
+	color: $color-slate;
+	transition: color 0.2s ease;
+
+	svg {
+		width: 16px;
+		height: 16px;
+	}
+
+	&:hover {
+		color: $color-dark;
+	}
+}
+
+// ---- Product Total Price (hide — shown inline in details instead) ----
+.cart-items__price {
+	display: none;
+}
+
+// ---- Summary ----
+.cart-drawer__summary {
+	flex-shrink: 0;
+	padding: 0 responsive($spacing-24) responsive($spacing-24);
+}
+
+.cart-totals__container {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: responsive($spacing-8);
+}
+
+.cart-totals__total {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.cart-totals__total-label {
+	@include body-text($font-size-p2, 500, 1.4);
+	color: $color-dark;
+}
+
+.cart-totals__total-value {
+	@include body-text($font-size-p2, 500, 1.4);
+	color: $color-dark;
+}
+
+.cart-totals__tax-note {
+	small {
+		@include body-text($font-size-caption, 400, 1.4);
+		color: $color-slate;
+	}
+}
+
+// ---- Checkout Button ----
+.cart__ctas {
+	padding-top: responsive($spacing-16);
+}
+
+.cart__checkout-button {
+	@include btn-primary;
+	width: 100%;
+	min-height: responsive(56px);
+	font-size: responsive($font-size-p1);
+	line-height: 1.5;
+	border-radius: $radius-md;
+	padding: responsive($spacing-16) responsive($spacing-24);
+
+	.button-text {
+		font-weight: 500;
+	}
+}
+
+// ---- Hide Third-party Payment Buttons ----
+.additional-checkout-buttons {
+	display: none;
+}
+
+// ---- Cart Actions (Discount) ----
+.cart-actions {
+	display: none;
+}
+
+// ---- Empty Cart State ----
+.cart-drawer--empty {
+	.cart-drawer__content {
+		justify-content: center;
+		align-items: center;
+	}
+
+	.cart-drawer__heading--empty {
+		@include heading($font-size-h4, 400, $lh-h4);
+		color: $color-dark;
+		text-align: center;
+	}
+
+	.cart-items__empty-button {
+		@include btn-primary;
+		min-height: responsive(48px);
+		padding: responsive($spacing-8) responsive($spacing-20);
+		font-size: responsive($font-size-p2);
+		line-height: 1.4;
+		border-radius: $radius-md;
+	}
+}

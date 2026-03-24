@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart Drawer — Local Preview</title>
+<style>
+/* Reset + base to simulate Shopify Horizon theme defaults */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Neue Haas Grotesk Text', 'NeueHaasGroteskText Pro', 'Helvetica Neue', sans-serif; color: #232527; background: #f5f5f5; }
+button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+table { border-collapse: collapse; border-spacing: 0; }
+input { font: inherit; }
+
+/* Shopify Horizon theme CSS variables (subset) */
+:root {
+  --icon-stroke-width: 1.5;
+}
+
+/* Simulate page behind cart */
+.page-bg {
+  position: fixed; inset: 0;
+  background: linear-gradient(135deg, #1d4ed8 0%, #3b6cf6 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px; color: rgba(255,255,255,0.3); font-weight: 700;
+}
+
+/* Shopify Horizon cart-drawer base structure */
+.cart-drawer__dialog {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 444px; max-width: 100%;
+  background: #fff;
+  z-index: 400;
+  display: flex; flex-direction: column;
+  border: none; padding: 0;
+}
+
+.cart-drawer__dialog::backdrop {
+  background: rgba(112, 124, 134, 0.25);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.cart-drawer__inner {
+  display: flex; flex-direction: column; height: 100%;
+}
+
+/* Visually hidden */
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* SVG icons */
+.svg-wrapper { display: inline-flex; align-items: center; justify-content: center; }
+.svg-wrapper svg { width: 14px; height: 14px; }
+
+.button-unstyled { background: none; border: none; padding: 0; cursor: pointer; }
+</style>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="page-bg">
+  <div style="text-align:center;">
+    <div style="font-size:48px;font-weight:700;opacity:0.3;">FUTURELAB</div>
+    <div style="font-size:14px;opacity:0.5;margin-top:8px;">Product Detail Page (background)</div>
+  </div>
+</div>
+
+<!-- ========== CART DRAWER — WITH ITEMS ========== -->
+<dialog open class="cart-drawer__dialog dialog-modal dialog-drawer color-scheme-1">
+  <span class="visually-hidden" role="status"></span>
+  <div class="cart-drawer__inner" data-hydration-key="cart-drawer-inner">
+
+    <cart-items-component class="cart-items-component" data-drawer data-section-id="cart-drawer">
+
+      <div class="cart-drawer__header" id="cart-drawer-header">
+        <h2 class="cart-drawer__heading h4" id="cart-drawer-heading">
+          Your Cart
+          <div class="cart-bubble" data-maintain-ratio>
+            <span class="cart-bubble__background"></span>
+            <span class="cart-bubble__text">
+              <span class="cart-bubble__text-count" aria-hidden="true" data-testid="cart-bubble">1</span>
+            </span>
+          </div>
+        </h2>
+        <button class="button close-button cart-drawer__close-button button-unstyled" aria-label="Close dialog">
+          <span class="svg-wrapper"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 2L2 12" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M12 12L2 2" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg></span>
+        </button>
+      </div>
+
+      <scroll-hint class="cart-drawer__content" aria-label="Cart">
+        <scroll-hint class="cart-drawer__items">
+
+<div class="cart-items__wrapper">
+  <span class="visually-hidden" aria-hidden="true">1</span>
+  <form action="/cart" class="cart-form" id="cart-form" method="post">
+    <div class="cart-items spacing-style">
+      <table class="cart-items__table" role="table">
+        <caption class="visually-hidden" role="caption">Cart total <span>$79.99 AUD</span></caption>
+        <thead class="visually-hidden" role="rowgroup">
+          <tr role="row" class="cart-items__table-row">
+            <th id="productImage" scope="col" role="columnheader">Product image</th>
+            <th id="productInformation" scope="col" role="columnheader">Product information</th>
+            <th id="quantity" scope="col" role="columnheader">Quantity</th>
+            <th id="productTotal" scope="col" role="columnheader">Product total</th>
+          </tr>
+        </thead>
+        <tbody role="rowgroup">
+
+          <!-- Product 1 -->
+          <tr role="row" class="cart-items__table-row cart-items__table-row--full-width-variants">
+            <td class="cart-items__media" role="cell" headers="productImage">
+              <a href="/products/time-capsule" class="cart-items__media-container" style="--ratio:1;">
+                <img src="https://placehold.co/250x250/e8f0fe/1d4ed8?text=Time+Capsule" alt="Time Capsule Daily Longevity Complex" width="250" height="250" class="cart-items__media-image border-style">
+              </a>
+            </td>
+            <td class="cart-items__details cart-primary-typography" role="cell" headers="productInformation">
+              <div class="cart-items__product-info">
+                <p><a href="/products/time-capsule" class="cart-items__title">Time Capsule Daily Longevity Complex</a></p>
+              </div>
+              <div class="cart-items__variants-wrapper">
+                <div class="cart-items__price-wrapper">
+                  <span class="cart-items__original-price">$99.99</span>
+                  <span class="cart-items__sale-price">$79.99</span>
+                </div>
+              </div>
+              <div class="cart-items__unit-price-wrapper">
+                <div>
+                  <span class="visually-hidden">Price</span>
+                  <span class="cart-items__description">The All-In-One Longevity Formula</span>
+                </div>
+              </div>
+            </td>
+            <td class="cart-items__quantity" role="cell" headers="quantity">
+              <div class="cart-items__quantity-controls">
+                <div class="quantity-selector-wrapper">
+                  <cart-quantity-selector-component class="quantity-selector cart-primary-typography" data-variant-id="12345">
+                    <button class="button quantity-minus button-unstyled" type="button" name="minus">
+                      <span class="visually-hidden">Decrease quantity</span>
+                      <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
+                    </button>
+                    <input type="number" name="updates[]" value="1" min="1" aria-label="Quantity">
+                    <button class="button quantity-plus button-unstyled" type="button" name="plus">
+                      <span class="visually-hidden">Increase quantity</span>
+                      <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="vertical" d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path><path class="horizontal" d="M7 2.75L7 11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
+                    </button>
+                  </cart-quantity-selector-component>
+                </div>
+
+                <button class="button cart-items__remove" type="button" aria-label="Remove Time Capsule Daily Longevity Complex">
+                  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="remove-icon-bottom" d="M11.5 9v4.25M8.5 9v4.25M5.75 12.2V6h8.5c0 2.421 0 3.779 0 6.2 0 .853 0 1.447-.038 1.91-.037.453-.106.714-.207.911a2.498 2.498 0 0 1-.983 1.017c-.197.1-.458.17-.911.207-.463.037-1.057.038-1.91.038h-.4c-.853 0-1.447 0-1.91-.038-.453-.037-.714-.106-.911-.207a2.498 2.498 0 0 1-.984-1.017c-.1-.197-.17-.458-.207-.911C5.75 13.647 5.75 13.053 5.75 12.2z" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path>
+                    <path class="remove-icon-top" d="M4.25 6h11.5M8 5.25a2 2 0 1 1 4 0" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                  <span class="visually-hidden">Remove</span>
+                </button>
+              </div>
+            </td>
+            <td class="cart-items__price cart-secondary-typography" role="cell" headers="productTotal">
+              <text-component value="$79.99">$79.99</text-component>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>
+
+        </scroll-hint>
+
+        <div class="cart-drawer__summary">
+          <div class="cart-totals">
+            <div class="cart-totals__original-container cart-primary-typography"></div>
+            <div class="cart-actions"></div>
+            <div class="cart-totals__container">
+              <span class="cart-totals__item cart-totals__total" role="status">
+                <span class="cart-totals__total-label cart-primary-typography">Estimated total</span>
+                <text-component class="cart-totals__total-value cart-secondary-typography" data-testid="cart-total-value" data-cart-subtotal>$79.99 AUD</text-component>
+              </span>
+              <div class="cart-totals__item cart-totals__tax-note cart-primary-typography">
+                <small>Prices in AUD. Tax included. Shipping calculated at checkout.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="cart__ctas">
+            <button type="submit" id="checkout" class="cart__checkout-button button" name="checkout" form="cart-form">
+              <span class="button-text">Check out</span>
+            </button>
+          </div>
+        </div>
+
+      </scroll-hint>
+
+    </cart-items-component>
+  </div>
+</dialog>
+
+</body>
+</html>
