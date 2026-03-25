@@ -90,6 +90,10 @@
 	z-index: 1;
 	background-color: $color-white !important;
 	border-bottom: none !important;
+
+	@include tablet-down {
+		padding: $spacing-16 $spacing-16 $spacing-12 !important;
+	}
 }
 
 // Shopify: .cart-drawer__heading has font from theme
@@ -104,6 +108,11 @@
 	line-height: $lh-h4 !important;
 	letter-spacing: -0.72px !important;
 	color: $color-dark !important;
+
+	@include tablet-down {
+		font-size: $font-size-h4 !important;
+		gap: $spacing-8 !important;
+	}
 }
 
 .cart-drawer__close-button {
@@ -191,6 +200,10 @@
 	overscroll-behavior: contain;
 	-webkit-overflow-scrolling: touch;
 	padding: 0 responsive($spacing-24) !important;
+
+	@include tablet-down {
+		padding: 0 $spacing-16 !important;
+	}
 }
 
 // ---- Cart Items Table ----
@@ -244,6 +257,11 @@
 	overflow: hidden !important;
 	flex-shrink: 0;
 	aspect-ratio: auto !important;
+
+	@include tablet-down {
+		width: 80px !important;
+		height: 80px !important;
+	}
 }
 
 .cart-items__media-image {
@@ -453,11 +471,16 @@
 	display: flex !important;
 	flex-flow: column nowrap !important;
 	gap: responsive($spacing-16) !important;
-	padding: 0 responsive($spacing-16) responsive($spacing-16) !important;
+	padding: 0 responsive($spacing-24) responsive($spacing-24) !important;
 	margin-top: auto !important;
 	background-color: $color-white !important;
 	mask-image: none !important;
 	-webkit-mask-image: none !important;
+
+	@include tablet-down {
+		padding: 0 $spacing-16 $spacing-16 !important;
+		gap: $spacing-12 !important;
+	}
 }
 
 // Shopify: .cart-totals has flex-col, gap, border
@@ -538,6 +561,12 @@
 	line-height: 1.5 !important;
 	border-radius: $radius-md !important;
 	padding: responsive($spacing-16) responsive($spacing-24) !important;
+
+	@include tablet-down {
+		min-height: 48px !important;
+		font-size: $font-size-p2 !important;
+		padding: $spacing-12 $spacing-16 !important;
+	}
 }
 
 // ---- Hide Third-party Payment Buttons ----
@@ -763,6 +792,10 @@
 	font-size: responsive($font-size-p1);
 	font-weight: 500;
 	color: $color-neon-tide-300;
+
+	@include tablet-down {
+		font-size: $font-size-p2;
+	}
 }
 
 .cart__checkout-cta {
@@ -774,6 +807,10 @@
 	font-size: responsive($font-size-p1);
 	font-weight: 500;
 	color: $color-white;
+
+	@include tablet-down {
+		font-size: $font-size-p2;
+	}
 }
 
 // ---- Subscribe & Save ----
