@@ -1306,6 +1306,15 @@ var App = (function($) {
 				}
 			});
 
+			simple({
+				selector: '.cart-drawer__upsell',
+				dots: '.cart-drawer__upsell-dots',
+				options: {
+					autoplay: false,
+					slidesToShow: 1
+				}
+			});
+
 			// ---- AsNavFor ----
 			asNavFor({
 				selector: '.block-timeline',

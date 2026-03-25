@@ -10668,22 +10668,31 @@ section:has(section.page-header--hidden) {
   color: #232527;
 }
 
-.cart-drawer__upsell-dots {
+.cart-drawer__upsell-dots .slick-dots {
   display: flex;
   flex-flow: row wrap;
   gap: clamp(12px, 0.8333333333vw, 16.6666666667px);
   align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-
-.cart-drawer__upsell-dot {
-  display: block;
+.cart-drawer__upsell-dots .slick-dots li {
   width: 8px;
   height: 8px;
   flex-shrink: 0;
+}
+.cart-drawer__upsell-dots .slick-dots li button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
   border-radius: 9999px;
   background: #e6eaed;
+  font-size: 0;
+  cursor: pointer;
 }
-.cart-drawer__upsell-dot.is-active {
+.cart-drawer__upsell-dots .slick-dots li.slick-active button {
   background: #1d4ed8;
 }
 
