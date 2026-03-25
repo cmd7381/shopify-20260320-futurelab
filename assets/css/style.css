@@ -2308,8 +2308,6 @@ section:has(section.page-header--hidden) {
 @media (max-width: 1023px) {
   .nav-menu__panel--l2.is-open {
     transform: translateX(0);
-    visibility: inherit;
-    transition: transform 0.3s ease;
   }
 }
 @media (min-width: 1024px) {
@@ -10497,6 +10495,9 @@ section:has(section.page-header--hidden) {
   line-height: 1.4 !important;
   color: #707c86 !important;
 }
+.cart-totals__tax-note--center {
+  text-align: center !important;
+}
 
 .cart__ctas {
   padding-top: clamp(16px, 1.1111111111vw, 22.2222222222px);
@@ -10539,6 +10540,393 @@ section:has(section.page-header--hidden) {
 
 .cart-actions {
   display: none !important;
+}
+
+.cart-drawer__progress {
+  padding-bottom: clamp(16px, 1.1111111111vw, 22.2222222222px);
+}
+
+.cart-drawer__progress-text {
+  font-family: "Neue Haas Grotesk Text", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+@media (min-width: 1024px) {
+  .cart-drawer__progress-text {
+    font-size: clamp(12px, 0.8333333333vw, 16.6666666667px);
+  }
+}
+.cart-drawer__progress-text {
+  color: #707c86;
+  margin-bottom: clamp(8px, 0.5555555556vw, 11.1111111111px);
+}
+.cart-drawer__progress-text strong {
+  color: #232527;
+  font-weight: 700;
+}
+
+.cart-drawer__progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e6eaed;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.cart-drawer__progress-fill {
+  height: 100%;
+  background: #1d4ed8;
+  border-radius: 9999px;
+}
+
+.cart-items__variant-select {
+  width: 100%;
+  margin-bottom: clamp(12px, 0.8333333333vw, 16.6666666667px);
+}
+.cart-items__variant-select select {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 0 36px 0 16px;
+  font-family: "Neue Haas Grotesk Text", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #232527;
+  background: #ffffff url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23232527%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22/></svg>") no-repeat right 12px center;
+  background-size: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-shadow: 0px 1px 2px 0px rgba(10, 13, 18, 0.05);
+  cursor: pointer;
+}
+
+.cart-drawer__upsell {
+  padding-top: clamp(16px, 1.1111111111vw, 22.2222222222px);
+  border-top: 1px solid #e6eaed;
+  margin-top: clamp(16px, 1.1111111111vw, 22.2222222222px);
+}
+
+.cart-drawer__upsell-header {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: clamp(16px, 1.1111111111vw, 22.2222222222px);
+}
+
+.cart-drawer__upsell-title {
+  font-family: "Neue Haas Grotesk Text", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+@media (min-width: 1024px) {
+  .cart-drawer__upsell-title {
+    font-size: clamp(16px, 1.1111111111vw, 22.2222222222px);
+  }
+}
+.cart-drawer__upsell-title {
+  color: #232527;
+}
+
+.cart-drawer__upsell-dots {
+  display: flex;
+  flex-flow: row wrap;
+  gap: clamp(12px, 0.8333333333vw, 16.6666666667px);
+  align-items: center;
+}
+
+.cart-drawer__upsell-dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: #e6eaed;
+}
+.cart-drawer__upsell-dot.is-active {
+  background: #1d4ed8;
+}
+
+.cart-drawer__upsell-product {
+  display: flex;
+  flex-flow: row wrap;
+  gap: clamp(12px, 0.8333333333vw, 16.6666666667px);
+  align-items: flex-start;
+}
+
+.cart-drawer__upsell-img {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 5.5px;
+  overflow: hidden;
+}
+.cart-drawer__upsell-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cart-drawer__upsell-info {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 4px;
+}
+
+.cart-drawer__upsell-name {
+  font-family: "Neue Haas Grotesk Text", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+@media (min-width: 1024px) {
+  .cart-drawer__upsell-name {
+    font-size: clamp(12px, 0.8333333333vw, 16.6666666667px);
+  }
+}
+.cart-drawer__upsell-name {
+  color: #232527;
+}
+
+.cart-drawer__upsell-prices {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 4px;
+}
+.cart-drawer__upsell-prices .original {
+  font-size: 12px;
+  font-weight: 500;
+  color: #707c86;
+  text-decoration: line-through;
+}
+.cart-drawer__upsell-prices .sale {
+  font-size: 12px;
+  font-weight: 500;
+  color: #232527;
+}
+
+.cart-drawer__upsell-desc {
+  font-family: "Neue Haas Grotesk Text", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+@media (min-width: 1024px) {
+  .cart-drawer__upsell-desc {
+    font-size: clamp(12px, 0.8333333333vw, 16.6666666667px);
+  }
+}
+.cart-drawer__upsell-desc {
+  color: #707c86;
+}
+
+.cart-drawer__upsell-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: var(--radius-md);
+  font-family: "Neue Haas Grotesk Text", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  position: relative;
+  background-color: #1d4ed8;
+  color: #ffffff;
+  box-shadow: 0px 1px 2px 0px rgba(10, 13, 18, 0.05);
+  width: 100%;
+  min-height: 48px;
+  margin-top: clamp(16px, 1.1111111111vw, 22.2222222222px);
+  font-size: 16px;
+  line-height: 1.4;
+  border-radius: 8px;
+}
+
+.cart-drawer__badges {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: clamp(16px, 1.1111111111vw, 22.2222222222px);
+  padding: clamp(8px, 0.5555555556vw, 11.1111111111px) 0;
+}
+
+.cart-drawer__badge {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 6px;
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+}
+
+.cart-drawer__badge-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 4.83px;
+  background: #e6eaed;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cart-drawer__badge-text {
+  font-family: "Neue Haas Grotesk Text", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+@media (min-width: 1024px) {
+  .cart-drawer__badge-text {
+    font-size: clamp(12px, 0.8333333333vw, 16.6666666667px);
+  }
+}
+.cart-drawer__badge-text {
+  color: #707c86;
+}
+
+.cart__checkout-button--split {
+  justify-content: space-between !important;
+}
+
+.cart__checkout-price {
+  font-family: "Neue Haas Grotesk Text", sans-serif;
+  font-size: clamp(20px, 1.3888888889vw, 27.7777777778px);
+  font-weight: 500;
+  color: #93affd;
+}
+
+.cart__checkout-cta {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 6px;
+  font-family: "Neue Haas Grotesk Text", sans-serif;
+  font-size: clamp(20px, 1.3888888889vw, 27.7777777778px);
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.cart-drawer__subscribe {
+  width: 100%;
+  background: #1d4ed8;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cart-drawer__subscribe-toggle {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: clamp(12px, 0.8333333333vw, 16.6666666667px) clamp(16px, 1.1111111111vw, 22.2222222222px);
+  background: #1d4ed8;
+  color: #ffffff;
+  font-family: "Neue Haas Grotesk Text", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.cart-drawer__subscribe-body {
+  padding: 0 clamp(16px, 1.1111111111vw, 22.2222222222px) clamp(16px, 1.1111111111vw, 22.2222222222px);
+}
+
+.cart-drawer__subscribe-benefits {
+  display: flex;
+  flex-flow: row wrap;
+  gap: clamp(12px, 0.8333333333vw, 16.6666666667px);
+  margin-bottom: clamp(12px, 0.8333333333vw, 16.6666666667px);
+}
+
+.cart-drawer__subscribe-bullet {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: clamp(8px, 0.5555555556vw, 11.1111111111px);
+  font-family: "Neue Haas Grotesk Text", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+@media (min-width: 1024px) {
+  .cart-drawer__subscribe-bullet {
+    font-size: clamp(12px, 0.8333333333vw, 16.6666666667px);
+  }
+}
+.cart-drawer__subscribe-bullet {
+  color: #ffffff;
+}
+
+.cart-drawer__subscribe-btn {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 40px;
+  background: #ffffff;
+  color: #1d4ed8;
+  font-family: "Neue Haas Grotesk Text", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cart-drawer__showcase {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(40px, 2.7777777778vw, 55.5555555556px) clamp(24px, 1.6666666667vw, 33.3333333333px);
+  gap: clamp(16px, 1.1111111111vw, 22.2222222222px);
+}
+
+.cart-drawer__showcase-img {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 4/3;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: clamp(16px, 1.1111111111vw, 22.2222222222px);
+}
+.cart-drawer__showcase-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cart-drawer__showcase-subtitle {
+  font-family: "Neue Haas Grotesk Text", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+@media (min-width: 1024px) {
+  .cart-drawer__showcase-subtitle {
+    font-size: clamp(14px, 0.9722222222vw, 19.4444444444px);
+  }
+}
+.cart-drawer__showcase-subtitle {
+  color: #707c86;
 }
 
 .cart-drawer--empty .cart-drawer__content {

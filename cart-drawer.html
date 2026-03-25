@@ -13,6 +13,7 @@ a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 table { border-collapse: collapse; border-spacing: 0; }
 input { font: inherit; }
+select { font: inherit; }
 
 /* Shopify Horizon theme CSS variables (subset) */
 :root {
@@ -23,29 +24,8 @@ input { font: inherit; }
 .page-bg {
   position: fixed; inset: 0;
   background: linear-gradient(135deg, #1d4ed8 0%, #3b6cf6 100%);
-  display: flex; align-items: center; justify-content: center;
+  display: flex; flex-flow: column nowrap; align-items: center; justify-content: center;
   font-size: 48px; color: rgba(255,255,255,0.3); font-weight: 700;
-}
-
-/* Shopify Horizon cart-drawer base structure */
-.cart-drawer__dialog {
-  position: fixed;
-  top: 0; right: 0; bottom: 0;
-  width: 444px; max-width: 100%;
-  background: #fff;
-  z-index: 400;
-  display: flex; flex-direction: column;
-  border: none; padding: 0;
-}
-
-.cart-drawer__dialog::backdrop {
-  background: rgba(112, 124, 134, 0.25);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-}
-
-.cart-drawer__inner {
-  display: flex; flex-direction: column; height: 100%;
 }
 
 /* Visually hidden */
@@ -56,6 +36,53 @@ input { font: inherit; }
 .svg-wrapper svg { width: 14px; height: 14px; }
 
 .button-unstyled { background: none; border: none; padding: 0; cursor: pointer; }
+
+/* ---- State Toggle Controls ---- */
+.state-controls {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 10000;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 6px;
+  background: rgba(0,0,0,0.8);
+  border-radius: 12px;
+  padding: 12px;
+  max-width: 220px;
+}
+.state-controls__title {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.state-controls button {
+  display: block;
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.state-controls button:hover { background: rgba(255,255,255,0.2); }
+.state-controls button.active { background: #1d4ed8; border-color: #3b6cf6; }
+.state-controls__divider {
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+  margin: 4px 0;
+}
+
+/* ---- Cart Drawer States ---- */
+.cart-state { display: none; }
+.cart-state.is-active { display: contents; }
 </style>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -68,15 +95,76 @@ input { font: inherit; }
   </div>
 </div>
 
-<!-- ========== CART DRAWER — WITH ITEMS ========== -->
+<!-- ============================================================ -->
+<!-- STATE TOGGLE CONTROLS                                        -->
+<!-- ============================================================ -->
+<div class="state-controls">
+  <div class="state-controls__title">Cart States</div>
+  <button class="active" onclick="showState('pc-empty')">PC Empty</button>
+  <button onclick="showState('pc-1item')">PC 1 Item</button>
+  <button onclick="showState('pc-2items')">PC 2 Items (Subscribe)</button>
+  <button onclick="showState('pc-2items-normal')">PC 2 Items (Normal)</button>
+  <div class="state-controls__divider"></div>
+  <button onclick="toggleMobile()">Toggle Mobile</button>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- STATE 1: PC EMPTY                                            -->
+<!-- ============================================================ -->
+<div class="cart-state is-active" id="state-pc-empty">
+<dialog open class="cart-drawer__dialog dialog-modal dialog-drawer color-scheme-1 cart-drawer--empty">
+  <span class="visually-hidden" role="status"></span>
+  <div class="cart-drawer__inner" data-hydration-key="cart-drawer-inner">
+    <cart-items-component class="cart-items-component" data-drawer data-section-id="cart-drawer">
+
+      <div class="cart-drawer__header" id="cart-drawer-header-empty">
+        <button class="button close-button cart-drawer__close-button button-unstyled" aria-label="Close dialog">
+          <span class="svg-wrapper"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 2L2 12" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M12 12L2 2" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg></span>
+        </button>
+      </div>
+
+      <scroll-hint class="cart-drawer__content" aria-label="Cart">
+        <scroll-hint class="cart-drawer__items">
+
+          <div class="cart-items__wrapper cart-drawer__showcase">
+            <!-- Showcase Image -->
+            <div class="cart-drawer__showcase-img">
+              <img src="https://placehold.co/300x225/eff3ff/1d4ed8?text=Products+Showcase" alt="Product showcase" width="300" height="225">
+            </div>
+
+            <h2 class="cart-drawer__heading--empty">Your cart is empty</h2>
+            <p class="cart-drawer__showcase-subtitle">Start building your longevity routine today.</p>
+            <a href="/collections/all" class="cart-items__empty-button button">
+              <span>Shop All &rarr;</span>
+            </a>
+          </div>
+
+        </scroll-hint>
+      </scroll-hint>
+
+    </cart-items-component>
+  </div>
+</dialog>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- STATE 2: PC 1 ITEM                                           -->
+<!-- ============================================================ -->
+<div class="cart-state" id="state-pc-1item">
 <dialog open class="cart-drawer__dialog dialog-modal dialog-drawer color-scheme-1">
   <span class="visually-hidden" role="status"></span>
   <div class="cart-drawer__inner" data-hydration-key="cart-drawer-inner">
 
     <cart-items-component class="cart-items-component" data-drawer data-section-id="cart-drawer">
 
-      <div class="cart-drawer__header" id="cart-drawer-header">
-        <h2 class="cart-drawer__heading h4" id="cart-drawer-heading">
+      <!-- Header -->
+      <div class="cart-drawer__header" id="cart-drawer-header-1item">
+        <h2 class="cart-drawer__heading h4" id="cart-drawer-heading-1item">
           Your Cart
           <div class="cart-bubble" data-maintain-ratio>
             <span class="cart-bubble__background"></span>
@@ -93,105 +181,174 @@ input { font: inherit; }
         </button>
       </div>
 
+      <!-- Scrollable Content -->
       <scroll-hint class="cart-drawer__content" aria-label="Cart">
         <scroll-hint class="cart-drawer__items">
 
-<div class="cart-items__wrapper">
-  <span class="visually-hidden" aria-hidden="true">1</span>
-  <form action="/cart" class="cart-form" id="cart-form" method="post">
-    <div class="cart-items spacing-style">
-      <table class="cart-items__table" role="table">
-        <caption class="visually-hidden" role="caption">Cart total <span>$79.99 AUD</span></caption>
-        <thead class="visually-hidden" role="rowgroup">
-          <tr role="row" class="cart-items__table-row">
-            <th id="productImage" scope="col" role="columnheader">Product image</th>
-            <th id="productInformation" scope="col" role="columnheader">Product information</th>
-            <th id="quantity" scope="col" role="columnheader">Quantity</th>
-            <th id="productTotal" scope="col" role="columnheader">Product total</th>
-          </tr>
-        </thead>
-        <tbody role="rowgroup">
+          <!-- Free Shipping Progress -->
+          <div class="cart-drawer__progress">
+            <p class="cart-drawer__progress-text">
+              You are <strong>$19.01</strong> away from free shipping
+            </p>
+            <div class="cart-drawer__progress-bar">
+              <div class="cart-drawer__progress-fill" style="width:80%;"></div>
+            </div>
+          </div>
 
-          <!-- Product 1 -->
-          <tr role="row" class="cart-items__table-row cart-items__table-row--full-width-variants">
-            <td class="cart-items__media" role="cell" headers="productImage">
-              <a href="/products/time-capsule" class="cart-items__media-container" style="--ratio:1;">
-                <img src="https://placehold.co/250x250/e8f0fe/1d4ed8?text=Time+Capsule" alt="Time Capsule Daily Longevity Complex" width="250" height="250" class="cart-items__media-image border-style">
-              </a>
-            </td>
-            <td class="cart-items__details cart-primary-typography" role="cell" headers="productInformation">
-              <div class="cart-items__product-info">
-                <p><a href="/products/time-capsule" class="cart-items__title">Time Capsule Daily Longevity Complex</a></p>
-              </div>
-              <div class="cart-items__variants-wrapper">
-                <div class="cart-items__price-wrapper">
-                  <span class="cart-items__original-price">$99.99</span>
-                  <span class="cart-items__sale-price">$79.99</span>
-                </div>
-              </div>
-              <div class="cart-items__unit-price-wrapper">
-                <div>
-                  <span class="visually-hidden">Price</span>
-                  <span class="cart-items__description">The All-In-One Longevity Formula</span>
-                </div>
-              </div>
-            </td>
-            <td class="cart-items__quantity" role="cell" headers="quantity">
-              <div class="cart-items__quantity-controls">
-                <div class="quantity-selector-wrapper">
-                  <cart-quantity-selector-component class="quantity-selector cart-primary-typography" data-variant-id="12345">
-                    <button class="button quantity-minus button-unstyled" type="button" name="minus">
-                      <span class="visually-hidden">Decrease quantity</span>
-                      <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
-                    </button>
-                    <input type="number" name="updates[]" value="1" min="1" aria-label="Quantity">
-                    <button class="button quantity-plus button-unstyled" type="button" name="plus">
-                      <span class="visually-hidden">Increase quantity</span>
-                      <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="vertical" d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path><path class="horizontal" d="M7 2.75L7 11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
-                    </button>
-                  </cart-quantity-selector-component>
-                </div>
+          <!-- Cart Items -->
+          <div class="cart-items__wrapper">
+            <span class="visually-hidden" aria-hidden="true">1</span>
+            <form action="/cart" class="cart-form" id="cart-form-1item" method="post">
+              <div class="cart-items spacing-style">
+                <table class="cart-items__table" role="table">
+                  <caption class="visually-hidden" role="caption">Cart total <span>$79.99 AUD</span></caption>
+                  <thead class="visually-hidden" role="rowgroup">
+                    <tr role="row" class="cart-items__table-row">
+                      <th id="productImage-1" scope="col" role="columnheader">Product image</th>
+                      <th id="productInformation-1" scope="col" role="columnheader">Product information</th>
+                      <th id="quantity-1" scope="col" role="columnheader">Quantity</th>
+                      <th id="productTotal-1" scope="col" role="columnheader">Product total</th>
+                    </tr>
+                  </thead>
+                  <tbody role="rowgroup">
 
-                <button class="button cart-items__remove" type="button" aria-label="Remove Time Capsule Daily Longevity Complex">
-                  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path class="remove-icon-bottom" d="M11.5 9v4.25M8.5 9v4.25M5.75 12.2V6h8.5c0 2.421 0 3.779 0 6.2 0 .853 0 1.447-.038 1.91-.037.453-.106.714-.207.911a2.498 2.498 0 0 1-.983 1.017c-.197.1-.458.17-.911.207-.463.037-1.057.038-1.91.038h-.4c-.853 0-1.447 0-1.91-.038-.453-.037-.714-.106-.911-.207a2.498 2.498 0 0 1-.984-1.017c-.1-.197-.17-.458-.207-.911C5.75 13.647 5.75 13.053 5.75 12.2z" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path>
-                    <path class="remove-icon-top" d="M4.25 6h11.5M8 5.25a2 2 0 1 1 4 0" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
-                  <span class="visually-hidden">Remove</span>
-                </button>
-              </div>
-            </td>
-            <td class="cart-items__price cart-secondary-typography" role="cell" headers="productTotal">
-              <text-component value="$79.99">$79.99</text-component>
-            </td>
-          </tr>
+                    <!-- Product 1: Time Capsule -->
+                    <tr role="row" class="cart-items__table-row cart-items__table-row--full-width-variants">
+                      <td class="cart-items__media" role="cell" headers="productImage-1">
+                        <a href="/products/time-capsule" class="cart-items__media-container">
+                          <img src="https://placehold.co/250x250/e8f0fe/1d4ed8?text=Time+Capsule" alt="Time Capsule Daily Longevity Complex" width="250" height="250" class="cart-items__media-image border-style">
+                        </a>
+                      </td>
+                      <td class="cart-items__details cart-primary-typography" role="cell" headers="productInformation-1">
+                        <div class="cart-items__product-info">
+                          <p><a href="/products/time-capsule" class="cart-items__title">Time Capsule Daily Longevity Complex</a></p>
+                        </div>
+                        <div class="cart-items__variants-wrapper">
+                          <div class="cart-items__price-wrapper">
+                            <span class="cart-items__original-price">$99.99</span>
+                            <span class="cart-items__sale-price">$79.99</span>
+                          </div>
+                        </div>
+                        <div class="cart-items__unit-price-wrapper">
+                          <div>
+                            <span class="visually-hidden">Price</span>
+                            <span class="cart-items__description">The All-In-One Longevity Formula</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="cart-items__quantity" role="cell" headers="quantity-1">
+                        <!-- Variant Dropdown -->
+                        <div class="cart-items__variant-select">
+                          <select>
+                            <option selected>1 Month Supply</option>
+                            <option>2 Month Supply</option>
+                            <option>3 Month Supply</option>
+                          </select>
+                        </div>
+                        <!-- Quantity + Remove -->
+                        <div class="cart-items__quantity-controls">
+                          <div class="quantity-selector-wrapper">
+                            <cart-quantity-selector-component class="quantity-selector cart-primary-typography" data-variant-id="12345">
+                              <button class="button quantity-minus button-unstyled" type="button" name="minus">
+                                <span class="visually-hidden">Decrease quantity</span>
+                                <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
+                              </button>
+                              <input type="number" name="updates[]" value="1" min="1" aria-label="Quantity">
+                              <button class="button quantity-plus button-unstyled" type="button" name="plus">
+                                <span class="visually-hidden">Increase quantity</span>
+                                <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="vertical" d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path><path class="horizontal" d="M7 2.75L7 11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
+                              </button>
+                            </cart-quantity-selector-component>
+                          </div>
 
-        </tbody>
-      </table>
-    </div>
-  </form>
-</div>
+                          <button class="button cart-items__remove" type="button" aria-label="Remove Time Capsule Daily Longevity Complex">
+                            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path class="remove-icon-bottom" d="M11.5 9v4.25M8.5 9v4.25M5.75 12.2V6h8.5c0 2.421 0 3.779 0 6.2 0 .853 0 1.447-.038 1.91-.037.453-.106.714-.207.911a2.498 2.498 0 0 1-.983 1.017c-.197.1-.458.17-.911.207-.463.037-1.057.038-1.91.038h-.4c-.853 0-1.447 0-1.91-.038-.453-.037-.714-.106-.911-.207a2.498 2.498 0 0 1-.984-1.017c-.1-.197-.17-.458-.207-.911C5.75 13.647 5.75 13.053 5.75 12.2z" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path>
+                              <path class="remove-icon-top" d="M4.25 6h11.5M8 5.25a2 2 0 1 1 4 0" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <span class="visually-hidden">Remove</span>
+                          </button>
+                        </div>
+                      </td>
+                      <td class="cart-items__price cart-secondary-typography" role="cell" headers="productTotal-1">
+                        <text-component value="$79.99">$79.99</text-component>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+
+          <!-- Upsell Section -->
+          <div class="cart-drawer__upsell">
+            <!-- Title + Dots -->
+            <div class="cart-drawer__upsell-header">
+              <span class="cart-drawer__upsell-title">You might also like</span>
+              <div class="cart-drawer__upsell-dots">
+                <span class="cart-drawer__upsell-dot is-active"></span>
+                <span class="cart-drawer__upsell-dot"></span>
+              </div>
+            </div>
+            <!-- Upsell Product -->
+            <div class="cart-drawer__upsell-product">
+              <div class="cart-drawer__upsell-img">
+                <img src="https://placehold.co/128x128/e8f0fe/1d4ed8?text=Berberine" alt="Berberine Complex" width="128" height="128">
+              </div>
+              <div class="cart-drawer__upsell-info">
+                <span class="cart-drawer__upsell-name">Berberine Complex</span>
+                <div class="cart-drawer__upsell-prices">
+                  <span class="original">$99.99</span>
+                  <span class="sale">$79.99</span>
+                </div>
+                <span class="cart-drawer__upsell-desc">Metabolism Support with Advanced Absorption</span>
+              </div>
+            </div>
+            <!-- Add Button -->
+            <button type="button" class="cart-drawer__upsell-add">Add</button>
+          </div>
 
         </scroll-hint>
 
+        <!-- Summary / Footer -->
         <div class="cart-drawer__summary">
           <div class="cart-totals">
             <div class="cart-totals__original-container cart-primary-typography"></div>
             <div class="cart-actions"></div>
             <div class="cart-totals__container">
-              <span class="cart-totals__item cart-totals__total" role="status">
-                <span class="cart-totals__total-label cart-primary-typography">Estimated total</span>
-                <text-component class="cart-totals__total-value cart-secondary-typography" data-testid="cart-total-value" data-cart-subtotal>$79.99 AUD</text-component>
-              </span>
-              <div class="cart-totals__item cart-totals__tax-note cart-primary-typography">
+              <!-- Trust Badges -->
+              <div class="cart-drawer__badges">
+                <div class="cart-drawer__badge">
+                  <div class="cart-drawer__badge-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#707c86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  </div>
+                  <span class="cart-drawer__badge-text">Australian Made &amp; Owned</span>
+                </div>
+                <div class="cart-drawer__badge">
+                  <div class="cart-drawer__badge-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#707c86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  </div>
+                  <span class="cart-drawer__badge-text">Clinically Proven Ingredients</span>
+                </div>
+                <div class="cart-drawer__badge">
+                  <div class="cart-drawer__badge-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#707c86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                  </div>
+                  <span class="cart-drawer__badge-text">Third Party Tested</span>
+                </div>
+              </div>
+
+              <div class="cart-totals__item cart-totals__tax-note cart-totals__tax-note--center cart-primary-typography">
                 <small>Prices in AUD. Tax included. Shipping calculated at checkout.</small>
               </div>
             </div>
           </div>
 
           <div class="cart__ctas">
-            <button type="submit" id="checkout" class="cart__checkout-button button" name="checkout" form="cart-form">
-              <span class="button-text">Check out</span>
+            <button type="submit" id="checkout-1item" class="cart__checkout-button cart__checkout-button--split button" name="checkout" form="cart-form-1item">
+              <span class="cart__checkout-price">$79.99</span>
+              <span class="cart__checkout-cta">Checkout <span>&rarr;</span></span>
             </button>
           </div>
         </div>
@@ -201,6 +358,584 @@ input { font: inherit; }
     </cart-items-component>
   </div>
 </dialog>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- STATE 3: PC 2 ITEMS (with Subscribe & Save)                  -->
+<!-- ============================================================ -->
+<div class="cart-state" id="state-pc-2items">
+<dialog open class="cart-drawer__dialog dialog-modal dialog-drawer color-scheme-1">
+  <span class="visually-hidden" role="status"></span>
+  <div class="cart-drawer__inner" data-hydration-key="cart-drawer-inner">
+
+    <cart-items-component class="cart-items-component" data-drawer data-section-id="cart-drawer">
+
+      <!-- Header -->
+      <div class="cart-drawer__header" id="cart-drawer-header-2items">
+        <h2 class="cart-drawer__heading h4" id="cart-drawer-heading-2items">
+          Your Cart
+          <div class="cart-bubble" data-maintain-ratio>
+            <span class="cart-bubble__background"></span>
+            <span class="cart-bubble__text">
+              <span class="cart-bubble__text-count" aria-hidden="true" data-testid="cart-bubble">2</span>
+            </span>
+          </div>
+        </h2>
+        <button class="button close-button cart-drawer__close-button button-unstyled" aria-label="Close dialog">
+          <span class="svg-wrapper"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 2L2 12" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M12 12L2 2" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg></span>
+        </button>
+      </div>
+
+      <!-- Scrollable Content -->
+      <scroll-hint class="cart-drawer__content" aria-label="Cart">
+        <scroll-hint class="cart-drawer__items">
+
+          <!-- Free Shipping Progress (Unlocked) -->
+          <div class="cart-drawer__progress">
+            <p class="cart-drawer__progress-text">
+              Congrats, you have unlocked <strong>free shipping</strong>
+            </p>
+            <div class="cart-drawer__progress-bar">
+              <div class="cart-drawer__progress-fill" style="width:100%;"></div>
+            </div>
+          </div>
+
+          <!-- Cart Items -->
+          <div class="cart-items__wrapper">
+            <span class="visually-hidden" aria-hidden="true">2</span>
+            <form action="/cart" class="cart-form" id="cart-form-2items" method="post">
+              <div class="cart-items spacing-style">
+                <table class="cart-items__table" role="table">
+                  <caption class="visually-hidden" role="caption">Cart total <span>$159.98 AUD</span></caption>
+                  <thead class="visually-hidden" role="rowgroup">
+                    <tr role="row" class="cart-items__table-row">
+                      <th id="productImage-2a" scope="col" role="columnheader">Product image</th>
+                      <th id="productInformation-2a" scope="col" role="columnheader">Product information</th>
+                      <th id="quantity-2a" scope="col" role="columnheader">Quantity</th>
+                      <th id="productTotal-2a" scope="col" role="columnheader">Product total</th>
+                    </tr>
+                  </thead>
+                  <tbody role="rowgroup">
+
+                    <!-- Product 1: Time Capsule -->
+                    <tr role="row" class="cart-items__table-row cart-items__table-row--full-width-variants">
+                      <td class="cart-items__media" role="cell" headers="productImage-2a">
+                        <a href="/products/time-capsule" class="cart-items__media-container">
+                          <img src="https://placehold.co/250x250/e8f0fe/1d4ed8?text=Time+Capsule" alt="Time Capsule Daily Longevity Complex" width="250" height="250" class="cart-items__media-image border-style">
+                        </a>
+                      </td>
+                      <td class="cart-items__details cart-primary-typography" role="cell" headers="productInformation-2a">
+                        <div class="cart-items__product-info">
+                          <p><a href="/products/time-capsule" class="cart-items__title">Time Capsule Daily Longevity Complex</a></p>
+                        </div>
+                        <div class="cart-items__variants-wrapper">
+                          <div class="cart-items__price-wrapper">
+                            <span class="cart-items__original-price">$99.99</span>
+                            <span class="cart-items__sale-price">$79.99</span>
+                          </div>
+                        </div>
+                        <div class="cart-items__unit-price-wrapper">
+                          <div>
+                            <span class="visually-hidden">Price</span>
+                            <span class="cart-items__description">The All-In-One Longevity Formula</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="cart-items__quantity" role="cell" headers="quantity-2a">
+                        <!-- Variant Dropdown -->
+                        <div class="cart-items__variant-select">
+                          <select>
+                            <option selected>1 Month Supply</option>
+                            <option>2 Month Supply</option>
+                            <option>3 Month Supply</option>
+                          </select>
+                        </div>
+                        <!-- Quantity + Remove -->
+                        <div class="cart-items__quantity-controls">
+                          <div class="quantity-selector-wrapper">
+                            <cart-quantity-selector-component class="quantity-selector cart-primary-typography" data-variant-id="12345">
+                              <button class="button quantity-minus button-unstyled" type="button" name="minus">
+                                <span class="visually-hidden">Decrease quantity</span>
+                                <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
+                              </button>
+                              <input type="number" name="updates[]" value="1" min="1" aria-label="Quantity">
+                              <button class="button quantity-plus button-unstyled" type="button" name="plus">
+                                <span class="visually-hidden">Increase quantity</span>
+                                <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="vertical" d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path><path class="horizontal" d="M7 2.75L7 11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
+                              </button>
+                            </cart-quantity-selector-component>
+                          </div>
+
+                          <button class="button cart-items__remove" type="button" aria-label="Remove Time Capsule Daily Longevity Complex">
+                            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path class="remove-icon-bottom" d="M11.5 9v4.25M8.5 9v4.25M5.75 12.2V6h8.5c0 2.421 0 3.779 0 6.2 0 .853 0 1.447-.038 1.91-.037.453-.106.714-.207.911a2.498 2.498 0 0 1-.983 1.017c-.197.1-.458.17-.911.207-.463.037-1.057.038-1.91.038h-.4c-.853 0-1.447 0-1.91-.038-.453-.037-.714-.106-.911-.207a2.498 2.498 0 0 1-.984-1.017c-.1-.197-.17-.458-.207-.911C5.75 13.647 5.75 13.053 5.75 12.2z" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path>
+                              <path class="remove-icon-top" d="M4.25 6h11.5M8 5.25a2 2 0 1 1 4 0" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <span class="visually-hidden">Remove</span>
+                          </button>
+                        </div>
+                      </td>
+                      <td class="cart-items__price cart-secondary-typography" role="cell" headers="productTotal-2a">
+                        <text-component value="$79.99">$79.99</text-component>
+                      </td>
+                    </tr>
+
+                    <!-- Product 2: Berberine Complex (with Subscribe & Save) -->
+                    <tr role="row" class="cart-items__table-row cart-items__table-row--full-width-variants">
+                      <td class="cart-items__media" role="cell" headers="productImage-2a">
+                        <a href="/products/berberine-complex" class="cart-items__media-container">
+                          <img src="https://placehold.co/250x250/e8f0fe/1d4ed8?text=Berberine" alt="Berberine Complex" width="250" height="250" class="cart-items__media-image border-style">
+                        </a>
+                      </td>
+                      <td class="cart-items__details cart-primary-typography" role="cell" headers="productInformation-2a">
+                        <div class="cart-items__product-info">
+                          <p><a href="/products/berberine-complex" class="cart-items__title">Berberine Complex</a></p>
+                        </div>
+                        <div class="cart-items__variants-wrapper">
+                          <div class="cart-items__price-wrapper">
+                            <span class="cart-items__original-price">$99.99</span>
+                            <span class="cart-items__sale-price">$79.99</span>
+                          </div>
+                        </div>
+                        <div class="cart-items__unit-price-wrapper">
+                          <div>
+                            <span class="visually-hidden">Price</span>
+                            <span class="cart-items__description">Metabolism Support with Advanced Absorption</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="cart-items__quantity" role="cell" headers="quantity-2a">
+                        <!-- Subscribe & Save -->
+                        <div class="cart-drawer__subscribe">
+                          <!-- Subscribe Toggle -->
+                          <button type="button" class="cart-drawer__subscribe-toggle" onclick="this.parentElement.querySelector('.cart-drawer__subscribe-body').style.display = this.parentElement.querySelector('.cart-drawer__subscribe-body').style.display === 'none' ? 'block' : 'none'; this.style.display = this.parentElement.querySelector('.cart-drawer__subscribe-body').style.display === 'none' ? 'flex' : 'none';">
+                            <span>Subscribe &amp; Save Up To 20%</span>
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.75 7H11.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M7 2.75L7 11.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
+                          </button>
+                          <!-- Subscribe Body (hidden by default) -->
+                          <div class="cart-drawer__subscribe-body" style="display:none;">
+                            <div class="cart-drawer__subscribe-benefits">
+                              <div class="cart-drawer__subscribe-bullet">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span>Save 20% On Every Order</span>
+                              </div>
+                              <div class="cart-drawer__subscribe-bullet">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span>Pause &amp; Cancel Anytime</span>
+                              </div>
+                            </div>
+                            <!-- Variant Dropdown (Subscribe) -->
+                            <div class="cart-items__variant-select">
+                              <select>
+                                <option>Every 30 Days</option>
+                                <option>Every 60 Days</option>
+                                <option>Every 90 Days</option>
+                              </select>
+                            </div>
+                            <!-- Subscribe Button -->
+                            <button type="button" class="cart-drawer__subscribe-btn">Subscribe &amp; Save &rarr;</button>
+                          </div>
+                        </div>
+                        <!-- Quantity + Remove -->
+                        <div class="cart-items__quantity-controls">
+                          <div class="quantity-selector-wrapper">
+                            <cart-quantity-selector-component class="quantity-selector cart-primary-typography" data-variant-id="67890">
+                              <button class="button quantity-minus button-unstyled" type="button" name="minus">
+                                <span class="visually-hidden">Decrease quantity</span>
+                                <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
+                              </button>
+                              <input type="number" name="updates[]" value="1" min="1" aria-label="Quantity">
+                              <button class="button quantity-plus button-unstyled" type="button" name="plus">
+                                <span class="visually-hidden">Increase quantity</span>
+                                <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="vertical" d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path><path class="horizontal" d="M7 2.75L7 11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
+                              </button>
+                            </cart-quantity-selector-component>
+                          </div>
+
+                          <button class="button cart-items__remove" type="button" aria-label="Remove Berberine Complex">
+                            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path class="remove-icon-bottom" d="M11.5 9v4.25M8.5 9v4.25M5.75 12.2V6h8.5c0 2.421 0 3.779 0 6.2 0 .853 0 1.447-.038 1.91-.037.453-.106.714-.207.911a2.498 2.498 0 0 1-.983 1.017c-.197.1-.458.17-.911.207-.463.037-1.057.038-1.91.038h-.4c-.853 0-1.447 0-1.91-.038-.453-.037-.714-.106-.911-.207a2.498 2.498 0 0 1-.984-1.017c-.1-.197-.17-.458-.207-.911C5.75 13.647 5.75 13.053 5.75 12.2z" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path>
+                              <path class="remove-icon-top" d="M4.25 6h11.5M8 5.25a2 2 0 1 1 4 0" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <span class="visually-hidden">Remove</span>
+                          </button>
+                        </div>
+                      </td>
+                      <td class="cart-items__price cart-secondary-typography" role="cell" headers="productTotal-2a">
+                        <text-component value="$79.99">$79.99</text-component>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+
+        </scroll-hint>
+
+        <!-- Summary / Footer -->
+        <div class="cart-drawer__summary">
+          <div class="cart-totals">
+            <div class="cart-totals__original-container cart-primary-typography"></div>
+            <div class="cart-actions"></div>
+            <div class="cart-totals__container">
+              <!-- Trust Badges -->
+              <div class="cart-drawer__badges">
+                <div class="cart-drawer__badge">
+                  <div class="cart-drawer__badge-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#707c86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  </div>
+                  <span class="cart-drawer__badge-text">Australian Made &amp; Owned</span>
+                </div>
+                <div class="cart-drawer__badge">
+                  <div class="cart-drawer__badge-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#707c86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  </div>
+                  <span class="cart-drawer__badge-text">Clinically Proven Ingredients</span>
+                </div>
+                <div class="cart-drawer__badge">
+                  <div class="cart-drawer__badge-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#707c86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                  </div>
+                  <span class="cart-drawer__badge-text">Third Party Tested</span>
+                </div>
+              </div>
+
+              <div class="cart-totals__item cart-totals__tax-note cart-totals__tax-note--center cart-primary-typography">
+                <small>Prices in AUD. Tax included. Shipping calculated at checkout.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="cart__ctas">
+            <button type="submit" id="checkout-2items" class="cart__checkout-button cart__checkout-button--split button" name="checkout" form="cart-form-2items">
+              <span class="cart__checkout-price">$159.98</span>
+              <span class="cart__checkout-cta">Checkout <span>&rarr;</span></span>
+            </button>
+          </div>
+        </div>
+
+      </scroll-hint>
+
+    </cart-items-component>
+  </div>
+</dialog>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- STATE 4: PC 2 ITEMS NORMAL (no subscribe)                    -->
+<!-- ============================================================ -->
+<div class="cart-state" id="state-pc-2items-normal">
+<dialog open class="cart-drawer__dialog dialog-modal dialog-drawer color-scheme-1">
+  <span class="visually-hidden" role="status"></span>
+  <div class="cart-drawer__inner" data-hydration-key="cart-drawer-inner">
+
+    <cart-items-component class="cart-items-component" data-drawer data-section-id="cart-drawer">
+
+      <!-- Header -->
+      <div class="cart-drawer__header" id="cart-drawer-header-2items-normal">
+        <h2 class="cart-drawer__heading h4" id="cart-drawer-heading-2items-normal">
+          Your Cart
+          <div class="cart-bubble" data-maintain-ratio>
+            <span class="cart-bubble__background"></span>
+            <span class="cart-bubble__text">
+              <span class="cart-bubble__text-count" aria-hidden="true" data-testid="cart-bubble">2</span>
+            </span>
+          </div>
+        </h2>
+        <button class="button close-button cart-drawer__close-button button-unstyled" aria-label="Close dialog">
+          <span class="svg-wrapper"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 2L2 12" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M12 12L2 2" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg></span>
+        </button>
+      </div>
+
+      <!-- Scrollable Content -->
+      <scroll-hint class="cart-drawer__content" aria-label="Cart">
+        <scroll-hint class="cart-drawer__items">
+
+          <!-- Free Shipping Progress (Unlocked) -->
+          <div class="cart-drawer__progress">
+            <p class="cart-drawer__progress-text">
+              Congrats, you have unlocked <strong>free shipping</strong>
+            </p>
+            <div class="cart-drawer__progress-bar">
+              <div class="cart-drawer__progress-fill" style="width:100%;"></div>
+            </div>
+          </div>
+
+          <!-- Cart Items -->
+          <div class="cart-items__wrapper">
+            <span class="visually-hidden" aria-hidden="true">2</span>
+            <form action="/cart" class="cart-form" id="cart-form-2items-normal" method="post">
+              <div class="cart-items spacing-style">
+                <table class="cart-items__table" role="table">
+                  <caption class="visually-hidden" role="caption">Cart total <span>$159.98 AUD</span></caption>
+                  <thead class="visually-hidden" role="rowgroup">
+                    <tr role="row" class="cart-items__table-row">
+                      <th id="productImage-3a" scope="col" role="columnheader">Product image</th>
+                      <th id="productInformation-3a" scope="col" role="columnheader">Product information</th>
+                      <th id="quantity-3a" scope="col" role="columnheader">Quantity</th>
+                      <th id="productTotal-3a" scope="col" role="columnheader">Product total</th>
+                    </tr>
+                  </thead>
+                  <tbody role="rowgroup">
+
+                    <!-- Product 1: Time Capsule -->
+                    <tr role="row" class="cart-items__table-row cart-items__table-row--full-width-variants">
+                      <td class="cart-items__media" role="cell" headers="productImage-3a">
+                        <a href="/products/time-capsule" class="cart-items__media-container">
+                          <img src="https://placehold.co/250x250/e8f0fe/1d4ed8?text=Time+Capsule" alt="Time Capsule Daily Longevity Complex" width="250" height="250" class="cart-items__media-image border-style">
+                        </a>
+                      </td>
+                      <td class="cart-items__details cart-primary-typography" role="cell" headers="productInformation-3a">
+                        <div class="cart-items__product-info">
+                          <p><a href="/products/time-capsule" class="cart-items__title">Time Capsule Daily Longevity Complex</a></p>
+                        </div>
+                        <div class="cart-items__variants-wrapper">
+                          <div class="cart-items__price-wrapper">
+                            <span class="cart-items__original-price">$99.99</span>
+                            <span class="cart-items__sale-price">$79.99</span>
+                          </div>
+                        </div>
+                        <div class="cart-items__unit-price-wrapper">
+                          <div>
+                            <span class="visually-hidden">Price</span>
+                            <span class="cart-items__description">The All-In-One Longevity Formula</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="cart-items__quantity" role="cell" headers="quantity-3a">
+                        <!-- Variant Dropdown -->
+                        <div class="cart-items__variant-select">
+                          <select>
+                            <option selected>1 Month Supply</option>
+                            <option>2 Month Supply</option>
+                            <option>3 Month Supply</option>
+                          </select>
+                        </div>
+                        <!-- Quantity + Remove -->
+                        <div class="cart-items__quantity-controls">
+                          <div class="quantity-selector-wrapper">
+                            <cart-quantity-selector-component class="quantity-selector cart-primary-typography" data-variant-id="12345">
+                              <button class="button quantity-minus button-unstyled" type="button" name="minus">
+                                <span class="visually-hidden">Decrease quantity</span>
+                                <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
+                              </button>
+                              <input type="number" name="updates[]" value="1" min="1" aria-label="Quantity">
+                              <button class="button quantity-plus button-unstyled" type="button" name="plus">
+                                <span class="visually-hidden">Increase quantity</span>
+                                <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="vertical" d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path><path class="horizontal" d="M7 2.75L7 11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
+                              </button>
+                            </cart-quantity-selector-component>
+                          </div>
+
+                          <button class="button cart-items__remove" type="button" aria-label="Remove Time Capsule Daily Longevity Complex">
+                            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path class="remove-icon-bottom" d="M11.5 9v4.25M8.5 9v4.25M5.75 12.2V6h8.5c0 2.421 0 3.779 0 6.2 0 .853 0 1.447-.038 1.91-.037.453-.106.714-.207.911a2.498 2.498 0 0 1-.983 1.017c-.197.1-.458.17-.911.207-.463.037-1.057.038-1.91.038h-.4c-.853 0-1.447 0-1.91-.038-.453-.037-.714-.106-.911-.207a2.498 2.498 0 0 1-.984-1.017c-.1-.197-.17-.458-.207-.911C5.75 13.647 5.75 13.053 5.75 12.2z" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path>
+                              <path class="remove-icon-top" d="M4.25 6h11.5M8 5.25a2 2 0 1 1 4 0" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <span class="visually-hidden">Remove</span>
+                          </button>
+                        </div>
+                      </td>
+                      <td class="cart-items__price cart-secondary-typography" role="cell" headers="productTotal-3a">
+                        <text-component value="$79.99">$79.99</text-component>
+                      </td>
+                    </tr>
+
+                    <!-- Product 2: Berberine Complex (normal, no subscribe) -->
+                    <tr role="row" class="cart-items__table-row cart-items__table-row--full-width-variants">
+                      <td class="cart-items__media" role="cell" headers="productImage-3a">
+                        <a href="/products/berberine-complex" class="cart-items__media-container">
+                          <img src="https://placehold.co/250x250/e8f0fe/1d4ed8?text=Berberine" alt="Berberine Complex" width="250" height="250" class="cart-items__media-image border-style">
+                        </a>
+                      </td>
+                      <td class="cart-items__details cart-primary-typography" role="cell" headers="productInformation-3a">
+                        <div class="cart-items__product-info">
+                          <p><a href="/products/berberine-complex" class="cart-items__title">Berberine Complex</a></p>
+                        </div>
+                        <div class="cart-items__variants-wrapper">
+                          <div class="cart-items__price-wrapper">
+                            <span class="cart-items__original-price">$99.99</span>
+                            <span class="cart-items__sale-price">$79.99</span>
+                          </div>
+                        </div>
+                        <div class="cart-items__unit-price-wrapper">
+                          <div>
+                            <span class="visually-hidden">Price</span>
+                            <span class="cart-items__description">Metabolism Support with Advanced Absorption</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="cart-items__quantity" role="cell" headers="quantity-3a">
+                        <!-- Variant Dropdown -->
+                        <div class="cart-items__variant-select">
+                          <select>
+                            <option selected>1 Month Supply</option>
+                            <option>2 Month Supply</option>
+                            <option>3 Month Supply</option>
+                          </select>
+                        </div>
+                        <!-- Quantity + Remove -->
+                        <div class="cart-items__quantity-controls">
+                          <div class="quantity-selector-wrapper">
+                            <cart-quantity-selector-component class="quantity-selector cart-primary-typography" data-variant-id="67890">
+                              <button class="button quantity-minus button-unstyled" type="button" name="minus">
+                                <span class="visually-hidden">Decrease quantity</span>
+                                <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
+                              </button>
+                              <input type="number" name="updates[]" value="1" min="1" aria-label="Quantity">
+                              <button class="button quantity-plus button-unstyled" type="button" name="plus">
+                                <span class="visually-hidden">Increase quantity</span>
+                                <span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="vertical" d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path><path class="horizontal" d="M7 2.75L7 11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span>
+                              </button>
+                            </cart-quantity-selector-component>
+                          </div>
+
+                          <button class="button cart-items__remove" type="button" aria-label="Remove Berberine Complex">
+                            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path class="remove-icon-bottom" d="M11.5 9v4.25M8.5 9v4.25M5.75 12.2V6h8.5c0 2.421 0 3.779 0 6.2 0 .853 0 1.447-.038 1.91-.037.453-.106.714-.207.911a2.498 2.498 0 0 1-.983 1.017c-.197.1-.458.17-.911.207-.463.037-1.057.038-1.91.038h-.4c-.853 0-1.447 0-1.91-.038-.453-.037-.714-.106-.911-.207a2.498 2.498 0 0 1-.984-1.017c-.1-.197-.17-.458-.207-.911C5.75 13.647 5.75 13.053 5.75 12.2z" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path>
+                              <path class="remove-icon-top" d="M4.25 6h11.5M8 5.25a2 2 0 1 1 4 0" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <span class="visually-hidden">Remove</span>
+                          </button>
+                        </div>
+                      </td>
+                      <td class="cart-items__price cart-secondary-typography" role="cell" headers="productTotal-3a">
+                        <text-component value="$79.99">$79.99</text-component>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+
+          <!-- Upsell Section -->
+          <div class="cart-drawer__upsell">
+            <!-- Title + Dots -->
+            <div class="cart-drawer__upsell-header">
+              <span class="cart-drawer__upsell-title">You might also like</span>
+              <div class="cart-drawer__upsell-dots">
+                <span class="cart-drawer__upsell-dot is-active"></span>
+                <span class="cart-drawer__upsell-dot"></span>
+              </div>
+            </div>
+            <!-- Upsell Product -->
+            <div class="cart-drawer__upsell-product">
+              <div class="cart-drawer__upsell-img">
+                <img src="https://placehold.co/128x128/e8f0fe/1d4ed8?text=NMN" alt="NMN Complex" width="128" height="128">
+              </div>
+              <div class="cart-drawer__upsell-info">
+                <span class="cart-drawer__upsell-name">NMN Complex</span>
+                <div class="cart-drawer__upsell-prices">
+                  <span class="original">$99.99</span>
+                  <span class="sale">$79.99</span>
+                </div>
+                <span class="cart-drawer__upsell-desc">Cellular Energy &amp; DNA Repair</span>
+              </div>
+            </div>
+            <!-- Add Button -->
+            <button type="button" class="cart-drawer__upsell-add">Add</button>
+          </div>
+
+        </scroll-hint>
+
+        <!-- Summary / Footer -->
+        <div class="cart-drawer__summary">
+          <div class="cart-totals">
+            <div class="cart-totals__original-container cart-primary-typography"></div>
+            <div class="cart-actions"></div>
+            <div class="cart-totals__container">
+              <!-- Trust Badges -->
+              <div class="cart-drawer__badges">
+                <div class="cart-drawer__badge">
+                  <div class="cart-drawer__badge-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#707c86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  </div>
+                  <span class="cart-drawer__badge-text">Australian Made &amp; Owned</span>
+                </div>
+                <div class="cart-drawer__badge">
+                  <div class="cart-drawer__badge-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#707c86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  </div>
+                  <span class="cart-drawer__badge-text">Clinically Proven Ingredients</span>
+                </div>
+                <div class="cart-drawer__badge">
+                  <div class="cart-drawer__badge-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#707c86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                  </div>
+                  <span class="cart-drawer__badge-text">Third Party Tested</span>
+                </div>
+              </div>
+
+              <div class="cart-totals__item cart-totals__tax-note cart-totals__tax-note--center cart-primary-typography">
+                <small>Prices in AUD. Tax included. Shipping calculated at checkout.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="cart__ctas">
+            <button type="submit" id="checkout-2items-normal" class="cart__checkout-button cart__checkout-button--split button" name="checkout" form="cart-form-2items-normal">
+              <span class="cart__checkout-price">$159.98</span>
+              <span class="cart__checkout-cta">Checkout <span>&rarr;</span></span>
+            </button>
+          </div>
+        </div>
+
+      </scroll-hint>
+
+    </cart-items-component>
+  </div>
+</dialog>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- JavaScript: State Toggling + Mobile Toggle                   -->
+<!-- ============================================================ -->
+<script>
+function showState(stateId) {
+  // Hide all states
+  document.querySelectorAll('.cart-state').forEach(function(el) {
+    el.classList.remove('is-active');
+  });
+  // Show target
+  var target = document.getElementById('state-' + stateId);
+  if (target) {
+    target.classList.add('is-active');
+  }
+  // Update active button
+  document.querySelectorAll('.state-controls button').forEach(function(btn) {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+}
+
+var isMobile = false;
+function toggleMobile() {
+  isMobile = !isMobile;
+  var viewport = document.querySelector('meta[name="viewport"]');
+  if (isMobile) {
+    viewport.setAttribute('content', 'width=428, initial-scale=1.0');
+    event.target.textContent = 'Toggle Desktop';
+    event.target.classList.add('active');
+  } else {
+    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+    event.target.textContent = 'Toggle Mobile';
+    event.target.classList.remove('active');
+  }
+}
+</script>
 
 </body>
 </html>

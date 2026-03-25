@@ -510,6 +510,10 @@
 		line-height: 1.4 !important;
 		color: $color-slate !important;
 	}
+
+	&--center {
+		text-align: center !important;
+	}
 }
 
 // ---- Checkout Button ----
@@ -544,6 +548,324 @@
 // ---- Cart Actions (Discount) ----
 .cart-actions {
 	display: none !important;
+}
+
+// ---- Free Shipping Progress Bar ----
+.cart-drawer__progress {
+	padding-bottom: responsive($spacing-16);
+}
+
+.cart-drawer__progress-text {
+	@include body-text($font-size-caption, 400, 1.4);
+	color: $color-slate;
+	margin-bottom: responsive($spacing-8);
+
+	strong {
+		color: $color-dark;
+		font-weight: 700;
+	}
+}
+
+.cart-drawer__progress-bar {
+	width: 100%;
+	height: 8px;
+	background: $color-mist-50;
+	border-radius: $radius-full;
+	overflow: hidden;
+}
+
+.cart-drawer__progress-fill {
+	height: 100%;
+	background: $color-neon-tide;
+	border-radius: $radius-full;
+}
+
+// ---- Variant Dropdown ----
+.cart-items__variant-select {
+	width: 100%;
+	margin-bottom: responsive($spacing-12);
+
+	select {
+		width: 100%;
+		height: 40px;
+		border: 1px solid #e5e5e5;
+		border-radius: $radius-md;
+		padding: 0 36px 0 16px;
+		font-family: $font-body;
+		font-size: $font-size-caption;
+		font-weight: 500;
+		color: $color-dark;
+		background: $color-white url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23232527%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22/></svg>') no-repeat right 12px center;
+		background-size: 16px;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		box-shadow: $shadow-xs;
+		cursor: pointer;
+	}
+}
+
+// ---- Upsell Section ----
+.cart-drawer__upsell {
+	padding-top: responsive($spacing-16);
+	border-top: 1px solid $color-mist-50;
+	margin-top: responsive($spacing-16);
+}
+
+.cart-drawer__upsell-header {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: responsive($spacing-16);
+}
+
+.cart-drawer__upsell-title {
+	@include body-text($font-size-p2, 500, 1.4);
+	color: $color-dark;
+}
+
+.cart-drawer__upsell-dots {
+	display: flex;
+	flex-flow: row wrap;
+	gap: responsive($spacing-12);
+	align-items: center;
+}
+
+.cart-drawer__upsell-dot {
+	display: block;
+	width: 8px;
+	height: 8px;
+	flex-shrink: 0;
+	border-radius: $radius-full;
+	background: $color-mist-50;
+
+	&.is-active {
+		background: $color-neon-tide;
+	}
+}
+
+.cart-drawer__upsell-product {
+	display: flex;
+	flex-flow: row wrap;
+	gap: responsive($spacing-12);
+	align-items: flex-start;
+}
+
+.cart-drawer__upsell-img {
+	width: 64px;
+	height: 64px;
+	flex-shrink: 0;
+	border-radius: 5.5px;
+	overflow: hidden;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
+
+.cart-drawer__upsell-info {
+	flex: 1 1 0;
+	min-width: 0;
+	display: flex;
+	flex-flow: column nowrap;
+	gap: $spacing-4;
+}
+
+.cart-drawer__upsell-name {
+	@include body-text($font-size-caption, 500, 1.3);
+	color: $color-dark;
+}
+
+.cart-drawer__upsell-prices {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	gap: $spacing-4;
+
+	.original {
+		font-size: $font-size-caption;
+		font-weight: 500;
+		color: $color-slate;
+		text-decoration: line-through;
+	}
+
+	.sale {
+		font-size: $font-size-caption;
+		font-weight: 500;
+		color: $color-dark;
+	}
+}
+
+.cart-drawer__upsell-desc {
+	@include body-text($font-size-caption, 400, 1.4);
+	color: $color-slate;
+}
+
+.cart-drawer__upsell-add {
+	@include btn-primary;
+	width: 100%;
+	min-height: 48px;
+	margin-top: responsive($spacing-16);
+	font-size: $font-size-p2;
+	line-height: 1.4;
+	border-radius: $radius-md;
+}
+
+// ---- Trust Badges ----
+.cart-drawer__badges {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	gap: responsive($spacing-16);
+	padding: responsive($spacing-8) 0;
+}
+
+.cart-drawer__badge {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	gap: 6px;
+	flex: 1 1 0;
+	min-width: 0;
+	text-align: center;
+}
+
+.cart-drawer__badge-icon {
+	width: 32px;
+	height: 32px;
+	flex-shrink: 0;
+	border-radius: 4.83px;
+	background: $color-mist-50;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.cart-drawer__badge-text {
+	@include body-text($font-size-caption, 400, 1.4);
+	color: $color-slate;
+}
+
+// ---- Checkout Button with Price ----
+.cart__checkout-button--split {
+	justify-content: space-between !important;
+}
+
+.cart__checkout-price {
+	font-family: $font-body;
+	font-size: responsive($font-size-p1);
+	font-weight: 500;
+	color: $color-neon-tide-300;
+}
+
+.cart__checkout-cta {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	gap: 6px;
+	font-family: $font-body;
+	font-size: responsive($font-size-p1);
+	font-weight: 500;
+	color: $color-white;
+}
+
+// ---- Subscribe & Save ----
+.cart-drawer__subscribe {
+	width: 100%;
+	background: $color-neon-tide;
+	border-radius: $radius-md;
+	overflow: hidden;
+}
+
+.cart-drawer__subscribe-toggle {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: responsive($spacing-12) responsive($spacing-16);
+	background: $color-neon-tide;
+	color: $color-white;
+	font-family: $font-body;
+	font-size: $font-size-p3;
+	font-weight: 500;
+	line-height: 1.4;
+	cursor: pointer;
+	border-radius: $radius-md;
+}
+
+.cart-drawer__subscribe-body {
+	padding: 0 responsive($spacing-16) responsive($spacing-16);
+}
+
+.cart-drawer__subscribe-benefits {
+	display: flex;
+	flex-flow: row wrap;
+	gap: responsive($spacing-12);
+	margin-bottom: responsive($spacing-12);
+}
+
+.cart-drawer__subscribe-bullet {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	gap: responsive($spacing-8);
+	@include body-text($font-size-caption, 400, 1.4);
+	color: $color-white;
+}
+
+.cart-drawer__subscribe-btn {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	width: 100%;
+	height: 40px;
+	background: $color-white;
+	color: $color-neon-tide;
+	font-family: $font-body;
+	font-size: $font-size-p3;
+	font-weight: 500;
+	border: none;
+	border-radius: $radius-md;
+	cursor: pointer;
+}
+
+// ---- Empty Cart Showcase ----
+.cart-drawer__showcase {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: responsive($spacing-40) responsive($spacing-24);
+	gap: responsive($spacing-16);
+}
+
+.cart-drawer__showcase-img {
+	width: 100%;
+	max-width: 300px;
+	aspect-ratio: 4 / 3;
+	border-radius: $radius-lg;
+	overflow: hidden;
+	margin-bottom: responsive($spacing-16);
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
+
+.cart-drawer__showcase-subtitle {
+	@include body-text($font-size-p3, 400, 1.4);
+	color: $color-slate;
 }
 
 // ---- Empty Cart State ----
