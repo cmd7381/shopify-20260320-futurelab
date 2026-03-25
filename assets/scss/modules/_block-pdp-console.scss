@@ -712,10 +712,10 @@
 
 // ---- PDP Image Lightbox ----
 .pdp-lightbox {
-	display: none;
 	position: fixed;
 	inset: 0;
 	z-index: $z-modal;
+	@include overlay;
 
 	&__overlay {
 		position: absolute;

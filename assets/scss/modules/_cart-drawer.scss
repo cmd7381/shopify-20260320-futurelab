@@ -2,85 +2,125 @@
 @use '../helpers/mixins' as *;
 
 // ============================================
-// Cart Drawer — Shopify cart slide-out panel
-// Overrides Horizon theme defaults
+// Cart Drawer — Shopify Horizon theme overrides
+// Shopify uses high-specificity selectors + :modal + CSS Grid
+// We use .cart-drawer prefix + !important where needed
 // ============================================
 
 // ---- Backdrop / Mask ----
-// Shopify uses <dialog>::backdrop — style like nav-menu__mask
 .cart-drawer__dialog::backdrop {
-	background: rgba(112, 124, 134, 0.25);
-	backdrop-filter: blur(5px);
-	-webkit-backdrop-filter: blur(5px);
+	background: rgba(112, 124, 134, 0.25) !important;
+	backdrop-filter: blur(5px) !important;
+	-webkit-backdrop-filter: blur(5px) !important;
 }
 
 // ---- Dialog Container ----
+// Shopify sets: width:100%; height:100%; border-radius:0; margin:0 0 0 auto;
+// :modal pseudo-class has higher specificity
 .cart-drawer__dialog {
-	position: fixed;
-	top: responsive($spacing-24);
-	right: responsive($spacing-24);
-	bottom: responsive($spacing-24);
-	left: auto;
-	width: size(444, 1440);
-	max-width: calc(100% - responsive($spacing-24) * 2);
-	background: $color-white;
-	border: none;
-	border-radius: $radius-lg;
-	overflow: hidden;
-	padding: 0;
-	display: flex;
-	flex-flow: column nowrap;
-	z-index: $z-modal;
-	box-shadow: 0 12px 16px rgba(10, 13, 18, 0.08), 0 4px 6px rgba(10, 13, 18, 0.03);
+	position: fixed !important;
+	top: responsive($spacing-24) !important;
+	right: responsive($spacing-24) !important;
+	bottom: responsive($spacing-24) !important;
+	left: auto !important;
+	width: size(444, 1440) !important;
+	max-width: calc(100% - responsive($spacing-24) * 2) !important;
+	height: auto !important;
+	max-height: none !important;
+	background: $color-white !important;
+	border: none !important;
+	border-left: none !important;
+	border-radius: $radius-lg !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: $z-modal !important;
+	box-shadow:
+		0 12px 16px rgba(10, 13, 18, 0.08),
+		0 4px 6px rgba(10, 13, 18, 0.03),
+		0 2px 2px rgba(10, 13, 18, 0.04) !important;
+
+	&[open] {
+		display: flex !important;
+		flex-flow: column nowrap !important;
+	}
 
 	@include tablet-down {
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		max-width: 100%;
-		border-radius: 0;
+		top: 0 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		left: 0 !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		border-radius: 0 !important;
 	}
+}
+
+// Override :modal specificity
+.cart-drawer__dialog:modal {
+	max-height: none !important;
+	overflow-y: hidden !important;
 }
 
 // ---- Inner ----
 .cart-drawer__inner {
-	display: flex;
-	flex-flow: column nowrap;
-	height: 100%;
+	display: flex !important;
+	flex-flow: column nowrap !important;
+	height: 100% !important;
+	overflow: hidden !important;
 }
 
 .cart-items-component {
-	display: flex;
-	flex-flow: column nowrap;
-	height: 100%;
+	display: flex !important;
+	flex-flow: column nowrap !important;
+	height: 100% !important;
 }
 
 // ---- Header ----
+// Shopify: sticky, border-bottom, padding via --cart-drawer-padding
 .cart-drawer__header {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-between;
-	align-items: flex-start;
-	padding: responsive($spacing-24) responsive($spacing-24) responsive($spacing-16);
+	display: flex !important;
+	flex-flow: row wrap !important;
+	justify-content: space-between !important;
+	align-items: center !important;
+	padding: responsive($spacing-24) responsive($spacing-24) responsive($spacing-16) !important;
 	flex-shrink: 0;
+	position: sticky !important;
+	top: 0 !important;
+	z-index: 1;
+	background-color: $color-white !important;
+	border-bottom: none !important;
 }
 
+// Shopify: .cart-drawer__heading has font from theme
 .cart-drawer__heading {
-	@include heading($font-size-h4, 400, $lh-h4);
-	color: $color-dark;
+	display: flex !important;
+	align-items: center !important;
+	gap: responsive($spacing-8) !important;
+	margin-bottom: 0 !important;
+	font-family: $font-heading !important;
+	font-size: responsive($font-size-h4) !important;
+	font-weight: 400 !important;
+	line-height: $lh-h4 !important;
+	letter-spacing: -0.72px !important;
+	color: $color-dark !important;
 }
 
 .cart-drawer__close-button {
-	display: flex;
+	display: flex !important;
 	flex-flow: row wrap;
 	align-items: center;
 	justify-content: center;
-	width: 24px;
-	height: 24px;
+	width: 24px !important;
+	height: 24px !important;
 	flex-shrink: 0;
-	color: $color-dark;
+	color: $color-dark !important;
+	margin-right: 0 !important;
+	top: auto !important;
+	border-radius: 0 !important;
+	background: transparent !important;
+	box-shadow: none !important;
+	padding: 0 !important;
 
 	.svg-wrapper svg {
 		width: 14px;
@@ -89,71 +129,100 @@
 }
 
 // ---- Cart Bubble (item count) ----
-.cart-bubble {
-	display: inline-flex;
-	flex-flow: row wrap;
-	align-items: center;
-	justify-content: center;
-	position: relative;
-	margin-left: responsive($spacing-4);
+// Shopify: .cart-drawer__heading .cart-bubble has higher specificity
+.cart-drawer__heading .cart-bubble {
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	position: relative !important;
+	width: auto !important;
+	height: auto !important;
+	aspect-ratio: auto !important;
+	padding: 0 !important;
+	border-radius: $radius-full !important;
+	margin-left: $spacing-4;
 	vertical-align: middle;
 }
 
-.cart-bubble__background {
-	position: absolute;
-	inset: 0;
-	background: $color-neon-tide;
-	border-radius: $radius-full;
+.cart-drawer__heading .cart-bubble[data-maintain-ratio] {
+	width: auto !important;
+	height: auto !important;
 }
 
-.cart-bubble__text {
-	position: relative;
-	z-index: 1;
-	@include body-text($font-size-caption, 500, 1.5);
-	color: $color-white;
+.cart-drawer__heading .cart-bubble .cart-bubble__background {
+	position: absolute !important;
+	inset: 0 !important;
+	background: $color-neon-tide !important;
+	background-color: $color-neon-tide !important;
+	border-radius: $radius-full !important;
+}
+
+.cart-drawer__heading .cart-bubble__text {
+	position: relative !important;
+	z-index: 1 !important;
+	font-family: $font-body !important;
+	font-size: $font-size-caption !important;
+	font-weight: 500 !important;
+	line-height: 1.5 !important;
+	color: $color-white !important;
 	min-width: 24px;
 	height: 24px;
-	display: flex;
-	flex-flow: row wrap;
-	align-items: center;
-	justify-content: center;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
 }
 
 // ---- Scrollable Content Area ----
+// Shopify: .cart-drawer__content has height calc, flex, overflow
 .cart-drawer__content {
-	display: flex;
-	flex-flow: column nowrap;
-	flex: 1 1 auto;
-	overflow: hidden;
+	display: flex !important;
+	flex-flow: column nowrap !important;
+	flex: 1 1 auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	background-color: $color-white !important;
 }
 
+// Shopify: .cart-drawer__items uses padding-inline via CSS var
 .cart-drawer__items {
-	flex: 1 1 auto;
-	overflow-y: auto;
+	flex: 1 1 auto !important;
+	overflow-y: auto !important;
 	overscroll-behavior: contain;
 	-webkit-overflow-scrolling: touch;
-	padding: 0 responsive($spacing-24);
+	padding: 0 responsive($spacing-24) !important;
 }
 
 // ---- Cart Items Table ----
 .cart-items__table {
 	width: 100%;
+	border-spacing: 0 !important;
 }
 
+// Shopify uses CSS Grid! We override back to flex
 .cart-items__table-row {
-	display: flex;
-	flex-flow: row wrap;
-	gap: responsive($spacing-8) responsive($spacing-16);
-	padding: responsive($spacing-16) 0;
-	border-bottom: 1px solid $color-mist-50;
+	display: flex !important;
+	flex-flow: row wrap !important;
+	gap: responsive($spacing-8) responsive($spacing-16) !important;
+	padding: responsive($spacing-16) 0 !important;
+	border-bottom: 1px solid $color-mist-50 !important;
+	margin-bottom: 0 !important;
+	grid-template-columns: none !important;
+	grid-template-areas: none !important;
 
 	&:last-child {
-		border-bottom: none;
+		border-bottom: none !important;
+		padding-bottom: 0 !important;
+		margin-bottom: 0 !important;
 	}
 }
 
-// Full-width variants: image+details top row, quantity full width below
+// Shopify: .cart-drawer .cart-items__table-row--full-width-variants
+.cart-drawer .cart-items__table-row--full-width-variants,
 .cart-items__table-row--full-width-variants {
+	grid-template-columns: none !important;
+	grid-template-areas: none !important;
+
 	.cart-items__quantity {
 		flex-basis: 100%;
 		padding-top: responsive($spacing-8);
@@ -163,104 +232,156 @@
 // ---- Product Image ----
 .cart-items__media {
 	flex-shrink: 0;
+	padding: 0 !important;
+	grid-area: auto !important;
 }
 
 .cart-items__media-container {
-	display: block;
-	width: 93px;
-	height: 93px;
-	border-radius: $radius-md;
-	overflow: hidden;
+	display: block !important;
+	width: 93px !important;
+	height: 93px !important;
+	border-radius: $radius-md !important;
+	overflow: hidden !important;
 	flex-shrink: 0;
+	aspect-ratio: auto !important;
 }
 
 .cart-items__media-image {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	border-radius: $radius-md;
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: cover !important;
+	border-radius: $radius-md !important;
 }
 
 // ---- Product Details ----
+// Shopify sets display:contents on .cart-items__details — MUST override
 .cart-items__details {
-	flex: 1 1 0;
+	display: flex !important;
+	flex-flow: column nowrap !important;
+	flex: 1 1 0 !important;
 	min-width: 0;
-	display: flex;
-	flex-flow: column nowrap;
-	gap: responsive($spacing-4);
+	gap: $spacing-4 !important;
+	grid-area: auto !important;
+	color: $color-dark !important;
+}
+
+// Shopify: .cart-items__details * sets font-size
+.cart-items__details * {
+	font-size: inherit;
 }
 
 .cart-items__title {
-	@include body-text($font-size-p2, 500, 1.4);
-	color: $color-dark;
-	text-decoration: none;
+	font-family: $font-body !important;
+	font-size: $font-size-p2 !important;
+	font-weight: 500 !important;
+	line-height: 1.4 !important;
+	color: $color-dark !important;
+	text-decoration: none !important;
+	display: block !important;
+	margin: 0 !important;
 }
 
 // ---- Price Display ----
 .cart-items__price-wrapper {
-	display: flex;
-	flex-flow: row wrap;
-	align-items: center;
-	gap: responsive($spacing-4);
+	display: flex !important;
+	flex-flow: row wrap !important;
+	align-items: center !important;
+	gap: $spacing-4 !important;
 }
 
 .cart-items__original-price {
-	@include body-text($font-size-p3, 500, 1.4);
-	color: $color-slate;
-	text-decoration: line-through;
+	font-family: $font-body !important;
+	font-size: $font-size-p3 !important;
+	font-weight: 500 !important;
+	line-height: 1.4 !important;
+	color: $color-slate !important;
+	text-decoration: line-through !important;
 }
 
 .cart-items__sale-price {
-	@include body-text($font-size-p3, 500, 1.4);
-	color: $color-dark;
+	font-family: $font-body !important;
+	font-size: $font-size-p3 !important;
+	font-weight: 500 !important;
+	line-height: 1.4 !important;
+	color: $color-dark !important;
 }
 
 // ---- Product Description ----
 .cart-items__description {
-	@include body-text($font-size-caption, 400, 1.4);
-	color: $color-slate;
+	font-family: $font-body !important;
+	font-size: $font-size-caption !important;
+	font-weight: 400 !important;
+	line-height: 1.4 !important;
+	color: $color-slate !important;
 }
 
 .cart-items__unit-price-wrapper {
-	@include body-text($font-size-caption, 400, 1.4);
-	color: $color-slate;
+	font-family: $font-body !important;
+	font-size: $font-size-caption !important;
+	font-weight: 400 !important;
+	line-height: 1.4 !important;
+	color: $color-slate !important;
+	grid-area: auto !important;
+}
+
+// ---- Variants Wrapper ----
+.cart-items__variants-wrapper {
+	padding-top: responsive($spacing-8);
+	display: flex !important;
+	flex-flow: column nowrap !important;
+	gap: responsive($spacing-12) !important;
+	grid-area: auto !important;
 }
 
 // ---- Quantity Controls ----
+// Shopify: grid-area:quantity, width:fit-content
 .cart-items__quantity {
-	display: flex;
-	flex-flow: row wrap;
-	align-items: center;
-	width: 100%;
+	display: flex !important;
+	flex-flow: row wrap !important;
+	align-items: center !important;
+	width: 100% !important;
+	grid-area: auto !important;
+	margin: 0 !important;
 }
 
 .cart-items__quantity-controls {
-	display: flex;
-	flex-flow: row wrap;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
+	display: flex !important;
+	flex-flow: row wrap !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	width: 100% !important;
+	gap: 0 !important;
 }
 
+// Shopify: .quantity-selector has flex:1, border from CSS vars, height from --height-buy-buttons
+.cart-items__quantity .quantity-selector,
 .quantity-selector {
-	display: flex;
-	flex-flow: row wrap;
-	align-items: center;
-	gap: responsive($spacing-24);
-	padding: responsive($spacing-12);
-	border: 1px solid $color-mist-50;
-	border-radius: $radius-md;
-	background: $color-white;
-	box-shadow: $shadow-xs;
+	display: flex !important;
+	flex-flow: row nowrap !important;
+	align-items: center !important;
+	flex: 0 0 auto !important;
+	gap: responsive($spacing-24) !important;
+	padding: responsive($spacing-12) !important;
+	border: 1px solid #e5e5e5 !important;
+	border-radius: $radius-md !important;
+	background: $color-white !important;
+	box-shadow: $shadow-xs !important;
+	height: auto !important;
+	min-width: auto !important;
 
 	input[type='number'] {
-		width: 24px;
-		text-align: center;
-		border: none;
-		outline: none;
-		@include body-text($font-size-caption, 500, 1.3);
-		color: $color-black;
+		width: 24px !important;
+		text-align: center !important;
+		border: none !important;
+		outline: none !important;
+		font-family: $font-body !important;
+		font-size: $font-size-caption !important;
+		font-weight: 500 !important;
+		line-height: 1.3 !important;
+		color: $color-black !important;
+		background: transparent !important;
 		-moz-appearance: textfield;
+		max-width: none !important;
 
 		&::-webkit-outer-spin-button,
 		&::-webkit-inner-spin-button {
@@ -271,76 +392,123 @@
 
 	.quantity-minus,
 	.quantity-plus {
-		display: flex;
+		display: flex !important;
 		flex-flow: row wrap;
 		align-items: center;
 		justify-content: center;
-		width: 16px;
-		height: 16px;
+		width: 16px !important;
+		height: 16px !important;
 		flex-shrink: 0;
-		color: $color-dark;
+		color: $color-dark !important;
+		padding: 0 !important;
+		background: transparent !important;
+		box-shadow: none !important;
+
+		.svg-wrapper svg {
+			width: 14px !important;
+			height: 14px !important;
+		}
 	}
 }
 
 // ---- Remove Button ----
+// Shopify: width/height var(--minimum-touch-target), padding:0
 .cart-items__remove {
-	display: flex;
+	display: flex !important;
 	flex-flow: row wrap;
 	align-items: center;
 	justify-content: center;
-	padding: responsive($spacing-12);
-	border-radius: $radius-full;
-	color: $color-slate;
+	padding: responsive($spacing-12) !important;
+	border-radius: $radius-full !important;
+	color: $color-slate !important;
+	background: transparent !important;
+	box-shadow: none !important;
+	width: auto !important;
+	height: auto !important;
 	transition: color 0.2s ease;
 
 	svg {
-		width: 16px;
-		height: 16px;
+		width: 16px !important;
+		height: 16px !important;
 	}
 
 	&:hover {
-		color: $color-dark;
+		color: $color-dark !important;
 	}
 }
 
-// ---- Product Total Price (hide — shown inline in details instead) ----
+// ---- Product Total Price (hide — shown inline in details) ----
+// Shopify: display:block; grid-area:price;
 .cart-items__price {
-	display: none;
+	display: none !important;
 }
 
-// ---- Summary ----
+// ---- Summary / Footer ----
+// Shopify: sticky, mask-image, padding from CSS var
 .cart-drawer__summary {
 	flex-shrink: 0;
-	padding: 0 responsive($spacing-24) responsive($spacing-24);
+	position: sticky !important;
+	bottom: 0 !important;
+	z-index: 1;
+	display: flex !important;
+	flex-flow: column nowrap !important;
+	gap: responsive($spacing-16) !important;
+	padding: 0 responsive($spacing-16) responsive($spacing-16) !important;
+	margin-top: auto !important;
+	background-color: $color-white !important;
+	mask-image: none !important;
+	-webkit-mask-image: none !important;
+}
+
+// Shopify: .cart-totals has flex-col, gap, border
+.cart-totals {
+	display: flex !important;
+	flex-flow: column nowrap !important;
+	gap: responsive($spacing-8) !important;
+	width: 100% !important;
+	border-block-start: none !important;
+	padding-block-start: 0 !important;
 }
 
 .cart-totals__container {
-	display: flex;
-	flex-flow: column nowrap;
-	gap: responsive($spacing-8);
+	display: flex !important;
+	flex-flow: column nowrap !important;
+	gap: responsive($spacing-8) !important;
 }
 
 .cart-totals__total {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-between;
-	align-items: center;
+	display: flex !important;
+	flex-flow: row wrap !important;
+	justify-content: space-between !important;
+	align-items: center !important;
+	font-weight: 400 !important;
 }
 
 .cart-totals__total-label {
-	@include body-text($font-size-p2, 500, 1.4);
-	color: $color-dark;
+	font-family: $font-body !important;
+	font-size: $font-size-p2 !important;
+	font-weight: 500 !important;
+	line-height: 1.4 !important;
+	color: $color-dark !important;
 }
 
 .cart-totals__total-value {
-	@include body-text($font-size-p2, 500, 1.4);
-	color: $color-dark;
+	font-family: $font-body !important;
+	font-size: $font-size-p2 !important;
+	font-weight: 500 !important;
+	line-height: 1.4 !important;
+	color: $color-dark !important;
 }
 
 .cart-totals__tax-note {
+	color: $color-slate !important;
+
 	small {
-		@include body-text($font-size-caption, 400, 1.4);
-		color: $color-slate;
+		font-family: $font-body !important;
+		font-size: $font-size-caption !important;
+		font-weight: 400 !important;
+		line-height: 1.4 !important;
+		color: $color-slate !important;
 	}
 }
 
@@ -349,49 +517,67 @@
 	padding-top: responsive($spacing-16);
 }
 
+// Shopify: .cart__ctas .cart__checkout-button has higher specificity
+.cart__ctas .cart__checkout-button,
 .cart__checkout-button {
 	@include btn-primary;
-	width: 100%;
-	min-height: responsive(56px);
-	font-size: responsive($font-size-p1);
-	line-height: 1.5;
-	border-radius: $radius-md;
-	padding: responsive($spacing-16) responsive($spacing-24);
-
-	.button-text {
-		font-weight: 500;
-	}
+	width: 100% !important;
+	display: flex !important;
+	flex-flow: row wrap !important;
+	align-items: center !important;
+	justify-content: center !important;
+	min-height: responsive(56px) !important;
+	height: auto !important;
+	font-family: $font-body !important;
+	font-size: responsive($font-size-p1) !important;
+	font-weight: 500 !important;
+	line-height: 1.5 !important;
+	border-radius: $radius-md !important;
+	padding: responsive($spacing-16) responsive($spacing-24) !important;
 }
 
 // ---- Hide Third-party Payment Buttons ----
 .additional-checkout-buttons {
-	display: none;
+	display: none !important;
 }
 
 // ---- Cart Actions (Discount) ----
 .cart-actions {
-	display: none;
+	display: none !important;
 }
 
 // ---- Empty Cart State ----
 .cart-drawer--empty {
 	.cart-drawer__content {
-		justify-content: center;
-		align-items: center;
+		justify-content: center !important;
+		align-items: center !important;
+	}
+
+	.cart-drawer__inner {
+		height: auto !important;
+	}
+
+	.cart-drawer__header {
+		justify-content: flex-end !important;
+		border-bottom: none !important;
+		padding-bottom: 0 !important;
 	}
 
 	.cart-drawer__heading--empty {
-		@include heading($font-size-h4, 400, $lh-h4);
-		color: $color-dark;
-		text-align: center;
+		font-family: $font-heading !important;
+		font-size: responsive($font-size-h4) !important;
+		font-weight: 400 !important;
+		line-height: $lh-h4 !important;
+		color: $color-dark !important;
+		text-align: center !important;
 	}
 
 	.cart-items__empty-button {
 		@include btn-primary;
-		min-height: responsive(48px);
-		padding: responsive($spacing-8) responsive($spacing-20);
-		font-size: responsive($font-size-p2);
-		line-height: 1.4;
-		border-radius: $radius-md;
+		min-height: responsive(48px) !important;
+		padding: responsive($spacing-8) responsive($spacing-20) !important;
+		font-size: responsive($font-size-p2) !important;
+		line-height: 1.4 !important;
+		border-radius: $radius-md !important;
 	}
 }

@@ -259,6 +259,20 @@
 	}
 }
 
+@mixin overlay {
+	visibility: hidden;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease, visibility 0s 0.3s;
+
+	&.is-open {
+		visibility: visible;
+		opacity: 1;
+		pointer-events: auto;
+		transition: opacity 0.3s ease, visibility 0s;
+	}
+}
+
 @mixin slick-visible {
 	overflow: hidden;
 	margin-inline-end: calc(-1 * var(--container-padding));

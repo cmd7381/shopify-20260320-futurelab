@@ -115,7 +115,7 @@ var App = (function($) {
 				html = '<video controls autoplay><source src="' + videoUrl + '" type="video/mp4"></video>';
 			}
 			$content.html(html);
-			$lightbox.addClass('video-lightbox--open');
+			$lightbox.addClass('is-open');
 			PageScroll.lock();
 			$(document).on("mousewheel.vlb DOMMouseScroll.vlb touchmove.vlb", function(e) {
 				e.preventDefault();
@@ -123,7 +123,7 @@ var App = (function($) {
 		}
 
 		function close() {
-			$lightbox.removeClass('video-lightbox--open');
+			$lightbox.removeClass('is-open');
 			PageScroll.unlock();
 			setTimeout(function() {
 				$content.html("");
@@ -275,23 +275,20 @@ var App = (function($) {
 	// ============================================
 	var Dropdown = (function() {
 		function init() {
-			var $dropdowns = $(".dropdown");
-			if (!$dropdowns.length) return;
-
-			$(".dropdown__toggle").on("click", function(e) {
+			$(document).on("click", ".dropdown__toggle", function(e) {
 				e.stopPropagation();
 				var $dropdown = $(this).closest(".dropdown");
 				var $menu = $dropdown.find(".dropdown__menu");
 				var isOpen = $(this).hasClass("is-active");
 
-				$dropdowns.not($dropdown).find(".dropdown__toggle").removeClass("is-active");
-				$dropdowns.not($dropdown).find(".dropdown__menu").stop().slideUp(200);
+				$(".dropdown").not($dropdown).find(".dropdown__toggle").removeClass("is-active");
+				$(".dropdown").not($dropdown).find(".dropdown__menu").stop().slideUp(200);
 
 				$(this).toggleClass("is-active", !isOpen);
 				$menu.stop().slideToggle(200);
 			});
 
-			$(".dropdown__item").on("click", function() {
+			$(document).on("click", ".dropdown__item", function() {
 				var $dropdown = $(this).closest(".dropdown");
 				var $toggle = $dropdown.find(".dropdown__toggle");
 				var $menu = $dropdown.find(".dropdown__menu");
@@ -305,13 +302,11 @@ var App = (function($) {
 				$menu.stop().slideUp(200);
 			});
 
-			$(document).on("click", function() {
-				$(".dropdown__toggle").removeClass("is-active");
-				$(".dropdown__menu").stop().slideUp(200);
-			});
-
-			$(".dropdown__menu").on("click", function(e) {
-				e.stopPropagation();
+			$(document).on("click", function(e) {
+				if (!$(e.target).closest(".dropdown").length) {
+					$(".dropdown__toggle").removeClass("is-active");
+					$(".dropdown__menu").stop().slideUp(200);
+				}
 			});
 		}
 
@@ -369,22 +364,22 @@ var App = (function($) {
 			updateTop();
 			$(".header").addClass("is-menu-open");
 			$menu.addClass("is-open");
-			$mask.addClass("is-open");
-			$l1.addClass("is-active");
 			$shopToggle.addClass("is-open").attr("aria-expanded", "true");
 			PageScroll.lock();
 		}
 
 		function close() {
 			clearTimeout(hoverTimer);
-			$l2.removeClass("is-open");
-			$l1.removeClass("is-active has-l2");
-			$submenuToggle.removeClass("is-active");
 			$shopToggle.removeClass("is-open").attr("aria-expanded", "false");
 			$menu.removeClass("is-open");
-			$mask.removeClass("is-open");
 			$(".header").removeClass("is-menu-open");
 			PageScroll.unlock();
+			// Reset L2 after panel is hidden
+			setTimeout(function() {
+				$l2.removeClass("is-open");
+				$l1.removeClass("has-l2");
+				$submenuToggle.removeClass("is-active");
+			}, 350);
 		}
 
 		function openL2() {
@@ -414,13 +409,13 @@ var App = (function($) {
 			$shopToggle.on("click", function(e) {
 				e.preventDefault();
 				if (!isMobile()) return;
-				$l1.hasClass("is-active") ? close() : open();
+				$menu.hasClass("is-open") ? close() : open();
 			});
 
 			// ---- Desktop: hover with timer ----
 			$shopToggle.filter(".desktop-only").on("mouseenter", function() {
 				clearTimeout(hoverTimer);
-				if (!$l1.hasClass("is-active")) open();
+				if (!$menu.hasClass("is-open")) open();
 			});
 			$shopToggle.filter(".desktop-only").on("mouseleave", function() {
 				hoverTimer = setTimeout(close, 250);
@@ -435,10 +430,20 @@ var App = (function($) {
 				hoverTimer = setTimeout(close, 250);
 			});
 
-			// ---- L2 toggle (click, both PC & mobile) ----
+			// ---- L2 toggle: desktop hover, mobile click ----
 			$submenuToggle.on("click", function(e) {
 				e.stopPropagation();
+				if (!isMobile()) return;
 				$l2.hasClass("is-open") ? closeL2() : openL2();
+			});
+			$submenuToggle.on("mouseenter", function() {
+				if (isMobile()) return;
+				clearTimeout(hoverTimer);
+				if (!$l2.hasClass("is-open")) openL2();
+			});
+			$submenuToggle.on("mouseleave", function() {
+				if (isMobile()) return;
+				hoverTimer = setTimeout(closeL2, 250);
 			});
 
 			$("[data-menu-back]").on("click", function(e) {
@@ -448,6 +453,14 @@ var App = (function($) {
 
 			$menu.find(".nav-menu__panel--l2").on("click", function(e) {
 				e.stopPropagation();
+			});
+			$menu.find(".nav-menu__panel--l2").on("mouseenter", function() {
+				if (isMobile()) return;
+				clearTimeout(hoverTimer);
+			});
+			$menu.find(".nav-menu__panel--l2").on("mouseleave", function() {
+				if (isMobile()) return;
+				hoverTimer = setTimeout(closeL2, 250);
 			});
 
 			$menu.find(".nav-menu__close").on("click", close);
@@ -462,13 +475,13 @@ var App = (function($) {
 					return;
 				}
 				clearTimeout(hoverTimer);
-				if (!$l1.hasClass("is-active")) open();
+				if (!$menu.hasClass("is-open")) open();
 			});
 
 			// Tab on shop toggle → jump into menu
 			$shopToggle.on("keydown", function(e) {
 				if (isMobile()) return;
-				if (e.key === "Tab" && !e.shiftKey && $l1.hasClass("is-active")) {
+				if (e.key === "Tab" && !e.shiftKey && $menu.hasClass("is-open")) {
 					e.preventDefault();
 					var $first = $menu.find(".nav-menu__body a:visible, .nav-menu__body button:visible").first();
 					if ($first.length) $first.focus();
@@ -477,7 +490,7 @@ var App = (function($) {
 
 			// Tab within menu: navigate through items
 			$menu.on("keydown", function(e) {
-				if (e.key !== "Tab" || !$l1.hasClass("is-active")) return;
+				if (e.key !== "Tab" || !$menu.hasClass("is-open")) return;
 				var $focusable = $menu.find("a:visible, button:visible");
 				if (!$focusable.length) return;
 
@@ -508,11 +521,16 @@ var App = (function($) {
 
 			// Escape closes menu
 			$(document).on("keydown", function(e) {
-				if (e.key === "Escape" && $l1 && $l1.hasClass("is-active")) {
+				if (e.key === "Escape" && $l1 && $menu.hasClass("is-open")) {
 					skipNextFocus = true;
 					close();
 					$shopToggle.filter(":visible").first().focus();
 				}
+			});
+
+			// Update --nav-menu-top on resize
+			$(window).on("resize", function() {
+				if ($menu.hasClass("is-open")) updateTop();
 			});
 		}
 
@@ -520,7 +538,7 @@ var App = (function($) {
 			init: init,
 			close: close,
 			isOpen: function() {
-				return $l1 && $l1.hasClass("is-active");
+				return $l1 && $menu.hasClass("is-open");
 			}
 		};
 	})();
@@ -909,7 +927,7 @@ var App = (function($) {
 
 			$lightbox.find(".pdp-lightbox__total").text(total);
 			$lightbox.find(".pdp-lightbox__current").text((startIndex || 0) + 1);
-			$lightbox.fadeIn(300);
+			$lightbox.addClass("is-open");
 
 			// Lock scroll
 			$(document).on("mousewheel.pdplb DOMMouseScroll.pdplb touchmove.pdplb", function(e) {
@@ -919,7 +937,7 @@ var App = (function($) {
 
 		function closeLightbox() {
 			$lightbox = $("#pdp-lightbox");
-			$lightbox.fadeOut(300);
+			$lightbox.removeClass("is-open");
 			$(document).off("mousewheel.pdplb DOMMouseScroll.pdplb touchmove.pdplb");
 		}
 
@@ -1089,6 +1107,7 @@ var App = (function($) {
 				var $carousel = $module.find('.carousel');
 				if (!$carousel.length || $carousel.hasClass('slick-initialized')) return;
 				$carousel.slick(build($module, $carousel, config));
+				$carousel.addClass('carousel--ready');
 			});
 		}
 
@@ -1107,6 +1126,8 @@ var App = (function($) {
 
 				$nav.slick(navOpts);
 				$main.slick(mainOpts);
+				$nav.addClass('carousel--ready');
+				$main.addClass('carousel--ready');
 			});
 		}
 
@@ -1123,6 +1144,7 @@ var App = (function($) {
 					} else if (!match && $carousel.hasClass('slick-initialized')) {
 						$carousel.slick('unslick');
 					}
+					$carousel.addClass('carousel--ready');
 				}
 
 				toggle();
