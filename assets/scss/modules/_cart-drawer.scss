@@ -465,20 +465,16 @@
 // Shopify: sticky, mask-image, padding from CSS var
 .cart-drawer__summary {
 	flex-shrink: 0;
-	position: sticky !important;
-	bottom: 0 !important;
-	z-index: 1;
 	display: flex !important;
 	flex-flow: column nowrap !important;
 	gap: responsive($spacing-16) !important;
-	padding: 0 responsive($spacing-24) responsive($spacing-24) !important;
-	margin-top: auto !important;
+	padding: responsive($spacing-16) responsive($spacing-24) responsive($spacing-24) !important;
 	background-color: $color-white !important;
 	mask-image: none !important;
 	-webkit-mask-image: none !important;
 
 	@include tablet-down {
-		padding: 0 $spacing-16 $spacing-16 !important;
+		padding: $spacing-12 $spacing-16 $spacing-16 !important;
 		gap: $spacing-12 !important;
 	}
 }
@@ -912,12 +908,17 @@
 }
 
 .cart-drawer__showcase-img {
-	width: 100%;
-	max-width: 300px;
+	width: calc(100% + responsive($spacing-24) * 2);
+	margin-left: calc(-1 * responsive($spacing-24));
+	margin-right: calc(-1 * responsive($spacing-24));
 	aspect-ratio: 4 / 3;
-	border-radius: $radius-lg;
 	overflow: hidden;
-	margin-bottom: responsive($spacing-16);
+
+	@include tablet-down {
+		width: calc(100% + $spacing-16 * 2);
+		margin-left: -$spacing-16;
+		margin-right: -$spacing-16;
+	}
 
 	img {
 		width: 100%;

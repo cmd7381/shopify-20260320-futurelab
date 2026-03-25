@@ -84,6 +84,7 @@ select { font: inherit; }
 .cart-state { display: none; }
 .cart-state.is-active { display: contents; }
 </style>
+<link rel="stylesheet" href="assets/css/slick.css">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -904,6 +905,10 @@ function showState(stateId) {
     btn.classList.remove('active');
   });
   event.target.classList.add('active');
+  // Refresh Slick carousels in newly visible state
+  if (target && window.jQuery) {
+    $(target).find('.slick-initialized').slick('setPosition');
+  }
 }
 
 var isMobile = false;
@@ -921,6 +926,10 @@ function toggleMobile() {
   }
 }
 </script>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="./assets/js/vendors/slick.min.js"></script>
+<script src="./assets/js/main.js"></script>
 
 </body>
 </html>
