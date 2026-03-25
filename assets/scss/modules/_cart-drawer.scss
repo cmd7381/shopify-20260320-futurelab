@@ -647,9 +647,9 @@
 
 .cart-drawer__upsell-product {
 	display: flex;
-	flex-flow: row wrap;
-	gap: responsive($spacing-12);
-	align-items: flex-start;
+	flex-flow: row nowrap;
+	gap: responsive($spacing-8);
+	align-items: center;
 }
 
 .cart-drawer__upsell-img {
@@ -706,9 +706,9 @@
 
 .cart-drawer__upsell-add {
 	@include btn-primary;
-	width: 100%;
 	min-height: 48px;
-	margin-top: responsive($spacing-16);
+	flex-shrink: 0;
+	padding: responsive($spacing-8) responsive($spacing-20);
 	font-size: $font-size-p2;
 	line-height: 1.4;
 	border-radius: $radius-md;
@@ -752,8 +752,10 @@
 }
 
 // ---- Checkout Button with Price ----
+.cart__checkout-button.cart__checkout-button--split,
 .cart__checkout-button--split {
 	justify-content: space-between !important;
+	text-align: left !important;
 }
 
 .cart__checkout-price {
