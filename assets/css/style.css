@@ -10524,7 +10524,7 @@ section:has(section.page-header--hidden) {
 }
 
 .cart__ctas {
-  padding-top: clamp(16px, 1.1111111111vw, 22.2222222222px);
+  order: -1;
 }
 
 .cart__ctas .cart__checkout-button,

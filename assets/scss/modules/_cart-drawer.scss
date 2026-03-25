@@ -537,7 +537,7 @@
 
 // ---- Checkout Button ----
 .cart__ctas {
-	padding-top: responsive($spacing-16);
+	order: -1;
 }
 
 // Shopify: .cart__ctas .cart__checkout-button has higher specificity
