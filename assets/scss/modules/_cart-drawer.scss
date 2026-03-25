@@ -844,9 +844,8 @@
 	display: flex;
 	flex-flow: column nowrap;
 	align-items: center;
-	justify-content: center;
 	text-align: center;
-	padding: responsive($spacing-40) responsive($spacing-24);
+	padding: responsive($spacing-24);
 	gap: responsive($spacing-16);
 }
 
@@ -873,13 +872,9 @@
 // ---- Empty Cart State ----
 .cart-drawer--empty {
 	.cart-drawer__content {
-		justify-content: center !important;
-		align-items: center !important;
+		flex: 1 1 auto !important;
 	}
 
-	.cart-drawer__inner {
-		height: auto !important;
-	}
 
 	.cart-drawer__header {
 		justify-content: flex-end !important;

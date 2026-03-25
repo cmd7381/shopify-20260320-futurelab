@@ -10896,9 +10896,8 @@ section:has(section.page-header--hidden) {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  padding: clamp(40px, 2.7777777778vw, 55.5555555556px) clamp(24px, 1.6666666667vw, 33.3333333333px);
+  padding: clamp(24px, 1.6666666667vw, 33.3333333333px);
   gap: clamp(16px, 1.1111111111vw, 22.2222222222px);
 }
 
@@ -10932,11 +10931,7 @@ section:has(section.page-header--hidden) {
 }
 
 .cart-drawer--empty .cart-drawer__content {
-  justify-content: center !important;
-  align-items: center !important;
-}
-.cart-drawer--empty .cart-drawer__inner {
-  height: auto !important;
+  flex: 1 1 auto !important;
 }
 .cart-drawer--empty .cart-drawer__header {
   justify-content: flex-end !important;
