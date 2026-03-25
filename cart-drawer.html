@@ -105,6 +105,7 @@ select { font: inherit; }
   <button onclick="showState('pc-1item')">PC 1 Item</button>
   <button onclick="showState('pc-2items')">PC 2 Items (Subscribe)</button>
   <button onclick="showState('pc-2items-normal')">PC 2 Items (Normal)</button>
+  <button onclick="showState('pc-3items')">PC 3 Items (Scroll)</button>
   <div class="state-controls__divider"></div>
   <button onclick="toggleMobile()">Toggle Mobile</button>
 </div>
@@ -837,6 +838,124 @@ select { font: inherit; }
 
       </scroll-hint>
 
+    </cart-items-component>
+  </div>
+</dialog>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- STATE 5: PC 3 ITEMS (scrollable)                             -->
+<!-- ============================================================ -->
+<div class="cart-state" id="state-pc-3items">
+<dialog open class="cart-drawer__dialog dialog-modal dialog-drawer color-scheme-1">
+  <span class="visually-hidden" role="status"></span>
+  <div class="cart-drawer__inner" data-hydration-key="cart-drawer-inner">
+    <cart-items-component class="cart-items-component" data-drawer data-section-id="cart-drawer">
+      <div class="cart-drawer__header">
+        <h2 class="cart-drawer__heading h4">Your Cart
+          <div class="cart-bubble" data-maintain-ratio><span class="cart-bubble__background"></span><span class="cart-bubble__text"><span class="cart-bubble__text-count" aria-hidden="true">3</span></span></div>
+        </h2>
+        <button class="button close-button cart-drawer__close-button button-unstyled" aria-label="Close dialog"><span class="svg-wrapper"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 12" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 12L2 2" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></button>
+      </div>
+      <scroll-hint class="cart-drawer__content" aria-label="Cart">
+        <scroll-hint class="cart-drawer__items">
+          <!-- Free Shipping Progress (Unlocked) -->
+          <div class="cart-drawer__progress">
+            <p class="cart-drawer__progress-text">Congrats, you have unlocked <strong>free shipping</strong></p>
+            <div class="cart-drawer__progress-bar"><div class="cart-drawer__progress-fill" style="width:100%;"></div></div>
+          </div>
+          <div class="cart-items__wrapper">
+            <form action="/cart" class="cart-form" id="cart-form-3items" method="post">
+              <div class="cart-items spacing-style">
+                <table class="cart-items__table" role="table">
+                  <caption class="visually-hidden" role="caption">Cart total <span>$197.97 AUD</span></caption>
+                  <thead class="visually-hidden" role="rowgroup"><tr role="row" class="cart-items__table-row"><th scope="col" role="columnheader">Product image</th><th scope="col" role="columnheader">Product information</th><th scope="col" role="columnheader">Quantity</th><th scope="col" role="columnheader">Product total</th></tr></thead>
+                  <tbody role="rowgroup">
+                    <!-- Product 1: Time Capsule -->
+                    <tr role="row" class="cart-items__table-row cart-items__table-row--full-width-variants">
+                      <td class="cart-items__media" role="cell"><a href="/products/time-capsule" class="cart-items__media-container"><img src="https://placehold.co/250x250/e8f0fe/1d4ed8?text=Time+Capsule" alt="Time Capsule" width="250" height="250" class="cart-items__media-image border-style"></a></td>
+                      <td class="cart-items__details cart-primary-typography" role="cell">
+                        <div class="cart-items__product-info"><p><a href="/products/time-capsule" class="cart-items__title">Time Capsule Daily Longevity Complex</a></p></div>
+                        <div class="cart-items__variants-wrapper"><div class="cart-items__price-wrapper"><span class="cart-items__original-price">$99.99</span><span class="cart-items__sale-price">$79.99</span></div></div>
+                        <div class="cart-items__unit-price-wrapper"><div><span class="visually-hidden">Price</span><span class="cart-items__description">The All-In-One Longevity Formula</span></div></div>
+                      </td>
+                      <td class="cart-items__quantity" role="cell">
+                        <div class="cart-items__variant-select"><select><option selected>1 Month Supply</option><option>2 Month Supply</option><option>3 Month Supply</option></select></div>
+                        <div class="cart-items__quantity-controls">
+                          <div class="quantity-selector-wrapper"><cart-quantity-selector-component class="quantity-selector cart-primary-typography"><button class="button quantity-minus button-unstyled" type="button" name="minus"><span class="visually-hidden">Decrease quantity</span><span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span></button><input type="number" name="updates[]" value="1" min="1" aria-label="Quantity"><button class="button quantity-plus button-unstyled" type="button" name="plus"><span class="visually-hidden">Increase quantity</span><span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="vertical" d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path><path class="horizontal" d="M7 2.75L7 11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span></button></cart-quantity-selector-component></div>
+                          <button class="button cart-items__remove" type="button" aria-label="Remove"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="remove-icon-bottom" d="M11.5 9v4.25M8.5 9v4.25M5.75 12.2V6h8.5c0 2.421 0 3.779 0 6.2 0 .853 0 1.447-.038 1.91-.037.453-.106.714-.207.911a2.498 2.498 0 0 1-.983 1.017c-.197.1-.458.17-.911.207-.463.037-1.057.038-1.91.038h-.4c-.853 0-1.447 0-1.91-.038-.453-.037-.714-.106-.911-.207a2.498 2.498 0 0 1-.984-1.017c-.1-.197-.17-.458-.207-.911C5.75 13.647 5.75 13.053 5.75 12.2z" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path><path class="remove-icon-top" d="M4.25 6h11.5M8 5.25a2 2 0 1 1 4 0" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="visually-hidden">Remove</span></button>
+                        </div>
+                      </td>
+                      <td class="cart-items__price cart-secondary-typography" role="cell"><text-component value="$79.99">$79.99</text-component></td>
+                    </tr>
+                    <!-- Product 2: Berberine Complex -->
+                    <tr role="row" class="cart-items__table-row cart-items__table-row--full-width-variants">
+                      <td class="cart-items__media" role="cell"><a href="/products/berberine-complex" class="cart-items__media-container"><img src="https://placehold.co/250x250/e8f0fe/1d4ed8?text=Berberine" alt="Berberine Complex" width="250" height="250" class="cart-items__media-image border-style"></a></td>
+                      <td class="cart-items__details cart-primary-typography" role="cell">
+                        <div class="cart-items__product-info"><p><a href="/products/berberine-complex" class="cart-items__title">Berberine Complex</a></p></div>
+                        <div class="cart-items__variants-wrapper"><div class="cart-items__price-wrapper"><span class="cart-items__original-price">$99.99</span><span class="cart-items__sale-price">$79.99</span></div></div>
+                        <div class="cart-items__unit-price-wrapper"><div><span class="visually-hidden">Price</span><span class="cart-items__description">Metabolism Support with Advanced Absorption</span></div></div>
+                      </td>
+                      <td class="cart-items__quantity" role="cell">
+                        <div class="cart-items__variant-select"><select><option selected>1 Month Supply</option><option>2 Month Supply</option><option>3 Month Supply</option></select></div>
+                        <div class="cart-items__quantity-controls">
+                          <div class="quantity-selector-wrapper"><cart-quantity-selector-component class="quantity-selector cart-primary-typography"><button class="button quantity-minus button-unstyled" type="button" name="minus"><span class="visually-hidden">Decrease quantity</span><span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span></button><input type="number" name="updates[]" value="1" min="1" aria-label="Quantity"><button class="button quantity-plus button-unstyled" type="button" name="plus"><span class="visually-hidden">Increase quantity</span><span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="vertical" d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path><path class="horizontal" d="M7 2.75L7 11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span></button></cart-quantity-selector-component></div>
+                          <button class="button cart-items__remove" type="button" aria-label="Remove"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="remove-icon-bottom" d="M11.5 9v4.25M8.5 9v4.25M5.75 12.2V6h8.5c0 2.421 0 3.779 0 6.2 0 .853 0 1.447-.038 1.91-.037.453-.106.714-.207.911a2.498 2.498 0 0 1-.983 1.017c-.197.1-.458.17-.911.207-.463.037-1.057.038-1.91.038h-.4c-.853 0-1.447 0-1.91-.038-.453-.037-.714-.106-.911-.207a2.498 2.498 0 0 1-.984-1.017c-.1-.197-.17-.458-.207-.911C5.75 13.647 5.75 13.053 5.75 12.2z" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path><path class="remove-icon-top" d="M4.25 6h11.5M8 5.25a2 2 0 1 1 4 0" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="visually-hidden">Remove</span></button>
+                        </div>
+                      </td>
+                      <td class="cart-items__price cart-secondary-typography" role="cell"><text-component value="$79.99">$79.99</text-component></td>
+                    </tr>
+                    <!-- Product 3: NMN Capsules 500mg -->
+                    <tr role="row" class="cart-items__table-row cart-items__table-row--full-width-variants">
+                      <td class="cart-items__media" role="cell"><a href="/products/nmn-capsules-500mg" class="cart-items__media-container"><img src="https://placehold.co/250x250/e8f0fe/1d4ed8?text=NMN+500mg" alt="NMN Capsules 500mg" width="250" height="250" class="cart-items__media-image border-style"></a></td>
+                      <td class="cart-items__details cart-primary-typography" role="cell">
+                        <div class="cart-items__product-info"><p><a href="/products/nmn-capsules-500mg" class="cart-items__title">NMN Capsules 500mg</a></p></div>
+                        <div class="cart-items__variants-wrapper"><div class="cart-items__price-wrapper"><span class="cart-items__original-price">$99.99</span><span class="cart-items__sale-price">$79.99</span></div></div>
+                        <div class="cart-items__unit-price-wrapper"><div><span class="visually-hidden">Price</span><span class="cart-items__description">Cellular Energy Support</span></div></div>
+                      </td>
+                      <td class="cart-items__quantity" role="cell">
+                        <div class="cart-items__variant-select"><select><option selected>1 Month Supply</option><option>2 Month Supply</option><option>3 Month Supply</option></select></div>
+                        <div class="cart-items__quantity-controls">
+                          <div class="quantity-selector-wrapper"><cart-quantity-selector-component class="quantity-selector cart-primary-typography"><button class="button quantity-minus button-unstyled" type="button" name="minus"><span class="visually-hidden">Decrease quantity</span><span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span></button><input type="number" name="updates[]" value="1" min="1" aria-label="Quantity"><button class="button quantity-plus button-unstyled" type="button" name="plus"><span class="visually-hidden">Increase quantity</span><span class="svg-wrapper icon-plus"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="vertical" d="M2.75 7H11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path><path class="horizontal" d="M7 2.75L7 11.25" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path></svg></span></button></cart-quantity-selector-component></div>
+                          <button class="button cart-items__remove" type="button" aria-label="Remove"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="remove-icon-bottom" d="M11.5 9v4.25M8.5 9v4.25M5.75 12.2V6h8.5c0 2.421 0 3.779 0 6.2 0 .853 0 1.447-.038 1.91-.037.453-.106.714-.207.911a2.498 2.498 0 0 1-.983 1.017c-.197.1-.458.17-.911.207-.463.037-1.057.038-1.91.038h-.4c-.853 0-1.447 0-1.91-.038-.453-.037-.714-.106-.911-.207a2.498 2.498 0 0 1-.984-1.017c-.1-.197-.17-.458-.207-.911C5.75 13.647 5.75 13.053 5.75 12.2z" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round"></path><path class="remove-icon-top" d="M4.25 6h11.5M8 5.25a2 2 0 1 1 4 0" stroke="currentColor" stroke-width="var(--icon-stroke-width)" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="visually-hidden">Remove</span></button>
+                        </div>
+                      </td>
+                      <td class="cart-items__price cart-secondary-typography" role="cell"><text-component value="$79.99">$79.99</text-component></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+        </scroll-hint>
+        <!-- Summary / Footer -->
+        <div class="cart-drawer__summary">
+          <div class="cart-drawer__badges">
+            <div class="cart-drawer__badge">
+              <div class="cart-drawer__badge-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#707c86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <span class="cart-drawer__badge-text">Australian Made &amp; Owned</span>
+            </div>
+            <div class="cart-drawer__badge">
+              <div class="cart-drawer__badge-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#707c86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+              <span class="cart-drawer__badge-text">Clinically Proven Ingredients</span>
+            </div>
+            <div class="cart-drawer__badge">
+              <div class="cart-drawer__badge-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#707c86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+              <span class="cart-drawer__badge-text">Third Party Tested</span>
+            </div>
+          </div>
+          <div class="cart-totals__tax-note cart-totals__tax-note--center">
+            <small>Prices in AUD. Tax included. Shipping calculated at checkout.</small>
+          </div>
+          <div class="cart__ctas">
+            <button type="submit" class="cart__checkout-button cart__checkout-button--split button" name="checkout" form="cart-form-3items">
+              <span class="cart__checkout-price">$239.97</span>
+              <span class="cart__checkout-cta">Checkout <span>&rarr;</span></span>
+            </button>
+          </div>
+        </div>
+      </scroll-hint>
     </cart-items-component>
   </div>
 </dialog>
