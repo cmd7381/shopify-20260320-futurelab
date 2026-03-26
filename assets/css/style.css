@@ -958,12 +958,6 @@ h6,
   line-height: 1.5;
   padding: clamp(11px, 0.7638888889vw, 15.2777777778px) clamp(28px, 1.9444444444vw, 38.8888888889px);
 }
-@media (max-width: 1023px) {
-  .btn--md {
-    font-size: 16px;
-    padding: 11px 16px;
-  }
-}
 .btn--lg {
   font-size: clamp(20px, 1.3888888889vw, 27.7777777778px);
   line-height: 1.5;
@@ -2671,7 +2665,7 @@ section:has(section.page-header--hidden) {
   align-items: center;
   cursor: pointer;
   font-size: clamp(20px, 1.3888888889vw, 27.7777777778px);
-  color: #8b9298;
+  color: #a4a7ae;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 .slick-arrow:hover {
@@ -4192,6 +4186,8 @@ section:has(section.page-header--hidden) {
 @media (max-width: 767px) {
   .block-health-concerns__cta .btn {
     width: 100%;
+    font-size: 16px;
+    padding: 11px 16px;
   }
 }
 
@@ -4941,6 +4937,7 @@ section:has(section.page-header--hidden) {
 .block-product-carousel .carousel__arrows .slick-arrow {
   border: none;
   background: #ffffff;
+  color: #8b9298;
   transform: translate(0, -50%);
 }
 @media (max-width: 767px) {

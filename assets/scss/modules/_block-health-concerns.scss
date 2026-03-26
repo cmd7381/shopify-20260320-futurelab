@@ -67,6 +67,8 @@
 		@include mobile {
 			.btn {
 				width: 100%;
+				font-size: $font-size-p2;
+				padding: 11px $spacing-16;
 			}
 		}
 	}

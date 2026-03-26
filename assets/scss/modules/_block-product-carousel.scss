@@ -43,6 +43,7 @@
 		.slick-arrow {
 			border: none;
 			background: $color-white;
+			color: $color-grey-600;
 			transform: translate(0, -50%);
 			@include mobile {
 				width: 32px;
