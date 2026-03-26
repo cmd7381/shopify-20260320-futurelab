@@ -106,9 +106,6 @@
 		@include tablet-down {
 			font-size: 48px;
 			letter-spacing: -1.68px;
-			br {
-				display: none;
-			}
 		}
 		@include mobile {
 			font-size: 32px;

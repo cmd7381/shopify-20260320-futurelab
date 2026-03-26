@@ -21,6 +21,7 @@
 	}
 
 	.item {
+		display: flex;
 		flex-direction: row;
 		min-height: responsive(568px);
 
@@ -142,9 +143,6 @@
 		@include tablet-down {
 			font-size: 48px;
 			letter-spacing: -1.68px;
-			br {
-				display: none;
-			}
 		}
 
 		@include mobile {

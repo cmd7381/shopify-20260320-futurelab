@@ -360,6 +360,11 @@
 	width: 100% !important;
 	grid-area: auto !important;
 	margin: 0 !important;
+	padding-left: calc(93px + responsive($spacing-16)) !important;
+
+	@include tablet-down {
+		padding-left: calc(80px + $spacing-16) !important;
+	}
 }
 
 .cart-items__quantity-controls {

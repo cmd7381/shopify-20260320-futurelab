@@ -45,6 +45,10 @@
 	&__text {
 		@include body-text($font-size-p2, 400);
 		color: $color-stone;
+
+		@include mobile {
+			font-size: $font-size-p3;
+		}
 	}
 
 	&__form {

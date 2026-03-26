@@ -106,12 +106,6 @@
 			@include h1;
 			margin-bottom: responsive(22px);
 
-			@include tablet-down {
-				br {
-					display: none;
-				}
-			}
-
 			@include mobile {
 				@include h1-mobile;
 				margin-bottom: 16px;

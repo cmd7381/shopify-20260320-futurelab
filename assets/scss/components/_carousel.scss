@@ -1,6 +1,10 @@
 @use '../helpers/variables' as *;
 @use '../helpers/mixins' as *;
 
+.carousel:not(.slick-initialized):not(.carousel--ready) > .item:not(:first-child) {
+	display: none !important;
+}
+
 .carousel {
 	.slick-list,
 	.slick-track {
@@ -52,7 +56,7 @@
 	@include flex-center;
 	cursor: pointer;
 	font-size: responsive(20px);
-	color: #a4a7ae;
+	color: $color-grey-600;
 	transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 
 	&:hover {

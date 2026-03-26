@@ -84,7 +84,7 @@
 
     @include mobile {
       flex: none;
-      width: calc(50% - #{$spacing-4});
+      width: calc(50% - #{$spacing-12});
     }
   }
 
