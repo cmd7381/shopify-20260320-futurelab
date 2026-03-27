@@ -7,6 +7,14 @@
 // We use .cart-drawer prefix + !important where needed
 // ============================================
 
+
+:root{
+	--cart-gap: 24px;
+	@include tablet-down {
+		--cart-gap: 16px;
+	}
+}
+
 // ---- Backdrop / Mask ----
 .cart-drawer__dialog::backdrop {
 	background: rgba(112, 124, 134, 0.25) !important;
@@ -120,20 +128,21 @@
 	flex-flow: row wrap;
 	align-items: center;
 	justify-content: center;
-	width: 24px !important;
-	height: 24px !important;
+	width: var(--cart-gap);
+	height: var(--cart-gap);
 	flex-shrink: 0;
 	color: $color-dark !important;
 	margin-right: 0 !important;
-	top: auto !important;
+	top: var(--cart-gap);
+	right: var(--cart-gap);
 	border-radius: 0 !important;
 	background: transparent !important;
 	box-shadow: none !important;
 	padding: 0 !important;
 
 	.svg-wrapper svg {
-		width: 14px;
-		height: 14px;
+		width: responsive(14px);
+		height: responsive(14px);
 	}
 }
 
@@ -195,14 +204,19 @@
 
 // Shopify: .cart-drawer__items uses padding-inline via CSS var
 .cart-drawer__items {
+	display: flex !important;
+	flex-flow: column nowrap !important;
 	flex: 1 1 auto !important;
 	overflow-y: auto !important;
 	overscroll-behavior: contain;
 	-webkit-overflow-scrolling: touch;
-	padding: 0 responsive($spacing-24) !important;
+	padding: 0 var(--cart-gap) !important;
 
-	@include tablet-down {
-		padding: 0 $spacing-16 !important;
+	.cart-items__wrapper {
+		display: flex;
+		flex-flow: column nowrap;
+		flex: 1 1 auto;
+		min-height: 100%;
 	}
 }
 
@@ -391,6 +405,7 @@
 	box-shadow: $shadow-xs !important;
 	height: auto !important;
 	min-width: auto !important;
+	width:auto;
 
 	input[type='number'] {
 		width: 24px !important;
@@ -473,13 +488,13 @@
 	display: flex !important;
 	flex-flow: column nowrap !important;
 	gap: responsive($spacing-16) !important;
-	padding: responsive($spacing-16) responsive($spacing-24) responsive($spacing-24) !important;
+	padding: responsive($spacing-16) var(--cart-gap) var(--cart-gap) !important;
 	background-color: $color-white !important;
 	mask-image: none !important;
 	-webkit-mask-image: none !important;
 
 	@include tablet-down {
-		padding: $spacing-12 $spacing-16 $spacing-16 !important;
+		padding: $spacing-12 var(--cart-gap) var(--cart-gap) !important;
 		gap: $spacing-12 !important;
 	}
 }
@@ -561,12 +576,12 @@
 	font-weight: 500 !important;
 	line-height: 1.5 !important;
 	border-radius: $radius-md !important;
-	padding: responsive($spacing-16) responsive($spacing-24) !important;
+	padding: responsive($spacing-16) var(--cart-gap) !important;
 
 	@include tablet-down {
 		min-height: 48px !important;
 		font-size: $font-size-p2 !important;
-		padding: $spacing-12 $spacing-16 !important;
+		padding: $spacing-12 var(--cart-gap) !important;
 	}
 }
 
@@ -637,9 +652,12 @@
 
 // ---- Upsell Section ----
 .cart-drawer__upsell {
-	padding-top: responsive($spacing-16);
+	padding-top: responsive($spacing-32);
 	border-top: 1px solid $color-mist-50;
-	margin-top: responsive($spacing-16);
+	margin-top: auto;
+	position: sticky;
+	bottom: 0;
+	background: $color-white;
 }
 
 .cart-drawer__upsell-header {
@@ -763,18 +781,17 @@
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
-	gap: responsive($spacing-16);
+	gap: 4px;
 	padding: responsive($spacing-8) 0;
 }
 
 .cart-drawer__badge {
 	display: flex;
-	flex-flow: column nowrap;
+	flex-flow: row nowrap;
 	align-items: center;
 	gap: 6px;
 	flex: 1 1 0;
 	min-width: 0;
-	text-align: center;
 }
 
 .cart-drawer__badge-icon {
@@ -913,16 +930,18 @@
 }
 
 .cart-drawer__showcase-img {
-	width: calc(100% + responsive($spacing-24) * 2);
-	margin-left: calc(-1 * responsive($spacing-24));
-	margin-right: calc(-1 * responsive($spacing-24));
+	width: calc(100% + var(--cart-gap) * 2) !important;
+	margin-left: calc(-1 * var(--cart-gap));
+	margin-right: calc(-1 * var(--cart-gap));
 	aspect-ratio: 4 / 3;
 	overflow: hidden;
+	margin-bottom: 74px;
 
 	@include tablet-down {
 		width: calc(100% + $spacing-16 * 2);
 		margin-left: -$spacing-16;
 		margin-right: -$spacing-16;
+		margin-bottom: 48px;
 	}
 
 	img {
@@ -943,11 +962,13 @@
 		flex: 1 1 auto !important;
 	}
 
+	.cart-items__wrapper {
+		display: block !important;
+	}
 
 	.cart-drawer__header {
-		justify-content: flex-end !important;
-		border-bottom: none !important;
-		padding-bottom: 0 !important;
+		display:contents !important;
+		padding: 0 !important;
 	}
 
 	.cart-drawer__heading--empty {

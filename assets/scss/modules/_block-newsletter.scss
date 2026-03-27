@@ -51,6 +51,11 @@
 		}
 	}
 
+	// Shopify wraps newsletter in form.contact-form — pass through flex
+	.contact-form {
+		display: contents;
+	}
+
 	&__form {
 		display: flex;
 		gap: responsive($spacing-16);

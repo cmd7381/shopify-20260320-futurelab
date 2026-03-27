@@ -354,7 +354,7 @@ var App = (function($) {
 		}
 
 		function updateTop() {
-			var bottom = $(".header")[0].getBoundingClientRect().bottom;
+			var bottom = $(".custom-header")[0].getBoundingClientRect().bottom;
 			$menu[0].style.setProperty("--nav-menu-top", bottom + "px");
 		}
 
@@ -362,7 +362,8 @@ var App = (function($) {
 			HeaderDropdown.close();
 
 			updateTop();
-			$(".header").addClass("is-menu-open");
+			$(".custom-header").addClass("is-menu-open");
+			$mask.addClass("is-open");
 			$menu.addClass("is-open");
 			$shopToggle.addClass("is-open").attr("aria-expanded", "true");
 			PageScroll.lock();
@@ -372,7 +373,8 @@ var App = (function($) {
 			clearTimeout(hoverTimer);
 			$shopToggle.removeClass("is-open").attr("aria-expanded", "false");
 			$menu.removeClass("is-open");
-			$(".header").removeClass("is-menu-open");
+			$mask.removeClass("is-open");
+			$(".custom-header").removeClass("is-menu-open");
 			PageScroll.unlock();
 			// Reset L2 after panel is hidden
 			setTimeout(function() {
@@ -399,7 +401,7 @@ var App = (function($) {
 			if (!$menu.length) return;
 
 			$body = $("body");
-			$mask = $(".nav-menu__mask");
+			$mask = $("#nav-mask");
 			$l1 = $menu.find(".nav-menu__panel--l1");
 			$l2 = $menu.find(".nav-menu__panel--l2");
 			$shopToggle = $("[data-shop-toggle]");
@@ -508,7 +510,7 @@ var App = (function($) {
 					close();
 					// Find next focusable header item after Shop
 					var $trigger = $shopToggle.filter(":visible").first();
-					var $header = $(".header");
+					var $header = $(".custom-header");
 					var $allNav = $header.find(".header__nav-item, .header__cta, .header__icon").not("[data-shop-toggle]").filter(":visible");
 					var $nextItem = $allNav.first();
 					if ($nextItem.is("a, button")) {
@@ -547,19 +549,19 @@ var App = (function($) {
 	// Header Dropdown (hover on PC, with mask)
 	// ============================================
 	var HeaderDropdown = (function() {
-		var $menu;
+		var $mask;
 
 		function closeDropdown() {
 			$(".header__dropdown.is-open").removeClass("is-open");
 			$("[data-sub-toggle].is-open").removeClass("is-open");
-			// Only remove mask if mega menu isn't open
 			if (!NavMenu.isOpen()) {
-				$menu.removeClass("is-open");
+				$mask.removeClass("is-open");
+				PageScroll.unlock();
 			}
 		}
 
 		function init() {
-			$menu = $("#nav-menu");
+			$mask = $("#nav-mask");
 
 			$("[data-sub-toggle]").on("mouseenter", function() {
 				if (window.innerWidth < 1024) return;
@@ -568,7 +570,8 @@ var App = (function($) {
 				closeDropdown();
 				$(this).addClass("is-open");
 				$(this).find(".header__dropdown").addClass("is-open");
-				$menu.addClass("is-open"); // show mask
+				$mask.addClass("is-open");
+				PageScroll.lock();
 			});
 
 			$("[data-sub-toggle]").on("mouseleave", function() {
@@ -583,7 +586,8 @@ var App = (function($) {
 				closeDropdown();
 				$(this).addClass("is-open");
 				$(this).find(".header__dropdown").addClass("is-open");
-				$menu.addClass("is-open");
+				$mask.addClass("is-open");
+				PageScroll.lock();
 			});
 
 			$("[data-sub-toggle]").on("focusout", function(e) {
@@ -601,6 +605,19 @@ var App = (function($) {
 			init: init,
 			close: closeDropdown
 		};
+	})();
+
+	// ============================================
+	// Cart Drawer: refresh slick when dialog opens
+	// ============================================
+	(function() {
+		var dialog = document.querySelector('.cart-drawer__dialog');
+		if (!dialog) return;
+		new MutationObserver(function() {
+			if (dialog.open) {
+				$(dialog).find('.slick-initialized').slick('setPosition');
+			}
+		}).observe(dialog, { attributes: true, attributeFilter: ['open'] });
 	})();
 
 	// ============================================

@@ -2,6 +2,11 @@
 @use "../helpers/mixins" as *;
 
 .block-richtext {
+  img,video,iframe{
+    overflow: hidden;
+    border-radius: $radius-lg;
+  }
+
   .text {
     color: $color-slate;
 
@@ -60,6 +65,7 @@
       margin-bottom: 0;
     }
   }
+
   .content[class*="bg-"] .text {
     padding: responsive($spacing-32);
 

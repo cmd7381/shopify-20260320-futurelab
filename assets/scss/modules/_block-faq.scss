@@ -44,6 +44,10 @@
 		@include body-text($font-size-p2, 400);
 		color: $color-stone;
 		max-width: responsive(456px);
+
+		@include mobile {
+			font-size: $font-size-p3;
+		}
 	}
 
 	&__list {

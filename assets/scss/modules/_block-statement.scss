@@ -11,7 +11,7 @@
 	}
 
 	.content[class*='bg-'] {
-		padding: responsive($spacing-64) responsive($spacing-48) responsive($spacing-68);
+		padding: responsive(40px) responsive($spacing-48) responsive(100px);
 
 		@include mobile {
 			padding: $spacing-56 $spacing-16;
@@ -25,31 +25,28 @@
 		line-height: 1.324;
 		letter-spacing: responsive(1.54px);
 		text-transform: uppercase;
-		margin-bottom: responsive(22px);
 
 		@include mobile {
 			font-size: 10px;
 			letter-spacing: 1px;
 			line-height: 1.4;
-			margin-bottom: $spacing-32;
 		}
 	}
 
 	&__text {
 		@include h1;
 		max-width: responsive(888px);
-		margin-bottom: responsive(60px);
+		padding: responsive(22px) 0 responsive(60px);
 		overflow: hidden;
 
 		@include tablet-down {
 			@include h2;
-			margin-bottom: $spacing-32;
+			padding: 32px 0;
 		}
 
 		@include mobile {
 			@include h3;
 			letter-spacing: -1.2px;
-			margin-bottom: $spacing-32;
 		}
 
 		.line {
@@ -83,58 +80,3 @@
 		}
 	}
 }
-
-// ============================================
-// About — Big Statement
-// ============================================
-// .block-statement {
-//   padding: responsive($spacing-64) 0 responsive($spacing-120);
-
-//   @include mobile {
-//     padding: $spacing-48 0;
-//   }
-
-//   .content[class*=bg-]{
-//     padding: 0 responsive($spacing-48);
-//     @include mobile {
-//       padding: 0 $spacing-20;
-//     }
-//   }
-
-//   &__overline {
-//     font-family: $font-body;
-//     font-size: $font-size-p3;
-//     font-weight: 400;
-//     line-height: $lh-p3;
-//     letter-spacing: 1.54px;
-//     text-transform: uppercase;
-//     color: $color-dark;
-//     margin-bottom: responsive($spacing-32);
-
-//     @include mobile {
-//       margin-bottom: $spacing-24;
-//     }
-//   }
-
-//   &__text {
-//     max-width: responsive(888px);
-//     font-family: $font-heading;
-//     font-size: responsive($font-size-h1);
-//     font-weight: 400;
-//     line-height: $lh-h1;
-//     letter-spacing: $ls-h1;
-
-//     @include mobile {
-//       font-size: $font-size-h3;
-//       letter-spacing: $ls-h3;
-//     }
-
-//     &--dark {
-//       color: $color-dark;
-//     }
-
-//     &--grey {
-//       color: $color-stone;
-//     }
-//   }
-// }

@@ -75,3 +75,7 @@
     }
   }
 }
+
+section:has(section.page-header--hidden){
+  display:none;
+}

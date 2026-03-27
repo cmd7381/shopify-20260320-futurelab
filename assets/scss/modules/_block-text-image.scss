@@ -111,6 +111,14 @@
 			line-height: $lh-p2;
 			color: $color-dark;
 		}
+		.btn {
+			@include mobile {
+				font-size: $font-size-p3;
+				line-height: 140%;
+				min-height: 40px;
+				padding: 4px $spacing-16;
+			}
+		}
 	}
 
 	// --reverse: image-left, text-right

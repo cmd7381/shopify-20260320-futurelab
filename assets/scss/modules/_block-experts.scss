@@ -31,6 +31,7 @@
       letter-spacing: -0.72px;
       line-height: 1.15;
       margin-bottom: 26px;
+      max-width: 75%;
     }
   }
 
@@ -42,12 +43,16 @@
       display: flex;
       gap: $spacing-8;
       margin-bottom: 26px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      flex-shrink: 0;
     }
   }
 
   &__thumb {
     width: 80px;
     height: 80px;
+    flex-shrink: 0;
     border-radius: 13px;
     overflow: hidden;
     border: 2px solid transparent;

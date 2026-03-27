@@ -41,29 +41,29 @@
 			background-color: $color-cloud;
 		}
 
-		@include tablet-down {
-			padding-top: 11px;
-			padding-bottom: 11px;
-		}
+		// @include tablet-down {
+		// 	padding-top: 11px;
+		// 	padding-bottom: 11px;
+		// }
 
 		&.btn--md {
 			padding-top: responsive(13px);
 			padding-bottom: responsive(13px);
 
-			@include tablet-down {
-				padding-top: 13px;
-				padding-bottom: 13px;
-			}
+			// @include tablet-down {
+			// 	padding-top: 13px;
+			// 	padding-bottom: 13px;
+			// }
 		}
 
 		&.btn--lg {
 			padding-top: responsive(16px);
 			padding-bottom: responsive(16px);
 
-			@include tablet-down {
-				padding-top: 16px;
-				padding-bottom: 16px;
-			}
+			// @include tablet-down {
+			// 	padding-top: 16px;
+			// 	padding-bottom: 16px;
+			// }
 		}
 	}
 
@@ -97,10 +97,10 @@
 		padding-top: responsive(6px);
 		padding-bottom: responsive(6px);
 
-		@include tablet-down {
-			padding-top: 6px;
-			padding-bottom: 6px;
-		}
+		// @include tablet-down {
+		// 	padding-top: 6px;
+		// 	padding-bottom: 6px;
+		// }
 	}
 
 	// Size: medium (56px)

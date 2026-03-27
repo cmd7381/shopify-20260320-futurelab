@@ -193,7 +193,6 @@
 
     @include mobile {
       font-size: $font-size-caption;
-      height: 40px;
     }
   }
 
@@ -245,6 +244,12 @@
 }
 
 .block-product-grid {
+  .card__cart {
+    @include mobile {
+      padding: 5px $spacing-16;
+    }
+  }
+
   .filter-bar {
     padding: responsive($spacing-16) 0;
     margin-bottom: responsive($spacing-24);

@@ -34,10 +34,15 @@
 // ============================================
 // Header
 // ============================================
-.header {
+// Shopify wraps header in a section div — remove from layout so sticky works
+.fl-header-section {
+	display: contents;
+}
+
+.custom-header {
 	background-color: $color-white;
 	box-shadow: $shadow-xs;
-	height: responsive(86px);
+	height: var(--header-height);
 	position: sticky;
 	top: 0;
 	z-index: $z-sticky;
@@ -56,7 +61,7 @@
 		height: 100%;
 	}
 
-	&__left {
+	.header__left {
 		flex: 1;
 		display: flex;
 		align-items: center;
@@ -68,13 +73,13 @@
 		}
 	}
 
-	&__nav {
+	.header__nav {
 		display: flex;
 		align-items: center;
 		gap: responsive($spacing-24);
 	}
 
-	&__nav-item {
+	.header__nav-item {
 		@include body-text($font-size-p2, 400);
 		font-size: responsive($font-size-p2);
 		color: $color-dark;
@@ -90,12 +95,12 @@
 		}
 	}
 
-	&__nav-icon {
+	.header__nav-icon {
 		font-size: responsive(16px);
 		flex-shrink: 0;
 	}
 
-	&__logo {
+	.header__logo {
 		flex: 1;
 		display: flex;
 		align-items: center;
@@ -113,7 +118,7 @@
 		}
 	}
 
-	&__controls {
+	.header__controls {
 		flex: 1;
 		display: flex;
 		align-items: center;
@@ -126,14 +131,14 @@
 		}
 	}
 
-	&__cta {
+	.header__cta {
 		padding: responsive(6px) responsive(16px);
 		font-size: responsive($font-size-p3);
 		line-height: $lh-p3;
 		white-space: nowrap;
 	}
 
-	&__icon {
+	.header__icon {
 		flex-shrink: 0;
 		display: flex;
 		justify-content: center;
@@ -146,12 +151,12 @@
 		&:hover {
 			opacity: 0.7;
 		}
-		span {
+		[class^="icon-"] {
 			font-size: responsive(24px);
 		}
 	}
 
-	&__burger {
+	.header__burger {
 		background: none;
 		border: none;
 		padding: 0;
@@ -195,11 +200,11 @@
 		}
 	}
 
-	&__cart {
+	.header__cart {
 		position: relative;
 	}
 
-	&__cart-count {
+	.header__cart-count {
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -216,7 +221,7 @@
 	}
 
 	// ---- Simple dropdown (Learn → FAQ's / Contact Us) ----
-	&__nav-dropdown {
+	.header__nav-dropdown {
 		position: relative;
 
 		// Hover bridge — fills the 16px gap between trigger and dropdown
@@ -235,9 +240,9 @@
 		}
 	}
 
-	&__dropdown {
+	.header__dropdown {
 		position: absolute;
-		top: calc(100% + 16px);
+		top: calc(var(--header-height) + var(--nav-gap));
 		left: 0;
 		width: responsive(182px);
 		background: $color-white;
@@ -256,7 +261,7 @@
 		}
 	}
 
-	&__dropdown-item {
+	.header__dropdown-item {
 		display: block;
 		padding: responsive($spacing-16) responsive($spacing-24);
 		font-family: $font-body;
@@ -279,7 +284,7 @@
 
 // ---- Mobile menu-open state ----
 @include tablet-down {
-	.header.is-menu-open {
+	.custom-header.is-menu-open {
 		.header__cta {
 			display: none;
 		}

@@ -15,6 +15,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    width: 100%;
   }
 
   &__item {
@@ -41,7 +42,7 @@
       color: $color-grey-900;
     }
 
-    &--active > span {
+    &--current > span {
       background-color: $color-bg-hover;
       color: $color-grey-900;
     }
@@ -49,10 +50,13 @@
     &--ellipsis > span {
       cursor: default;
     }
+    &--disabled {
+      cursor: not-allowed;
+    }
 
     &--prev,
     &--next {
-      a {
+      >a,>span {
         gap: responsive($spacing-4);
         color: $color-grey-800;
         font-weight: 600;
@@ -67,7 +71,7 @@
     &--prev {
       flex: 1;
       justify-content: flex-start;
-      a {
+      >a,>span {
         justify-content: flex-start;
       }
     }
@@ -75,7 +79,7 @@
     &--next {
       flex: 1;
       justify-content: flex-end;
-      a {
+      >a,>span {
         justify-content: flex-end;
       }
     }
@@ -100,7 +104,7 @@
     &__item--next {
       flex: 0;
 
-      a {
+      >a,>span {
         width: 40px;
         height: 40px;
         padding: $spacing-8;

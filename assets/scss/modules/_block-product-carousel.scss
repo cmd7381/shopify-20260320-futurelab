@@ -8,8 +8,19 @@
 		padding: $spacing-40 0;
 	}
 
+	.content {
+		overflow: hidden;
+	}
+
 	.title-block {
 		padding-top: 0;
+
+		.btn {
+			@include mobile {
+				min-height: 40px;
+				padding: 4px $spacing-16;
+			}
+		}
 	}
 
 	.carousel {

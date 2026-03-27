@@ -21,7 +21,7 @@
   }
 }
 
-#main-content {
+#MainContent {
   display: flex;
   flex-direction: column;
   gap: responsive($spacing-24);
@@ -90,9 +90,7 @@
     width: 100%;
     position: relative;
 
-    video,
-    iframe,
-    img {
+    >* {
       position: absolute;
       transform-origin: center;
       width: 100%;

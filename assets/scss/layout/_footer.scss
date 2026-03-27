@@ -77,6 +77,10 @@
     display: flex;
     flex-wrap: wrap;
     gap: responsive($spacing-44) responsive($spacing-24);
+
+    @include mobile {
+      gap: 44px 16px;
+    }
   }
 
   &__column {
@@ -84,7 +88,7 @@
 
     @include mobile {
       flex: none;
-      width: calc(50% - #{$spacing-12});
+      width: calc(50% - #{$spacing-8});
     }
   }
 
