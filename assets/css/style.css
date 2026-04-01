@@ -11572,38 +11572,33 @@ section:has(.sticky-cta) {
   font-size: 20px;
 }
 
+.cart-drawer__showcase-img,
+.cart-drawer__heading--empty-inner,
+.cart-drawer__showcase-subtitle,
+.cart-items__empty-button {
+  opacity: 0;
+  transition: opacity 0.4s ease 0.2s;
+}
+
 .cart-drawer--empty .cart-drawer__showcase-img,
 .cart-drawer--empty .cart-drawer__heading--empty-inner,
 .cart-drawer--empty .cart-drawer__showcase-subtitle,
 .cart-drawer--empty .cart-items__empty-button {
   opacity: 1;
-  transition: all 0.3s;
 }
 .cart-drawer--empty .cart-drawer__content {
   flex: 1 1 auto !important;
 }
 .cart-drawer--empty .cart-items__wrapper {
   display: block !important;
-  padding-top: 0 !important;
 }
-.cart-drawer--empty .cart-drawer__showcase-img {
-  margin-top: 0 !important;
-}
-.cart-drawer--empty .cart-drawer__header {
-  display: contents !important;
-}
-.cart-drawer--empty .cart-drawer__close-button {
-  position: fixed !important;
-  top: var(--cart-gap) !important;
-  right: var(--cart-gap) !important;
-  z-index: 3 !important;
-}
-
-.dialog-drawer:not(.cart-drawer--empty) .cart-drawer__showcase-img,
-.dialog-drawer:not(.cart-drawer--empty) .cart-drawer__heading--empty-inner,
-.dialog-drawer:not(.cart-drawer--empty) .cart-drawer__showcase-subtitle,
-.dialog-drawer:not(.cart-drawer--empty) .cart-items__empty-button {
-  transition: all 0.3s;
+.cart-drawer--empty .cart-drawer__heading--empty {
+  font-family: "BDO Grotesk", sans-serif !important;
+  font-size: 28px !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  color: #232527 !important;
+  text-align: center !important;
 }
 
 @media (max-width: 767px) {
