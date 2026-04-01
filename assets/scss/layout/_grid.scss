@@ -83,7 +83,7 @@
 .img {
   transform: translateZ(0);
   overflow: hidden;
-  transition: all 0.3s;
+  transition: transform 0.3s, border-radius 0.3s;
   border-radius: $radius-lg;
 
   .img-box {

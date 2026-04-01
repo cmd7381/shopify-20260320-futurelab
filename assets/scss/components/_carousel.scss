@@ -46,6 +46,10 @@
 //   }
 // }
 
+.slick-arrow.slick-hidden {
+	display: none !important;
+}
+
 .slick-arrow {
 	width: responsive(48px);
 	height: responsive(48px);
@@ -118,6 +122,7 @@
 			background-color: $color-neon-tide;
 		}
 		button {
+			display: block;
 			width: responsive(8px);
 			height: responsive(8px);
 			border-radius: $radius-full;

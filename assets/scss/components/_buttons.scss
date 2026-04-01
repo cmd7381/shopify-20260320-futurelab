@@ -20,10 +20,23 @@
 		background-color: $color-neon-tide;
 		color: $color-white;
 		border-color: rgba(255, 255, 255, 0.12);
-		box-shadow: $shadow-xs, $shadow-skeuomorphic;
+		// box-shadow: $shadow-xs, $shadow-skeuomorphic;
 
 		&:hover {
 			background-color: $color-neon-tide-500;
+		}
+		
+		&.disabled,
+		&:disabled {
+			background-color: $color-slate;
+			border-color: $color-slate;
+			color: $color-white;
+			cursor: not-allowed;
+
+			&:hover {
+				background-color: $color-slate;
+				border-color: $color-slate;
+			}
 		}
 	}
 
@@ -147,8 +160,12 @@
 		}
 	}
 
-	&:hover &__icon,
-	&:hover [class*='icon-'] {
+	.icon-arrow-right{
+		margin-right: calc(responsive(6px) * -1);
+	}
+
+	&:hover:not(:disabled):not(.disabled) &__icon,
+	&:hover:not(:disabled):not(.disabled) [class*='icon-'] {
 		transform: translateX(4px);
 	}
 

@@ -4,11 +4,65 @@
 // ============================================
 // Font Face Declarations
 // ============================================
-// BDO Grotesk loaded via Google Fonts CDN in HTML head.
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-Light.woff2" | asset_url }}') format('woff2');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-Regular.woff2" | asset_url }}') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-Medium.woff2" | asset_url }}') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-DemiBold.woff2" | asset_url }}') format('woff2');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-Bold.woff2" | asset_url }}') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-ExtraBold.woff2" | asset_url }}') format('woff2');
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-Black.woff2" | asset_url }}') format('woff2');
+	font-weight: 900;
+	font-style: normal;
+	font-display: swap;
+}
 
 @font-face {
 	font-family: 'Neue Haas Grotesk Text';
-	src: url('../fonts/neuehaasgrottext-55roman-trial.otf') format('opentype');
+	src: url('{{ "neuehaasgrottext-55roman-trial.otf" | asset_url }}') format('opentype');
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -16,7 +70,7 @@
 
 @font-face {
 	font-family: 'Neue Haas Grotesk Text';
-	src: url('../fonts/neuehaasgrottext-65medium-trial.otf') format('opentype');
+	src: url('{{ "neuehaasgrottext-65medium-trial.otf" | asset_url }}') format('opentype');
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
@@ -24,7 +78,7 @@
 
 @font-face {
 	font-family: 'Neue Haas Grotesk Text';
-	src: url('../fonts/neuehaasgrottext-75bold-trial.otf') format('opentype');
+	src: url('{{ "neuehaasgrottext-75bold-trial.otf" | asset_url }}') format('opentype');
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;

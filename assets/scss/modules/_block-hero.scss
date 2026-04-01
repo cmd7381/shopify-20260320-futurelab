@@ -107,7 +107,7 @@
 
 	.badge {
 		align-self: flex-start;
-
+		border-radius: var(--radius-md);
 		@include mobile {
 			display: none;
 		}
@@ -378,4 +378,5 @@
 			width: 222px;
 		}
 	}
+
 }

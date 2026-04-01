@@ -62,6 +62,18 @@
     display: none;
   }
 
+  &.text-center{
+    padding: responsive(120px) 0;
+    .page-header__title,
+    .page-header__description,
+    .btn{
+      margin-inline: auto;
+    }
+    .btn{
+      margin-top: 20px;
+    }
+  }
+
   // Article variant
   &--article {
     .content {

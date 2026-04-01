@@ -31,6 +31,9 @@
 
 		.img-box {
 			padding-top: size(660, 660);
+			@include tablet-down {
+				padding-top: size(9 ,16);
+			}
 		}
 	}
 
@@ -47,10 +50,26 @@
 		&-desc {
 			font-size: responsive($font-size-p1);
 			line-height: $lh-p1;
+			margin-bottom: responsive(18px);
 
 			@include tablet-down {
 				font-size: $font-size-p2;
 			}
+		}
+		.form__errors,
+		.form__success{
+			font-family: $font-body;
+			font-weight: 400;
+			font-size: 16px;
+			line-height: 150%;
+			letter-spacing: 0%;
+			color: $color-stone;
+		}
+		.form__errors{
+			margin-bottom: responsive(20px);
+		}
+		.form__success{
+			margin-top: responsive(20px);
 		}
 	}
 

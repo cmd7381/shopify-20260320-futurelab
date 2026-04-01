@@ -106,5 +106,32 @@
       font-size: 14px;
       line-height: 1.5;
     }
+
+    &:has( +.block-usps__desc ){
+      font-family: $font-body;
+      font-weight: 500;
+      font-size: responsive(16px);
+      line-height: 160%;
+      letter-spacing: 0%;
+      text-align: center;
+      @include mobile {
+        font-size: 14.03px;
+        line-height: 160%;
+      }
+    }
+  }
+
+  &__desc{
+    font-family: $font-heading;
+    font-weight: 400;
+    font-size: responsive(14px);
+    line-height: 160%;
+    letter-spacing: 0px;
+    text-align: center;
+    color: $color-slate;
+    margin-top: calc(responsive(12px) * -1);
+    @include mobile {
+      font-size: 12.27px;
+    }
   }
 }

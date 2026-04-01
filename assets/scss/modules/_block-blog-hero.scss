@@ -119,13 +119,13 @@
     flex-direction: column;
     gap: responsive($spacing-8);
 
-    // &:last-child {
-    //   margin-left: auto;
+    &:nth-child(3) {
+      margin-left: auto;
 
-    //   @include tablet-down {
-    //     margin-left: 0;
-    //   }
-    // }
+      @include tablet-down {
+        margin-left: 0;
+      }
+    }
   }
 
   &__attr-label {

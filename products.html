@@ -12,7 +12,7 @@
 		<link rel="preload" href="assets/fonts/neuehaasgrottext-75bold-trial.otf" as="font" type="font/otf" crossorigin />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=BDO+Grotesk:wght@400;600&family=Manrope:wght@700&display=swap"
+		<link href="https://fonts.googleapis.com/css2?family=BDO+Grotesk:wght@400;500;600&family=Manrope:wght@700&display=swap"
 			rel="stylesheet" />
 		<link rel="stylesheet" href="./assets/css/slick.css" />
 		<link rel="stylesheet" href="./assets/fonts/icomoon/style.css">
@@ -72,9 +72,11 @@
 		</header>
 
 
+		<!-- ========== OVERLAY MASK ========== -->
+		<div class="nav-menu__mask" id="nav-mask"></div>
+
 		<!-- ========== NAV MENU ========== -->
 		<div class="nav-menu" id="nav-menu">
-			<div class="nav-menu__mask"></div>
 			<div class="nav-menu__body" data-lenis-prevent>
 				<div class="nav-menu__panel nav-menu__panel--l1">
 					<div class="nav-menu__cards">
@@ -951,10 +953,10 @@
 		</footer>
 
 		<!-- Video Lightbox -->
-		<div class="video-lightbox">
-			<div class="video-lightbox__box">
-				<button class="video-lightbox__close" aria-label="Close video"></button>
-				<div class="video-lightbox__content"></div>
+		<div class="lightbox video-lightbox">
+			<div class="lightbox__box">
+				<button class="lightbox__close" aria-label="Close video"></button>
+				<div class="lightbox__content"></div>
 			</div>
 		</div>
 

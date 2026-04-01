@@ -12,7 +12,7 @@
 		<link rel="preload" href="assets/fonts/neuehaasgrottext-75bold-trial.otf" as="font" type="font/otf" crossorigin />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=BDO+Grotesk:wght@400;600&family=Manrope:wght@700&display=swap"
+		<link href="https://fonts.googleapis.com/css2?family=BDO+Grotesk:wght@400;500;600&family=Manrope:wght@700&display=swap"
 			rel="stylesheet" />
 		<link rel="stylesheet" href="./assets/css/slick.css" />
 		<link rel="stylesheet" href="./assets/fonts/icomoon/style.css">
@@ -71,9 +71,11 @@
 		</header>
 
 
+		<!-- ========== OVERLAY MASK ========== -->
+		<div class="nav-menu__mask" id="nav-mask"></div>
+
 		<!-- ========== NAV MENU ========== -->
 		<div class="nav-menu" id="nav-menu">
-			<div class="nav-menu__mask"></div>
 			<div class="nav-menu__body" data-lenis-prevent>
 				<div class="nav-menu__panel nav-menu__panel--l1">
 					<div class="nav-menu__cards">
@@ -197,43 +199,19 @@
 									<div class="item">
 										<div class="img block-pdp-console__main-image">
 											<div class="img-box"><img src="./assets/images/product-time-capsule.jpg"
-													alt="Time Capsule Daily Longevity Complex — front" /></div>
+													alt="Time Capsule — front" /></div>
 										</div>
 									</div>
 									<div class="item">
 										<div class="img block-pdp-console__main-image">
-											<div class="img-box"><img src="./assets/images/product-time-capsule.webp"
+											<div class="img-box"><img src="./assets/images/about-image-1.jpg"
 													alt="Time Capsule — angle view" /></div>
 										</div>
 									</div>
 									<div class="item">
 										<div class="img block-pdp-console__main-image">
-											<div class="img-box"><img src="./assets/images/pdp-hero.jpg" alt="Time Capsule — lifestyle" />
-											</div>
-										</div>
-									</div>
-									<div class="item">
-										<div class="img block-pdp-console__main-image">
-											<div class="img-box"><img src="./assets/images/product-time-capsule.jpg"
-													alt="Time Capsule — ingredients" /></div>
-										</div>
-									</div>
-									<div class="item">
-										<div class="img block-pdp-console__main-image">
-											<div class="img-box"><img src="./assets/images/product-time-capsule.webp"
-													alt="Time Capsule — side view" /></div>
-										</div>
-									</div>
-									<div class="item">
-										<div class="img block-pdp-console__main-image">
-											<div class="img-box"><img src="./assets/images/product-time-capsule.jpg"
-													alt="Time Capsule — back view" /></div>
-										</div>
-									</div>
-									<div class="item">
-										<div class="img block-pdp-console__main-image">
-											<div class="img-box"><img src="./assets/images/product-time-capsule.webp"
-													alt="Time Capsule — detail" /></div>
+											<div class="img-box"><img src="./assets/images/pdp-hero.jpg"
+													alt="Time Capsule — lifestyle" /></div>
 										</div>
 									</div>
 								</div>
@@ -245,28 +223,12 @@
 												alt="Product front view" /></div>
 									</div>
 									<div class="item">
-										<div class="block-pdp-console__thumb"><img src="./assets/images/product-time-capsule.webp"
+										<div class="block-pdp-console__thumb"><img src="./assets/images/about-image-1.jpg"
 												alt="Product angle view" /></div>
 									</div>
 									<div class="item">
 										<div class="block-pdp-console__thumb"><img src="./assets/images/pdp-hero.jpg"
 												alt="Product lifestyle" /></div>
-									</div>
-									<div class="item">
-										<div class="block-pdp-console__thumb"><img src="./assets/images/product-time-capsule.jpg"
-												alt="Product ingredients" /></div>
-									</div>
-									<div class="item">
-										<div class="block-pdp-console__thumb"><img src="./assets/images/product-time-capsule.webp"
-												alt="Product side view" /></div>
-									</div>
-									<div class="item">
-										<div class="block-pdp-console__thumb"><img src="./assets/images/product-time-capsule.jpg"
-												alt="Product back view" /></div>
-									</div>
-									<div class="item">
-										<div class="block-pdp-console__thumb"><img src="./assets/images/product-time-capsule.webp"
-												alt="Product detail" /></div>
 									</div>
 								</div>
 								<button class="block-pdp-console__thumb-prev slick-arrow-prev" aria-label="Previous thumbnails"><span
@@ -427,7 +389,7 @@
 							</div>
 							<!-- Accordion -->
 							<div class="block-pdp-console__accordion">
-								<div class="block-pdp-console__accordion-item block-pdp-console__accordion-item--open">
+								<div class="block-pdp-console__accordion-item">
 									<button class="block-pdp-console__accordion-trigger" aria-expanded="true"><span
 											class="block-pdp-console__accordion-title">Description</span><span
 											class="block-pdp-console__accordion-icon icon-chevron-down" aria-hidden="true"></span></button>
@@ -1857,8 +1819,7 @@
 							</div>
 						</div>
 						<div class="sticky-cta__button">
-							<span class="sticky-cta__price">$79.99</span>
-							<a href="#" class="btn btn--neon-tide">Add to cart <span class="btn__icon icon-arrow-right"
+							<a href="#" class="btn btn--neon-tide"><span class="sticky-cta__price">$79.99</span> Add to cart <span class="btn__icon icon-arrow-right"
 									aria-hidden="true"></span></a>
 						</div>
 					</div>
@@ -1867,21 +1828,22 @@
 		</div>
 
 		<!-- PDP Image Lightbox -->
-		<div class="pdp-lightbox" id="pdp-lightbox">
-			<div class="pdp-lightbox__overlay"></div>
-			<div class="pdp-lightbox__box">
-				<button class="pdp-lightbox__close" aria-label="Close gallery">&times;</button>
-				<div class="pdp-lightbox__carousel carousel"></div>
-				<div class="pdp-lightbox__counter"><span class="pdp-lightbox__current">1</span> / <span
-						class="pdp-lightbox__total">7</span></div>
+		<div class="lightbox pdp-lightbox" id="pdp-lightbox">
+			<button class="lightbox__close" aria-label="Close gallery"></button>
+			<div class="lightbox__box">
+				<div class="lightbox__content">
+					<div class="pdp-lightbox__carousel carousel"></div>
+					<div class="pdp-lightbox__counter"><span class="pdp-lightbox__current">1</span> / <span
+							class="pdp-lightbox__total">7</span></div>
+				</div>
 			</div>
 		</div>
 
 		<!-- Video Lightbox -->
-		<div class="video-lightbox">
-			<div class="video-lightbox__box">
-				<button class="video-lightbox__close" aria-label="Close video"></button>
-				<div class="video-lightbox__content"></div>
+		<div class="lightbox video-lightbox">
+			<button class="lightbox__close" aria-label="Close video"></button>
+			<div class="lightbox__box">
+				<div class="lightbox__content"></div>
 			</div>
 		</div>
 

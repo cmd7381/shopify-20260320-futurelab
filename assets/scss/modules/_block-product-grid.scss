@@ -13,6 +13,7 @@
   padding-bottom: responsive($spacing-24);
   background-color: $color-white;
   transition: box-shadow 0.2s ease;
+  @include hover-img-scale;
 
   &:hover {
     box-shadow: $shadow-card;
@@ -241,7 +242,15 @@
     @include body-text($font-size-p3, 400, 1.4);
     color: $color-slate;
   }
-}
+
+  .dropdown__menu{
+    width: 100%;
+    top: unset;
+    bottom: calc(100% + 4px);
+    .dropdown__item{
+      white-space: unset;
+    }
+  }}
 
 .block-product-grid {
   .card__cart {
@@ -263,4 +272,3 @@
     margin-top: responsive($spacing-18);
   }
 }
-

@@ -191,3 +191,9 @@
 		}
 	}
 }
+
+.fl-dosage + .fl-text-image-section {
+	@include mobile {
+		padding: 40px 0;
+	}
+}

@@ -2,6 +2,9 @@
 @use '../helpers/mixins' as *;
 
 .block-benefits {
+	@include desktop {
+		margin: calc(responsive($spacing-24) * -1) 0;
+	}
 	padding: responsive(52px) 0 responsive(56px);
 	background-color: $color-neon-tide;
 	position: relative;

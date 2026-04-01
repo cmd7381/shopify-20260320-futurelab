@@ -12,7 +12,7 @@
 		<link rel="preload" href="assets/fonts/neuehaasgrottext-75bold-trial.otf" as="font" type="font/otf" crossorigin />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=BDO+Grotesk:wght@400;600&family=Manrope:wght@700&display=swap"
+		<link href="https://fonts.googleapis.com/css2?family=BDO+Grotesk:wght@400;500;600&family=Manrope:wght@700&display=swap"
 			rel="stylesheet" />
 		<link rel="stylesheet" href="./assets/css/slick.css" />
 		<link rel="stylesheet" href="./assets/fonts/icomoon/style.css">
@@ -71,9 +71,11 @@
 		</header>
 
 
+		<!-- ========== OVERLAY MASK ========== -->
+		<div class="nav-menu__mask" id="nav-mask"></div>
+
 		<!-- ========== NAV MENU ========== -->
 		<div class="nav-menu" id="nav-menu">
-			<div class="nav-menu__mask"></div>
 			<div class="nav-menu__body" data-lenis-prevent>
 				<div class="nav-menu__panel nav-menu__panel--l1">
 					<div class="nav-menu__cards">
@@ -231,7 +233,7 @@
 								<div class="form__group">
 									<label class="form__label" for="message">Message <span class="form__required">*</span></label>
 									<textarea class="form__textarea" id="message" name="message" placeholder="Leave us a message..."
-										required></textarea>
+										required data-lenis-prevent></textarea>
 								</div>
 								<div class="form__checkbox">
 									<input type="checkbox" id="privacy" name="privacy" required />
@@ -349,10 +351,10 @@
 		</footer>
 
 		<!-- Video Lightbox -->
-		<div class="video-lightbox">
-			<div class="video-lightbox__box">
-				<button class="video-lightbox__close" aria-label="Close video"></button>
-				<div class="video-lightbox__content"></div>
+		<div class="lightbox video-lightbox">
+			<div class="lightbox__box">
+				<button class="lightbox__close" aria-label="Close video"></button>
+				<div class="lightbox__content"></div>
 			</div>
 		</div>
 

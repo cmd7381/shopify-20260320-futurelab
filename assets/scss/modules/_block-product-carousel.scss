@@ -2,6 +2,7 @@
 @use '../helpers/mixins' as *;
 
 .block-product-carousel {
+  overflow: hidden;
 	padding: responsive($spacing-64) 0;
 
 	@include mobile {
@@ -9,7 +10,7 @@
 	}
 
 	.content {
-		overflow: hidden;
+		// overflow: hidden;
 	}
 
 	.title-block {
@@ -64,6 +65,13 @@
 	}
 
 	.card--product {
+		overflow: unset;
+
+		.card__image{
+			border-top-left-radius: var(--radius-lg);
+			border-top-right-radius: var(--radius-lg);
+		}
+
 		@include desktop {
 			padding-bottom: responsive($spacing-16);
 			gap: responsive(12px);
@@ -104,4 +112,6 @@
 			}
 		}
 	}
+
+
 }

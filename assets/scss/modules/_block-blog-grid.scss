@@ -56,7 +56,7 @@
     font-weight: 400;
     line-height: $lh-p3;
     color: $color-slate;
-    @include text-truncate(3);
+    @include text-truncate(2);
 
     @include mobile {
       font-family: $font-body;
@@ -65,6 +65,7 @@
       line-height: 1.4;
     }
   }
+
 }
 
 // Blog listing section wrapper
@@ -89,5 +90,8 @@
   .dropdown__toggle{
 		font-size: responsive($font-size-p2);
 		line-height: $lh-p2;
+  }
+  .filter-bar .dropdown__toggle span{
+    font-weight: 500;
   }
 }

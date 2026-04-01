@@ -15,6 +15,8 @@
 		@include mobile {
 			gap: $spacing-16;
 			@include slick-visible;
+			margin-inline-start: calc(-1 * var(--container-padding));
+			padding-left: var(--container-padding);
 		}
 	}
 
@@ -27,8 +29,13 @@
 
 	.carousel {
 		--gap: 12px;
+		// width: 100%;
+		// max-width: fit-content;
 		@include mobile {
-			width:160px;
+			width: 160px;
+		}
+		.slick-track{
+			margin: 0;
 		}
 	}
 

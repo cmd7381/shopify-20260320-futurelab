@@ -180,7 +180,7 @@
 				height: 42px;
 			}
 
-			span {
+			.dropdown__title {
 				@include mobile {
 					font-family: $font-body;
 					font-weight: 400;

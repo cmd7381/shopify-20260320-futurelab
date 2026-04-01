@@ -98,7 +98,7 @@
     letter-spacing: 0;
     color: $color-dark;
     padding-bottom: responsive($spacing-16);
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid $color-mist;
 
     @include mobile {
       font-size: 16px;
@@ -116,7 +116,7 @@
     align-items: center;
     justify-content: space-between;
     padding: responsive($spacing-16) 0;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid $color-mist;
     gap: responsive($spacing-16);
   }
 

@@ -33,7 +33,7 @@
 			padding: 0;
 			border: 1px solid $color-border-medium;
 			border-radius: var(--radius-md);
-			box-shadow: $shadow-xs, $shadow-skeuomorphic;
+			// box-shadow: $shadow-xs, $shadow-skeuomorphic;
 			background-color: $color-white;
 			font-size: 0;
 			justify-content: center;
@@ -164,6 +164,9 @@
 	scrollbar-width: none;
 	scroll-snap-type: x mandatory;
 	overscroll-behavior-x: contain;
+	padding-bottom: 8px;
+	margin-bottom: -8px;
+	transform: translate(0, -8px);
 	&::-webkit-scrollbar {
 		display: none;
 	}
@@ -182,13 +185,15 @@
 		border: none;
 		font-family: $font-body;
 		font-size: responsive($font-size-p2);
-		font-weight: 500;
+		font-weight: 600;
 		line-height: $lh-p2;
 		color: $color-slate;
 		cursor: pointer;
 		white-space: nowrap;
 		scroll-snap-align: start;
 		transition: color 0.2s ease, box-shadow 0.2s ease;
+		transform: translate(0, 8px);
+		outline-offset: -2px;
 
 		&:hover,
 		&--active {

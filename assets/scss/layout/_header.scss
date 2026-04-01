@@ -151,7 +151,7 @@
 		&:hover {
 			opacity: 0.7;
 		}
-		[class^="icon-"] {
+		[class*="icon-"] {
 			font-size: responsive(24px);
 		}
 	}

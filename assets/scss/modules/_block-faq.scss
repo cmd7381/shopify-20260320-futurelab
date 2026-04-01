@@ -22,7 +22,7 @@
 		flex: 1;
 		padding-bottom: responsive($spacing-40);
 		@include desktop {
-			margin-top: responsive(-4px);
+			margin-top: calc(responsive(4px) * -1);
 		}
 		@include tablet-down {
 			padding-bottom: 0;

@@ -110,6 +110,7 @@
 			z-index: 1;
 			@include mobile {
 				text-align: center;
+				justify-content: center;
 			}
 		}
 
@@ -167,6 +168,8 @@
 		@include heading($font-size-h3, 400, $lh-h3, -0.8px);
 		color: $color-dark;
 		margin-bottom: responsive($spacing-16);
+		overflow-wrap: normal;
+		word-break: normal;
 
 		@include tablet-down {
 			font-size: 32px;

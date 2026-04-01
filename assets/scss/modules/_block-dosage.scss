@@ -6,6 +6,10 @@
 	position: relative;
 	overflow: hidden;
 
+	@include desktop {
+		margin: calc(responsive($spacing-24) * -1) 0 responsive($spacing-16);
+	}
+
 	@include tablet-down {
 		border-radius: 8px;
 		overflow: hidden;
@@ -60,14 +64,8 @@
 		width: 100%;
 		--gap: 5.5px;
 		@include desktop {
-			// width: 100%;
-			// padding-right: 35.2%;
 			width: calc(100% + 16px);
 			margin-inline-end: -16px;
-			// .slick-list {
-			// 	margin-inline-end: calc(-1 * var(--container-padding));
-			// 	padding-right: var(--container-padding);
-			// }
 		}
 		@include tablet-down {
 			--gap: 6px;
@@ -76,7 +74,9 @@
 		}
 		&-box {
 			@include slick-visible;
-			width: size(911px, 1344px);
+			@include desktop {
+				width: size(911px, 1344px);
+			}
 		}
 	}
 
@@ -98,7 +98,7 @@
 
 	&__card-top {
 		display: flex;
-		align-items: center;
+		align-items: stretch;
 		gap: responsive($spacing-16);
 
 		@include mobile {

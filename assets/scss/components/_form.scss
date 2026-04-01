@@ -1,6 +1,9 @@
 @use "../helpers/variables" as *;
 @use "../helpers/mixins" as *;
 
+form{
+  --color-input-border: #8b9298;
+}
 .form {
   &__row {
     display: flex;
@@ -49,7 +52,7 @@
     line-height: 1.5;
     color: $color-dark;
     box-shadow: $shadow-xs;
-    transition: border-color 0.2s ease;
+    transition: all 0.2s ease;
 
     &::placeholder {
       color: $color-grey-600;
@@ -58,7 +61,7 @@
     &:focus {
       outline: none;
       border: 2px solid $color-brand-purple;
-      padding: responsive(8px) responsive(13px);
+      padding: calc(responsive(9px) - 1px) calc(responsive(14px) - 1px);
     }
   }
 
@@ -71,7 +74,7 @@
     position: relative;
     display: flex;
     align-items: flex-start;
-    gap: responsive($spacing-12);
+    // gap: responsive($spacing-12);
     margin-bottom: responsive($spacing-32);
 
     @include mobile {
@@ -90,7 +93,7 @@
       width: responsive(20px);
       height: responsive(20px);
       min-width: responsive(20px);
-      margin-top: 2px;
+      // margin-top: 2px;
       border: 1px solid $color-mist;
       border-radius: 6px;
       background-color: $color-white;
@@ -98,21 +101,30 @@
         background-color 0.2s ease,
         border-color 0.2s ease;
       cursor: pointer;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translate(0,-50%);
+      pointer-events: none;
     }
 
     &::after {
       content: "";
       position: absolute;
-      left: responsive(4px);
-      top: responsive(7px);
+      // left: responsive(4px);
+      // top: responsive(7px);
       width: responsive(12px);
       height: responsive(7px);
       border-left: 2px solid $color-white;
       border-bottom: 2px solid $color-white;
-      transform: rotate(-45deg);
       opacity: 0;
       transition: opacity 0.2s ease;
       pointer-events: none;
+
+      position: absolute;
+      left: responsive(4px);
+      top: 50%;
+      transform: translate(0,-50%) rotate(-45deg);
     }
 
     &:has(input:checked)::before {
@@ -131,7 +143,7 @@
       line-height: 1.5;
       color: $color-slate;
       cursor: pointer;
-
+      padding-left: responsive(32px);
       a {
         color: $color-slate;
         text-decoration: underline;

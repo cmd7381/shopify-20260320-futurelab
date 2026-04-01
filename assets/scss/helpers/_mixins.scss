@@ -273,10 +273,16 @@
 	}
 }
 
-@mixin slick-visible {
+@mixin slick-visible($side: 1) {
 	overflow: hidden;
-	margin-inline-end: calc(-1 * var(--container-padding));
-	padding-right: var(--container-padding);
+
+	@if $side == 2 {
+		margin-inline: calc(-1 * var(--container-padding));
+		padding-inline: var(--container-padding);
+	} @else {
+		margin-inline-end: calc(-1 * var(--container-padding));
+		padding-right: var(--container-padding);
+	}
 
 	.carousel {
 		.slick-list {

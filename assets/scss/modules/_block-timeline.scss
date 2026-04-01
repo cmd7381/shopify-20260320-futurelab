@@ -2,10 +2,11 @@
 @use '../helpers/mixins' as *;
 
 .block-timeline {
+	overflow: hidden;
 	padding: responsive(60px) 0 responsive(63px);
 
 	@include mobile {
-		padding: $spacing-40 0;
+		padding: $spacing-40 0 0;
 	}
 
 	.intro-text {
@@ -28,14 +29,22 @@
 			margin-bottom: $spacing-24;
 		}
 		.carousel {
+			width: fit-content;
+			overflow: hidden;
+			margin: 0 auto;
 			--gap: 12px;
+
+			@include tablet-down {
+				width: 100%;
+			}
+
 			.slick-track {
 				border-bottom: 1px solid $color-border;
-				width: fit-content !important;
-				transform: none !important;
-				justify-content: center;
-				@include tablet-down {
-					justify-content: flex-start;
+
+				@include tablet-up {
+					width: fit-content !important;
+					transform: none !important;
+					justify-content: center;
 				}
 			}
 		}
@@ -74,7 +83,11 @@
 		}
 
 		&:hover {
-			color: $color-dark;
+			color: $color-neon-tide;
+			font-weight: 600;
+			&::after {
+				background-color: $color-brand-purple;
+			}
 		}
 	}
 
@@ -143,7 +156,7 @@
 		padding-bottom: responsive($spacing-16);
 
 		@include tablet-down {
-			padding: 0 $spacing-24 $spacing-16;
+			padding: 0 $spacing-24 26px;
 			align-items: stretch;
 			justify-content: flex-start;
 			gap: 0;

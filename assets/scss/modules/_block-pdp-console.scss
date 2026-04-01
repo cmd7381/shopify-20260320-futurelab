@@ -22,6 +22,7 @@
 
 		@include tablet-down {
 			width: 100%;
+			position: relative;
 		}
 	}
 
@@ -30,6 +31,10 @@
 		cursor: pointer;
 
 		.carousel {
+			@include tablet-down {
+				max-width: 740px;
+				margin-inline: auto;
+			}
 			.slick-slide {
 				outline: none;
 			}
@@ -51,13 +56,54 @@
 	// Thumbs (nav slick)
 	&__thumbs {
 		position: relative;
+		// overflow: hidden;
 
-		.carousel {
-			.slick-slide {
-				padding: 0 $spacing-4;
-				outline: none;
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 158px;
+			height: 100%;
+			background: linear-gradient(270deg, #FFFFFF 60.94%, rgba(255, 255, 255, 0) 100%);
+			pointer-events: none;
+			z-index: 1;
+			@include tablet-down {
+				display: none;
 			}
 		}
+
+		.slick-arrow-next {
+			z-index: 2;
+		}
+
+		@include tablet-down {
+			position: absolute;
+			top: 50%;
+			transform: translate(0, -50%);
+			width: 100%;
+		}
+
+		.carousel {
+			margin: 0 auto;
+			width: 100%;
+			padding-right: responsive(36px);
+			@include tablet-down {
+				opacity: 0;
+				pointer-events: none;
+			}
+			.slick-list{
+				margin: 0;
+			}
+		}
+
+		.item{
+			width: responsive(92px);
+		}
+
+		// .carousel .slick-list{
+		// 	overflow: visible;
+		// }
 
 		.slick-arrow-prev,
 		.slick-arrow-next {
@@ -76,7 +122,7 @@
 			align-items: center;
 			justify-content: center;
 			font-size: responsive(16px);
-			color: $color-dark;
+			color: $color-grey-600;
 			cursor: pointer;
 			transition: opacity 0.2s ease;
 
@@ -92,7 +138,7 @@
 		}
 
 		.slick-arrow-prev {
-			left: 0;
+			left: 8px;
 
 			span {
 				transform: rotate(180deg);
@@ -100,30 +146,21 @@
 		}
 
 		.slick-arrow-next {
-			right: 0;
+			right: 8px;
 		}
 	}
 
 	&__thumb {
-		height: responsive(92px);
+		aspect-ratio: 1 !important;
 		border-radius: $radius-md;
 		overflow: hidden;
 		cursor: pointer;
-		border: 2px solid transparent;
-		transition: border-color 0.2s ease;
+		border: none;
 
 		img {
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
-		}
-
-		.slick-current & {
-			border-color: $color-neon-tide;
-		}
-
-		@include tablet-down {
-			height: 72px;
 		}
 	}
 
@@ -134,6 +171,13 @@
 		display: flex;
 		flex-direction: column;
 		gap: responsive($spacing-24);
+
+		@include tablet-down {
+			display: contents;
+			>*{
+				width: 100%;
+			}
+		}
 	}
 
 	// ---- Header (title area) ----
@@ -146,6 +190,8 @@
 
 		@include tablet-down {
 			padding: 0;
+			order: -1;
+			margin-bottom: -8px;
 		}
 	}
 
@@ -154,6 +200,12 @@
 		align-items: flex-start;
 		justify-content: space-between;
 		margin-bottom: responsive(6px);
+
+		.badge--tag {
+			padding: responsive(4px) responsive(12px);
+			font-size: responsive(14px);
+			line-height: 1.43;
+		}
 	}
 
 	&__rating {
@@ -199,7 +251,8 @@
 		margin-bottom: responsive(12px);
 
 		@include tablet-down {
-			font-size: 28px;
+			font-size: 32px;
+			line-height: 120%;
 			letter-spacing: -0.56px;
 		}
 	}
@@ -236,11 +289,19 @@
 
 	&__benefits-cards {
 		display: flex;
+		flex-flow: row nowrap;
 		gap: responsive($spacing-12);
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
 	}
 
 	&__benefit-card {
-		flex: 1;
+		flex: 1 0 auto;
+		max-width: responsive(180px);
 		display: flex;
 		align-items: center;
 		gap: responsive($spacing-16);
@@ -251,6 +312,10 @@
 		box-shadow: $shadow-xs;
 		overflow: hidden;
 
+		@include tablet-down {
+			max-width: 170px;
+		}
+
 		img {
 			width: responsive(41px);
 			height: responsive(41px);
@@ -259,6 +324,11 @@
 			border-radius: 50%;
 			overflow: hidden;
 			padding: 10px;
+
+			@include tablet-down {
+				width: 32px;
+				height: 32px;
+			}
 		}
 
 		span {
@@ -267,18 +337,8 @@
 			font-weight: 400;
 			line-height: 1.4;
 			color: $color-slate;
-		}
 
-		@include tablet-down {
-			padding: 12px;
-			gap: $spacing-8;
-
-			img {
-				width: 32px;
-				height: 32px;
-			}
-
-			span {
+			@include tablet-down {
 				font-size: 11px;
 			}
 		}
@@ -286,13 +346,13 @@
 
 	// ---- Pricing (buying choices) ----
 	&__pricing {
-		padding: responsive($spacing-24) responsive($spacing-48);
+		padding: responsive($spacing-24) responsive($spacing-48) responsive(10px);
 		display: flex;
 		flex-direction: column;
 		gap: responsive($spacing-32);
 
 		@include tablet-down {
-			padding: $spacing-24 0;
+			padding: $spacing-24 0 8px;
 		}
 	}
 
@@ -302,10 +362,10 @@
 		border: 1px solid #e5e5e5;
 		border-radius: $radius-md;
 		box-shadow: $shadow-xs;
-		padding: responsive(20px) responsive($spacing-16) responsive(16px);
+		padding: responsive(24px) responsive(24px) responsive(16px);
 		cursor: pointer;
 		transition: border-color 0.2s ease;
-		min-height: responsive(77px);
+		// min-height: responsive(77px);
 
 		&:hover {
 			border-color: $color-neon-tide;
@@ -446,33 +506,35 @@
 
 	&__price-callout {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		gap: responsive($spacing-12);
 		background: $color-neon-tide;
-		padding: responsive($spacing-8) responsive($spacing-24);
+		padding: responsive(9px) responsive($spacing-24);
 		border-radius: 0 0 $radius-md $radius-md;
-		margin: 0 -18px -18px;
+		margin: responsive(22px) calc(responsive(24px) * -1 - 2px) calc(responsive(16px) * -1 - 2px);
+		// width: calc(100% + responsive(26px) * 2);
 	}
 
 	&__callout-item {
 		display: flex;
-		align-items: flex-start;
+		align-items: center;
 		gap: responsive($spacing-8);
 
-		.icon-check-circle-solid {
-			font-size: responsive(16px);
-			color: $color-white;
-			flex-shrink: 0;
-			margin-top: 1px;
-		}
-
-		span {
+		span:not(.iconfont) {
 			font-family: $font-body;
 			font-size: $font-size-caption;
 			font-weight: 400;
 			line-height: 1.4;
 			color: $color-white;
 			white-space: nowrap;
+		}
+
+		.icon-check-circle {
+			font-size: responsive(16px);
+			color: $color-white;
+			flex-shrink: 0;
+			margin-top: 1px;
 		}
 	}
 
@@ -488,6 +550,7 @@
 		line-height: 1.5;
 		text-align: center;
 		white-space: nowrap;
+		text-transform: capitalize;
 
 		&--primary {
 			background: $color-neon-tide;
@@ -529,6 +592,15 @@
 		color: $color-dark;
 		text-decoration: underline;
 		text-align: center;
+		transition: color 0.3s ease;
+
+		&:hover {
+			color: $color-neon-tide;
+		}
+
+		@include tablet-down {
+			margin-bottom: 8px;
+		}
 	}
 
 	&__add-to-cart {
@@ -553,7 +625,7 @@
 		gap: responsive($spacing-32);
 
 		@include tablet-down {
-			padding: $spacing-24 0;
+			padding: 8px 0 $spacing-24;
 		}
 	}
 
@@ -665,6 +737,7 @@
 		padding: responsive(18px) 0;
 		cursor: pointer;
 		text-align: left;
+		transition: opacity 0.3s ease;
 
 		&:hover {
 			opacity: 0.8;
@@ -696,9 +769,13 @@
 		padding-bottom: responsive($spacing-16);
 		padding-right: responsive(32px);
 
-		.block-pdp-console__accordion-item--open & {
-			display: block;
+		@include tablet-down {
+			padding-bottom: 32px;
 		}
+
+		// .block-pdp-console__accordion-item--open & {
+		// 	display: block;
+		// }
 
 		p {
 			font-family: $font-body;
@@ -712,73 +789,23 @@
 
 // ---- PDP Image Lightbox ----
 .pdp-lightbox {
-	position: fixed;
-	inset: 0;
-	z-index: $z-modal;
-	@include overlay;
+	// .lightbox__box {
+	// 	max-width: responsive(900px);
+	// 	width: 90%;
+	// }
 
-	&__overlay {
-		position: absolute;
-		inset: 0;
-		background: $color-black;
-		opacity: 0.85;
-	}
-
-	&__box {
-		position: absolute;
-		z-index: 2;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		width: 90%;
-		max-width: responsive(900px);
-
-		@include tablet-down {
-			width: 96%;
-		}
-	}
-
-	&__close {
-		position: absolute;
-		z-index: 9;
-		right: calc(-1 * responsive(8px));
-		top: calc(-1 * responsive(40px));
-		width: responsive(36px);
-		height: responsive(36px);
-		background: none;
-		border: none;
-		cursor: pointer;
-		color: $color-white;
-		font-size: responsive(28px);
-		line-height: 1;
-		transition: opacity 0.2s ease;
-
-		&:hover {
-			opacity: 0.7;
-		}
-
-		@include tablet-down {
-			right: 0;
-			top: -36px;
-			width: 32px;
-			height: 32px;
-			font-size: 24px;
-		}
-	}
-
-	&__carousel {
+	.carousel {
+		width: 100%;
 		img {
 			width: 100%;
 			height: auto;
+			max-height: calc(100vh - 240px);
+			object-fit: contain;
 			border-radius: responsive(16px);
 
 			@include tablet-down {
 				border-radius: $radius-md;
 			}
-		}
-
-		.slick-slide {
-			outline: none;
 		}
 
 		.slick-prev,
@@ -787,22 +814,24 @@
 			top: 50%;
 			transform: translateY(-50%);
 			z-index: 3;
-			width: responsive(48px);
-			height: responsive(48px);
+			width: responsive(40px);
+			height: responsive(40px);
+			flex-shrink: 0;
 			border-radius: $radius-full;
-			background: rgba(255, 255, 255, 0.9);
-			border: none;
-			cursor: pointer;
-			font-size: 0;
+			background: $color-white;
+			border: 0.5px solid #e5e5e5;
+			backdrop-filter: blur(4px);
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			cursor: pointer;
+			font-size: 0;
+			color: $color-dark;
 			transition: opacity 0.2s ease;
 
 			&::before {
 				font-family: 'icomoon' !important;
-				content: '\ea0c';
-				font-size: responsive(18px);
+				font-size: responsive(16px);
 				color: $color-dark;
 			}
 
@@ -811,8 +840,8 @@
 			}
 
 			@include tablet-down {
-				width: 36px;
-				height: 36px;
+				width: 32px;
+				height: 32px;
 
 				&::before {
 					font-size: 14px;
@@ -821,22 +850,18 @@
 		}
 
 		.slick-prev {
-			left: calc(-1 * responsive(24px));
+			left: responsive(16px);
 
 			&::before {
-				transform: rotate(180deg);
-			}
-
-			@include tablet-down {
-				left: -8px;
+				content: '\e91c';
 			}
 		}
 
 		.slick-next {
-			right: calc(-1 * responsive(24px));
+			right: responsive(16px);
 
-			@include tablet-down {
-				right: -8px;
+			&::before {
+				content: '\e915';
 			}
 		}
 	}

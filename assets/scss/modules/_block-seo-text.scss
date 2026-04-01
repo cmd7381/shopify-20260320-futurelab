@@ -25,7 +25,8 @@
 	}
 
 	&__visible,
-	&__hidden {
+	&__hidden,
+	&__tips {
 		font-family: $font-heading;
 		font-size: responsive($font-size-p3);
 		font-weight: 400;

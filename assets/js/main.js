@@ -57,8 +57,8 @@ var App = (function($) {
 				var $el = $(this);
 				var rect = this.getBoundingClientRect();
 				// start: element enters bottom of viewport; end: element center reaches viewport center
-				var start = wh;
-				var end = wh * 0.2;
+				var start = wh * 0.7;
+				var end = wh * 0.3;
 				var progress = (start - rect.top) / (start - end);
 				progress = Math.max(0, Math.min(1, progress));
 
@@ -101,6 +101,42 @@ var App = (function($) {
 	})();
 
 	// ============================================
+	// Shared mask helper — only remove when nothing needs it
+	// ============================================
+	function isMaskNeeded() {
+		return $(".nav-menu.is-open").length > 0
+			|| $(".header__dropdown.is-open").length > 0
+			|| $(".sticky-cta__select.is-open").length > 0
+			|| $(".lightbox.is-open").length > 0;
+	}
+
+	function releaseMask() {
+		if (!isMaskNeeded()) {
+			$("#nav-mask").removeClass("is-open");
+		}
+	}
+
+	// ============================================
+	// Lightbox mask: sync nav-menu__mask with any .lightbox.is-open
+	// ============================================
+	(function() {
+		var $mask = $("#nav-mask");
+		if (!$mask.length) return;
+
+		$(".lightbox").each(function() {
+			new MutationObserver(function(mutations) {
+				var anyOpen = $(".lightbox.is-open").length > 0;
+				if (anyOpen) {
+					$mask.css("z-index", 399).addClass("is-open");
+				} else {
+					releaseMask();
+					setTimeout(function() { $mask.css("z-index", ""); }, 300);
+				}
+			}).observe(this, { attributes: true, attributeFilter: ["class"] });
+		});
+	})();
+
+	// ============================================
 	// Video Lightbox
 	// ============================================
 	var VideoLightbox = (function() {
@@ -108,7 +144,11 @@ var App = (function($) {
 
 		function open(videoUrl) {
 			var html;
-			if (videoUrl.indexOf("youtube") !== -1 || videoUrl.indexOf("vimeo") !== -1) {
+			var ytMatch = videoUrl.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]+)/);
+			if (ytMatch) {
+				html = '<iframe src="https://www.youtube.com/embed/' + ytMatch[1] +
+					'?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+			} else if (videoUrl.indexOf("vimeo") !== -1) {
 				html = '<iframe src="' + videoUrl +
 					'?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
 			} else {
@@ -135,7 +175,7 @@ var App = (function($) {
 			$lightbox = $(".video-lightbox");
 			if (!$lightbox.length) return;
 
-			$content = $(".video-lightbox__content");
+			$content = $lightbox.find(".lightbox__content");
 
 			$(document).on("click", "[data-video]", function(e) {
 				e.preventDefault();
@@ -143,10 +183,10 @@ var App = (function($) {
 				open($(this).attr("data-video"));
 			});
 
-			$(".video-lightbox__close").on("click", close);
+			$lightbox.find(".lightbox__close").on("click", close);
 
 			$lightbox.on("click", function(e) {
-				if ($(e.target).closest(".video-lightbox__content").length === 0) {
+				if ($(e.target).closest(".lightbox__content").length === 0) {
 					close();
 				}
 			});
@@ -346,7 +386,7 @@ var App = (function($) {
 	// Nav Menu (Shop Flyout — L1 + L2)
 	// ============================================
 	var NavMenu = (function() {
-		var $menu, $mask, $body, $l1, $l2, $shopToggle, $submenuToggle;
+		var $menu, $mask, $body, $l1, $shopToggle, $submenuToggle;
 		var hoverTimer;
 
 		function isMobile() {
@@ -371,27 +411,34 @@ var App = (function($) {
 
 		function close() {
 			clearTimeout(hoverTimer);
+			// Disable L2 transition before closing so it doesn't animate out
+			var $l2Panels = $menu.find(".nav-menu__panel--l2");
+			$l2Panels.css("transition", "none");
+			$l2Panels.removeClass("is-open");
+			$l1.removeClass("has-l2");
+			$submenuToggle.removeClass("is-active");
+
 			$shopToggle.removeClass("is-open").attr("aria-expanded", "false");
 			$menu.removeClass("is-open");
-			$mask.removeClass("is-open");
+			releaseMask();
 			$(".custom-header").removeClass("is-menu-open");
 			PageScroll.unlock();
-			// Reset L2 after panel is hidden
+			// Restore L2 transition after menu is hidden
 			setTimeout(function() {
-				$l2.removeClass("is-open");
-				$l1.removeClass("has-l2");
-				$submenuToggle.removeClass("is-active");
+				$l2Panels.css("transition", "");
 			}, 350);
 		}
 
-		function openL2() {
-			$l2.addClass("is-open");
+		function openL2($target) {
+			$menu.find(".nav-menu__panel--l2").removeClass("is-open");
+			$submenuToggle.removeClass("is-active");
+			$target.addClass("is-open");
+			$target.closest("[data-submenu-toggle]").addClass("is-active");
 			if (!isMobile()) $l1.addClass("has-l2");
-			$submenuToggle.addClass("is-active");
 		}
 
 		function closeL2() {
-			$l2.removeClass("is-open");
+			$menu.find(".nav-menu__panel--l2").removeClass("is-open");
 			$l1.removeClass("has-l2");
 			$submenuToggle.removeClass("is-active");
 		}
@@ -403,9 +450,8 @@ var App = (function($) {
 			$body = $("body");
 			$mask = $("#nav-mask");
 			$l1 = $menu.find(".nav-menu__panel--l1");
-			$l2 = $menu.find(".nav-menu__panel--l2");
 			$shopToggle = $("[data-shop-toggle]");
-			$submenuToggle = $("[data-submenu-toggle]");
+			$submenuToggle = $("[data-submenu-toggle]").attr("tabindex", "0");
 
 			// ---- Mobile: click ----
 			$shopToggle.on("click", function(e) {
@@ -414,34 +460,42 @@ var App = (function($) {
 				$menu.hasClass("is-open") ? close() : open();
 			});
 
-			// ---- Desktop: hover with timer ----
-			$shopToggle.filter(".desktop-only").on("mouseenter", function() {
+			// ---- Desktop: hover ----
+			var $hoverZone = $shopToggle.filter(".desktop-only").add($menu.find(".nav-menu__panel--l1"));
+			$hoverZone.on("mouseenter", function() {
+				if (isMobile()) return;
 				clearTimeout(hoverTimer);
 				if (!$menu.hasClass("is-open")) open();
 			});
-			$shopToggle.filter(".desktop-only").on("mouseleave", function() {
-				hoverTimer = setTimeout(close, 250);
-			});
-
-			$menu.find(".nav-menu__body").on("mouseenter", function() {
+			$hoverZone.on("mouseleave", function() {
 				if (isMobile()) return;
-				clearTimeout(hoverTimer);
-			});
-			$menu.find(".nav-menu__body").on("mouseleave", function() {
-				if (isMobile()) return;
-				hoverTimer = setTimeout(close, 250);
+				hoverTimer = setTimeout(close, 150);
 			});
 
 			// ---- L2 toggle: desktop hover, mobile click ----
 			$submenuToggle.on("click", function(e) {
 				e.stopPropagation();
 				if (!isMobile()) return;
-				$l2.hasClass("is-open") ? closeL2() : openL2();
+				var $myL2 = $(this).find(".nav-menu__panel--l2");
+				$myL2.hasClass("is-open") ? closeL2() : openL2($myL2);
 			});
 			$submenuToggle.on("mouseenter", function() {
 				if (isMobile()) return;
 				clearTimeout(hoverTimer);
-				if (!$l2.hasClass("is-open")) openL2();
+				var $myL2 = $(this).find(".nav-menu__panel--l2");
+				if (!$myL2.hasClass("is-open")) openL2($myL2);
+			});
+			$submenuToggle.on("focusin", function() {
+				if (isMobile()) return;
+				clearTimeout(hoverTimer);
+				var $myL2 = $(this).find(".nav-menu__panel--l2");
+				if (!$myL2.hasClass("is-open")) openL2($myL2);
+			});
+			$submenuToggle.on("focusout", function(e) {
+				if (isMobile()) return;
+				setTimeout(function() {
+					if (!$(document.activeElement).closest("[data-submenu-toggle]").length) closeL2();
+				}, 0);
 			});
 			$submenuToggle.on("mouseleave", function() {
 				if (isMobile()) return;
@@ -554,8 +608,8 @@ var App = (function($) {
 		function closeDropdown() {
 			$(".header__dropdown.is-open").removeClass("is-open");
 			$("[data-sub-toggle].is-open").removeClass("is-open");
+			releaseMask();
 			if (!NavMenu.isOpen()) {
-				$mask.removeClass("is-open");
 				PageScroll.unlock();
 			}
 		}
@@ -613,11 +667,29 @@ var App = (function($) {
 	(function() {
 		var dialog = document.querySelector('.cart-drawer__dialog');
 		if (!dialog) return;
+		$(dialog).find('.cart-items-component').attr('data-lenis-prevent', '');
 		new MutationObserver(function() {
 			if (dialog.open) {
 				$(dialog).find('.slick-initialized').slick('setPosition');
 			}
 		}).observe(dialog, { attributes: true, attributeFilter: ['open'] });
+
+		// Subscribe toggle
+		$(dialog).on("click", ".cart-drawer__subscribe-toggle", function(e) {
+			e.stopPropagation();
+			var $subscribe = $(this).closest(".cart-drawer__subscribe");
+			$subscribe.toggleClass("is-open");
+			$subscribe.find(".cart-drawer__subscribe-body").slideToggle(300);
+		});
+
+		// Close subscribe on click outside
+		$(dialog).on("click", function(e) {
+			var $subscribe = $(".cart-drawer__subscribe.is-open");
+			if ($subscribe.length && !$(e.target).closest(".cart-drawer__subscribe").length) {
+				$subscribe.removeClass("is-open");
+				$subscribe.find(".cart-drawer__subscribe-body").slideUp(300);
+			}
+		});
 	})();
 
 	// ============================================
@@ -861,47 +933,41 @@ var App = (function($) {
 			$thumbs = $(".block-pdp-console__thumbs .carousel");
 			if (!$gallery.length || !$thumbs.length) return;
 
+			// Clone both carousels so slidesToShow:6 has enough for infinite
+			var $gItems = $gallery.children(".item");
+			var $tItems = $thumbs.children(".item");
+			$gItems.clone().appendTo($gallery);
+			$gItems.clone().appendTo($gallery);
+			$tItems.clone().appendTo($thumbs);
+			$tItems.clone().appendTo($thumbs);
+
 			// Main gallery
 			$gallery.slick({
 				infinite: true,
 				slidesToShow: 1,
 				slidesToScroll: 1,
-				speed: 400,
-				fade: true,
 				arrows: false,
-				dots: false,
-				draggable: true,
+				fade: true,
 				asNavFor: ".block-pdp-console__thumbs .carousel"
 			});
 
 			// Thumbs nav
 			$thumbs.slick({
-				infinite: false,
+				infinite: true,
 				slidesToShow: 6,
 				slidesToScroll: 1,
-				speed: 300,
-				arrows: true,
+				asNavFor: ".block-pdp-console__gallery .carousel",
 				dots: false,
 				focusOnSelect: true,
-				asNavFor: ".block-pdp-console__gallery .carousel",
 				prevArrow: $(".block-pdp-console__thumbs .slick-arrow-prev"),
-				nextArrow: $(".block-pdp-console__thumbs .slick-arrow-next"),
-				responsive: [{
-					breakpoint: 1024,
-					settings: {
-						slidesToShow: 5
-					}
-				}, {
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 4
-					}
-				}]
+				nextArrow: $(".block-pdp-console__thumbs .slick-arrow-next")
 			});
 
 			// Click main image → open lightbox
+			var realSlideCount = $gItems.length;
 			$gallery.on("click", ".slick-slide", function() {
-				var idx = $(this).data("slick-index");
+				var idx = $(this).data("slick-index") % realSlideCount;
+				if (idx < 0) idx += realSlideCount;
 				openLightbox(idx);
 			});
 		}
@@ -917,36 +983,44 @@ var App = (function($) {
 				$lightboxCarousel.slick("unslick");
 			}
 
-			// Build slides from gallery images
+			// Build slides from gallery images (dedupe JS-cloned items)
 			var html = "";
+			var seen = {};
 			$gallery.find(".slick-slide:not(.slick-cloned) img").each(function() {
-				html += '<div class="item"><img src="' + $(this).attr("src") + '" alt="' + ($(this).attr("alt") ||
-					"") + '" /></div>';
+				var src = $(this).attr("src");
+				if (seen[src]) return;
+				seen[src] = true;
+				html += '<div class="item"><img src="' + src + '" alt="' + ($(this).attr("alt") || "") + '" /></div>';
 			});
 			$lightboxCarousel.html(html);
 
 			var total = $lightboxCarousel.find(".item").length;
 
-			$lightboxCarousel.slick({
-				infinite: true,
-				slidesToShow: 1,
-				slidesToScroll: 1,
-				speed: 400,
-				arrows: true,
-				dots: false,
-				draggable: true,
-				initialSlide: startIndex || 0
-			});
-
-			$lightboxCarousel.on("afterChange", function(e, slick, currentSlide) {
-				$lightbox.find(".pdp-lightbox__current").text(currentSlide + 1);
-			});
-
-			$lightbox.find(".pdp-lightbox__total").text(total);
-			$lightbox.find(".pdp-lightbox__current").text((startIndex || 0) + 1);
+			// Show lightbox first so slick can calculate dimensions
 			$lightbox.addClass("is-open");
 
+			setTimeout(function() {
+				$lightboxCarousel.slick({
+					infinite: true,
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					speed: 400,
+					arrows: true,
+					dots: false,
+					draggable: true,
+					initialSlide: startIndex || 0
+				});
+
+				$lightboxCarousel.on("afterChange", function(e, slick, currentSlide) {
+					$lightbox.find(".pdp-lightbox__current").text(currentSlide + 1);
+				});
+
+				$lightbox.find(".pdp-lightbox__total").text(total);
+				$lightbox.find(".pdp-lightbox__current").text((startIndex || 0) + 1);
+			}, 50);
+
 			// Lock scroll
+			PageScroll.lock();
 			$(document).on("mousewheel.pdplb DOMMouseScroll.pdplb touchmove.pdplb", function(e) {
 				e.preventDefault();
 			});
@@ -955,6 +1029,7 @@ var App = (function($) {
 		function closeLightbox() {
 			$lightbox = $("#pdp-lightbox");
 			$lightbox.removeClass("is-open");
+			PageScroll.unlock();
 			$(document).off("mousewheel.pdplb DOMMouseScroll.pdplb touchmove.pdplb");
 		}
 
@@ -965,8 +1040,10 @@ var App = (function($) {
 			initGallery();
 
 			// Lightbox close
-			$(document).on("click", ".pdp-lightbox__close", closeLightbox);
-			$(document).on("click", ".pdp-lightbox__overlay", closeLightbox);
+			$(document).on("click", ".pdp-lightbox .lightbox__close", closeLightbox);
+			$(document).on("click", ".pdp-lightbox", function(e) {
+				if ($(e.target).closest(".lightbox__box").length === 0) closeLightbox();
+			});
 			$(document).on("keydown", function(e) {
 				if (e.key === "Escape") closeLightbox();
 			});
@@ -989,6 +1066,12 @@ var App = (function($) {
 					$item.find(".block-pdp-console__accordion-trigger").attr("aria-expanded", "true");
 				}
 			});
+
+			// Open first accordion item on init (no animation)
+			var $firstItem = $section.find(".block-pdp-console__accordion-item").first();
+			$firstItem.addClass("block-pdp-console__accordion-item--open");
+			$firstItem.find(".block-pdp-console__accordion-body").show();
+			$firstItem.find(".block-pdp-console__accordion-trigger").attr("aria-expanded", "true");
 
 			// Pricing option selection
 			$section.on("click", ".block-pdp-console__price-option", function() {
@@ -1035,46 +1118,47 @@ var App = (function($) {
 
 			$actions = $("#pdp-actions");
 			$select = $sticky.find(".sticky-cta__select");
+			var $toggle = $select.find(".sticky-cta__select-toggle");
+			var $menu = $select.find(".sticky-cta__select-menu");
+			var $mask = $("#nav-mask");
 
 			// Scroll visibility
 			$(window).on("scroll", onScroll);
 			onScroll();
 
-			// Select dropdown toggle
-			$sticky.on("click", ".sticky-cta__select-toggle", function(e) {
-				e.stopPropagation();
-				var isOpen = $select.hasClass("is-open");
-				$select.toggleClass("is-open", !isOpen);
-				$select.find(".sticky-cta__select-menu").stop().slideToggle(200);
-				$(this).attr("aria-expanded", !isOpen);
-			});
-
-			// Select option
-			$sticky.on("click", ".sticky-cta__select-option", function() {
-				var $opt = $(this);
-				$select.find(".sticky-cta__select-option").removeClass("is-selected");
-				$opt.addClass("is-selected");
-
-				$select.find(".sticky-cta__select-label").text($opt.data("label"));
-				$select.find(".sticky-cta__select-sub").text($opt.data("sub"));
-				$sticky.find(".sticky-cta__price").text("$" + $opt.data("price"));
-
-				$select.removeClass("is-open");
-				$select.find(".sticky-cta__select-menu").stop().slideUp(200);
-				$select.find(".sticky-cta__select-toggle").attr("aria-expanded", "false");
-			});
-
-			// Close on outside click
-			$(document).on("click", function() {
-				if ($select.hasClass("is-open")) {
-					$select.removeClass("is-open");
-					$select.find(".sticky-cta__select-menu").stop().slideUp(200);
-					$select.find(".sticky-cta__select-toggle").attr("aria-expanded", "false");
+			// Toggle dropdown
+			$toggle.on("click", function() {
+				var opening = !$select.hasClass("is-open");
+				$select.toggleClass("is-open");
+				if (opening) {
+					$mask.addClass("is-open");
+					$("body").addClass("no-scroll");
+				} else {
+					releaseMask();
+					$("body").removeClass("no-scroll");
 				}
 			});
 
-			$select.on("click", function(e) {
-				e.stopPropagation();
+			// Select option
+			$menu.on("click", ".sticky-cta__select-option", function() {
+				var $opt = $(this);
+				$menu.find(".sticky-cta__select-option").removeClass("is-selected");
+				$opt.addClass("is-selected");
+				$select.find(".sticky-cta__select-label").text($opt.data("label"));
+				$select.find(".sticky-cta__select-sub").text($opt.data("sub"));
+				$sticky.find(".sticky-cta__price").text("$" + $opt.data("price"));
+				$select.removeClass("is-open");
+				releaseMask();
+				$("body").removeClass("no-scroll");
+			});
+
+			// Close on mask / outside click
+			$(document).on("click", function(e) {
+				if (!$select.hasClass("is-open")) return;
+				if ($(e.target).closest(".sticky-cta__select").length) return;
+				$select.removeClass("is-open");
+				releaseMask();
+				$("body").removeClass("no-scroll");
 			});
 		}
 
@@ -1175,7 +1259,7 @@ var App = (function($) {
 				selector: '.promo-bar',
 				options: {
 					speed: 300,
-					fade: false,
+					fade: true,
 					autoplay: true,
 					autoplaySpeed: 3000
 				}
@@ -1264,6 +1348,7 @@ var App = (function($) {
 				options: {
 					slidesToShow: 2,
 					arrows: true,
+					autoplay: false,
 					responsive: [{
 						breakpoint: 1024,
 						settings: {
@@ -1341,13 +1426,31 @@ var App = (function($) {
 						infinite: false,
 						variableWidth: true,
 						focusOnSelect: true,
-						draggable: false
+						draggable: false,
+						responsive: [
+							{
+								breakpoint: 768,
+								settings: {
+									infinite: true,
+									draggable: true
+								}
+							}
+						]
 					}
 				},
 				main: {
 					selector: '.block-timeline__content .carousel',
 					options: {
-						speed: 600
+						speed: 600,
+						infinite: false,
+						responsive: [
+							{
+								breakpoint: 768,
+								settings: {
+									infinite: true
+								}
+							}
+						]
 					}
 				}
 			});
@@ -1400,6 +1503,30 @@ var App = (function($) {
 	})();
 
 	// ============================================
+	// PDP Rating Scroll
+	// ============================================
+	var PdpRatingScroll = (function() {
+		function init() {
+			var $rating = $(".block-pdp-console__rating");
+			if (!$rating.length) return;
+
+			$rating.on("click", function() {
+				var $target = $("#judgeme_product_reviews");
+				if (!$target.length) return;
+
+				var headerHeight = parseFloat(getComputedStyle($(".nav-menu")[0]).getPropertyValue('--nav-menu-top')) || 0;
+				$("html, body").animate({
+					scrollTop: $target.offset().top - headerHeight
+				}, 600);
+			});
+		}
+
+		return {
+			init: init
+		};
+	})();
+
+	// ============================================
 	// Init
 	// ============================================
 	function init() {
@@ -1419,6 +1546,7 @@ var App = (function($) {
 		CopyLink.init();
 		ExpertsTabs.init();
 		PdpConsole.init();
+		PdpRatingScroll.init();
 		StickyCta.init();
 		// ScrollHeight.init();
 		StatementLines.init();

@@ -81,3 +81,8 @@
 		}
 	}
 }
+
+section[class*="block-"]:has(.dropdown){
+	position: relative;
+	z-index: 1;
+}
