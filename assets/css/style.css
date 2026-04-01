@@ -11584,18 +11584,19 @@ section:has(.sticky-cta) {
 }
 .cart-drawer--empty .cart-items__wrapper {
   display: block !important;
+  padding-top: 0 !important;
+}
+.cart-drawer--empty .cart-drawer__showcase-img {
+  margin-top: 0 !important;
 }
 .cart-drawer--empty .cart-drawer__header {
   display: contents !important;
-  padding: 0 !important;
 }
-.cart-drawer--empty .cart-drawer__heading--empty {
-  font-family: "BDO Grotesk", sans-serif !important;
-  font-size: 28px !important;
-  font-weight: 400 !important;
-  line-height: 1.15 !important;
-  color: #232527 !important;
-  text-align: center !important;
+.cart-drawer--empty .cart-drawer__close-button {
+  position: fixed !important;
+  top: var(--cart-gap) !important;
+  right: var(--cart-gap) !important;
+  z-index: 3 !important;
 }
 
 .dialog-drawer:not(.cart-drawer--empty) .cart-drawer__showcase-img,

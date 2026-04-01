@@ -1238,20 +1238,22 @@ letter-spacing: 0px;
 
 	.cart-items__wrapper {
 		display: block !important;
+		padding-top: 0 !important;
+	}
+
+	.cart-drawer__showcase-img {
+		margin-top: 0 !important;
 	}
 
 	.cart-drawer__header {
-		display:contents !important;
-		padding: 0 !important;
+		display: contents !important;
 	}
 
-	.cart-drawer__heading--empty {
-		font-family: $font-heading !important;
-		font-size: $font-size-h4 !important;
-		font-weight: 400 !important;
-		line-height: $lh-h4 !important;
-		color: $color-dark !important;
-		text-align: center !important;
+	.cart-drawer__close-button {
+		position: fixed !important;
+		top: var(--cart-gap) !important;
+		right: var(--cart-gap) !important;
+		z-index: 3 !important;
 	}
 }
 
