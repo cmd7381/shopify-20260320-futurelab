@@ -45,15 +45,27 @@ h6 {
 
 p {
 	overflow-wrap: break-word;
+}
 
-	a {
-		text-decoration: underline;
-		text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
-		transition: text-decoration-color 0.3s ease, color 0.3s ease;
+.card--product .card__name {
+	@include mobile {
+		min-height: 2lh;
+	}
+}
 
-		&:hover {
-			text-decoration-color: currentColor;
-		}
+.card__select .dropdown__toggle .dropdown__title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+p:not(.btn) a:not(.btn, .button, .button-secondary) {
+	text-decoration: underline;
+	text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
+	transition: text-decoration-color 0.3s ease, color 0.3s ease;
+
+	&:hover {
+		text-decoration-color: currentColor;
 	}
 }
 

@@ -240,12 +240,25 @@ h6 {
 p {
   overflow-wrap: break-word;
 }
-p a {
+
+@media (max-width: 767px) {
+  .card--product .card__name {
+    min-height: 2lh;
+  }
+}
+
+.card__select .dropdown__toggle .dropdown__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+p:not(.btn) a:not(.btn, .button, .button-secondary) {
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
   transition: text-decoration-color 0.3s ease, color 0.3s ease;
 }
-p a:hover {
+p:not(.btn) a:not(.btn, .button, .button-secondary):hover {
   text-decoration-color: currentColor;
 }
 
@@ -5889,6 +5902,7 @@ section:has(section.page-header--hidden) {
   .block-pdp-console__benefit-card .img-box {
     width: 32px;
     height: 32px;
+    padding: 5px;
   }
 }
 .block-pdp-console__benefit-card span {
