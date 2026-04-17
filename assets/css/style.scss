@@ -1,0 +1,29 @@
+// ============================================
+// FutureLab — Main Entry Point
+// Import order: helpers → base → layout → components → modules → vendors
+// ============================================
+
+// Helpers
+@use 'helpers' as *;
+
+// Base
+@use 'base';
+
+// Layout
+@use 'layout';
+
+// Components
+@use 'components-base';
+@use 'components-globals';
+@use 'components-blocks';
+
+// Modules
+@use 'modules-home';
+@use 'modules-pdp';
+@use 'modules-blog';
+@use 'modules-pages';
+@use 'modules-cart-drawer';
+
+// Vendors
+@use 'vendors-fonts';
+@use 'vendors-lenis';

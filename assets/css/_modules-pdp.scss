@@ -1,0 +1,2971 @@
+// Contents: block-pdp-console, block-sticky-cta, block-get-started,
+//           block-product-review, block-timeline, block-comparison,
+//           block-benefits, block-routine, block-ingredients,
+//           block-dosage, block-ambassador
+
+@use 'helpers' as *;
+
+// ==================== block-pdp-console ====================
+
+
+.block-pdp-console {
+	.content {
+		display: flex;
+		gap: responsive($spacing-24);
+		align-items: flex-start;
+
+		@include tablet-down {
+			flex-wrap: wrap;
+		}
+	}
+
+	// ---- Left: Images ----
+	&__images {
+		width: size(660, 1344);
+		flex-shrink: 0;
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-8);
+
+		@include tablet-down {
+			width: 100%;
+			position: relative;
+		}
+	}
+
+	// Gallery (main image slick)
+	&__gallery {
+		cursor: pointer;
+
+		.carousel {
+			@include tablet-down {
+				max-width: 740px;
+				margin-inline: auto;
+			}
+			.slick-slide {
+				outline: none;
+			}
+		}
+	}
+
+	&__main-image {
+		border-radius: responsive(16px);
+
+		.img-box {
+			padding-top: size(671, 660);
+		}
+
+		@include tablet-down {
+			border-radius: $radius-md;
+		}
+	}
+
+	// Thumbs (nav slick)
+	&__thumbs {
+		position: relative;
+		// overflow: hidden;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 158px;
+			height: 100%;
+			background: linear-gradient(270deg, #FFFFFF 60.94%, rgba(255, 255, 255, 0) 100%);
+			pointer-events: none;
+			z-index: 1;
+			@include tablet-down {
+				display: none;
+			}
+		}
+
+		.slick-arrow-next {
+			z-index: 2;
+		}
+
+		@include tablet-down {
+			position: absolute;
+			top: 50%;
+			transform: translate(0, -50%);
+			width: 100%;
+		}
+
+		.carousel {
+			margin: 0 auto;
+			width: 100%;
+			padding-right: responsive(36px);
+			@include tablet-down {
+				opacity: 0;
+				pointer-events: none;
+			}
+			.slick-list{
+				margin: 0;
+			}
+		}
+
+		.item{
+			width: responsive(92px);
+		}
+
+		// .carousel .slick-list{
+		// 	overflow: visible;
+		// }
+
+		.slick-arrow-prev,
+		.slick-arrow-next {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			z-index: 2;
+			width: responsive(40px);
+			height: responsive(40px);
+			flex-shrink: 0;
+			border-radius: $radius-full;
+			background: $color-white;
+			border: 0.5px solid #e5e5e5;
+			backdrop-filter: blur(4px);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: responsive(16px);
+			color: $color-grey-600;
+			cursor: pointer;
+			transition: opacity 0.2s ease;
+
+			&:hover {
+				opacity: 0.8;
+			}
+
+			@include tablet-down {
+				width: 32px;
+				height: 32px;
+				font-size: 14px;
+			}
+		}
+
+		.slick-arrow-prev {
+			left: 8px;
+
+			span {
+				transform: rotate(180deg);
+			}
+		}
+
+		.slick-arrow-next {
+			right: 8px;
+		}
+	}
+
+	&__thumb {
+		aspect-ratio: 1 !important;
+		border-radius: $radius-md;
+		overflow: hidden;
+		cursor: pointer;
+		border: none;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+
+	// ---- Right: Console ----
+	&__console {
+		flex: 1;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-24);
+
+		@include tablet-down {
+			display: contents;
+			>*{
+				width: 100%;
+			}
+		}
+	}
+
+	// ---- Header (title area) ----
+	&__header {
+		padding: 0 responsive($spacing-48);
+		display: flex;
+		flex-direction: column;
+		gap: responsive(10px);
+		margin-bottom: responsive(24px);
+
+		@include tablet-down {
+			padding: 0;
+			order: -1;
+			margin-bottom: -8px;
+		}
+	}
+
+	&__meta {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		margin-bottom: responsive(22px);
+
+		.badge--tag {
+			padding: responsive(4px) responsive(12px);
+			font-size: responsive(14px);
+			line-height: 1.43;
+		}
+	}
+
+	&__rating {
+		display: flex;
+		align-items: center;
+		gap: $spacing-4;
+
+		.icon-star-filled {
+			color: #f59e0b;
+			font-size: 16px;
+		}
+	}
+
+	&__rating-stars {
+		display: flex;
+		align-items: center;
+		gap: 2px;
+		padding: $spacing-4 0;
+		color: $color-neon-tide;
+	}
+
+	&__rating-text {
+		font-family: $font-body;
+		font-size: $font-size-p3;
+		font-weight: 400;
+		line-height: 1.4;
+		color: $color-dark;
+		white-space: nowrap;
+	}
+
+	&__brand {
+		font-family: $font-body;
+		font-size: 10px;
+		font-weight: 400;
+		line-height: 1.4;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		color: $color-dark;
+	}
+
+	&__title {
+		@include heading($font-size-h3, 400, $lh-h3, -0.8px);
+		margin-bottom: responsive(12px);
+
+		@include tablet-down {
+			font-size: 32px;
+			line-height: 120%;
+			letter-spacing: -0.56px;
+		}
+	}
+
+	&__desc {
+		font-family: $font-body;
+		font-size: $font-size-p2;
+		font-weight: 400;
+		line-height: $lh-p2;
+		color: $color-slate;
+	}
+
+	// ---- Benefits ----
+	&__benefits {
+		padding: 0 responsive($spacing-48);
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-8);
+
+		@include tablet-down {
+			padding: 0;
+		}
+	}
+
+	&__benefits-label {
+		font-family: $font-body;
+		font-size: 10px;
+		font-weight: 400;
+		line-height: 1.4;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		color: $color-dark;
+	}
+
+	&__benefits-cards {
+		display: flex;
+		flex-flow: row nowrap;
+		gap: responsive($spacing-12);
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+
+		&::-webkit-scrollbar {
+			width: 0;
+			height: 0;
+			display: none;
+		}
+	}
+
+	&__benefit-card {
+		flex: 1 0 auto;
+		max-width: responsive(180px);
+		display: flex;
+		align-items: center;
+		gap: responsive($spacing-16);
+		padding: responsive(16px) responsive($spacing-16);
+		background: $color-white;
+		border: 1px solid #e5e5e5;
+		border-radius: $radius-md;
+		box-shadow: $shadow-xs;
+		overflow: hidden;
+
+		@include tablet-down {
+			max-width: 170px;
+		}
+
+		.img-box {
+			width: responsive(41px);
+			height: responsive(41px);
+			flex-shrink: 0;
+			background: $color-neon-tide;
+			border-radius: 50%;
+			overflow: hidden;
+			padding: 10px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			@include tablet-down {
+				width: 32px;
+				height: 32px;
+			}
+		}
+
+		span {
+			font-family: $font-body;
+			font-size: $font-size-caption;
+			font-weight: 400;
+			line-height: 1.4;
+			color: $color-slate;
+
+			@include tablet-down {
+				font-size: 11px;
+			}
+		}
+	}
+
+	// ---- Pricing (buying choices) ----
+	&__pricing {
+		padding: responsive($spacing-24) responsive($spacing-48) responsive(10px);
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-32);
+
+		@include tablet-down {
+			padding: $spacing-24 0 8px;
+		}
+	}
+
+	&__price-option {
+		position: relative;
+		background: $color-white;
+		border: 1px solid #e5e5e5;
+		border-radius: $radius-md;
+		box-shadow: $shadow-xs;
+		padding: responsive(16px) responsive(24px);
+		cursor: pointer;
+		transition: border-color 0.2s ease;
+		min-height: responsive(77px);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		&:hover {
+			border-color: $color-neon-tide;
+		}
+
+		&.is-selected {
+			background: #f2f5f8;
+			border: 2px solid $color-neon-tide;
+		}
+	}
+
+	&__price-row {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+	}
+
+	&__price-radio {
+		display: flex;
+		gap: responsive($spacing-12);
+		align-items: flex-start;
+		flex: 1;
+	}
+
+	&__radio {
+		position: relative;
+		width: 16px;
+		height: 16px;
+		flex-shrink: 0;
+		margin-top: 2px;
+		border-radius: $radius-full;
+		border: 1px solid $color-border-medium;
+		background: $color-white;
+		transition: all 0.2s ease;
+
+		&::after {
+			content: '';
+			position: absolute;
+			inset: 31.25%;
+			border-radius: $radius-full;
+			background: $color-white;
+			opacity: 0;
+			transition: opacity 0.2s ease;
+		}
+
+		.is-selected & {
+			background: $color-neon-tide;
+			border-color: $color-neon-tide;
+			box-shadow: 0 0 0 2px $color-white, 0 0 0 4px $color-neon-tide;
+
+			&::after {
+				opacity: 1;
+			}
+		}
+	}
+
+	&__price-info {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	&__price-name {
+		font-family: $font-body;
+		font-size: $font-size-p2;
+		font-weight: 500;
+		line-height: 1.4;
+		color: $color-dark;
+	}
+
+	&__price-frequency {
+		font-family: $font-body;
+		font-size: $font-size-caption;
+		font-weight: 400;
+		line-height: 1.4;
+		color: $color-slate;
+	}
+
+	&__price-amounts {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 2px;
+		flex-shrink: 0;
+	}
+
+	&__price-row-prices {
+		display: flex;
+		align-items: center;
+		gap: responsive($spacing-8);
+		white-space: nowrap;
+	}
+
+	&__price-was {
+		font-family: $font-body;
+		font-size: $font-size-p2;
+		font-weight: 400;
+		line-height: $lh-p2;
+		color: #a7a7a7;
+		text-decoration: line-through;
+	}
+
+	&__price-now {
+		font-family: $font-body;
+		font-size: $font-size-p2;
+		font-weight: 500;
+		line-height: 1.4;
+		color: $color-neon-tide;
+	}
+
+	&__price-per-day {
+		font-family: $font-body;
+		font-size: $font-size-caption;
+		font-weight: 400;
+		line-height: 1.4;
+		color: $color-dark;
+		text-align: right;
+		width: 100%;
+	}
+
+	// ---- Selected option extras ----
+	&__price-details {
+		border-top: 1px solid $color-mist;
+		margin-top: responsive(16px);
+		padding-top: responsive(16px);
+		display: flex;
+		flex-direction: column;
+		gap: responsive(16px);
+	}
+
+	&__price-offer {
+		font-family: $font-body;
+		font-size: $font-size-caption;
+		font-weight: 400;
+		line-height: 1.4;
+		color: $color-stone;
+	}
+
+	&__plan-select {
+		border-top: 1px solid $color-mist;
+		margin-top: responsive(16px);
+		padding-top: responsive(16px);
+	}
+
+	&__price-callout {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: responsive($spacing-12);
+		background: $color-neon-tide;
+		padding: responsive(9px) responsive($spacing-24);
+		border-radius: 0 0 $radius-md $radius-md;
+		margin: responsive(22px) calc(responsive(24px) * -1 - 2px) calc(responsive(16px) * -1 - 2px);
+		// width: calc(100% + responsive(26px) * 2);
+	}
+
+	&__callout-item {
+		display: flex;
+		align-items: center;
+		gap: responsive($spacing-8);
+
+		span:not(.iconfont) {
+			font-family: $font-body;
+			font-size: $font-size-caption;
+			font-weight: 400;
+			line-height: 1.4;
+			color: $color-white;
+			white-space: nowrap;
+		}
+
+		.icon-check-circle {
+			font-size: responsive(16px);
+			color: $color-white;
+			flex-shrink: 0;
+			margin-top: 1px;
+		}
+	}
+
+	&__price-badge {
+		position: absolute;
+		top: -11px;
+		left: responsive(24px);
+		padding: 2px responsive($spacing-8);
+		border-radius: $radius-sm;
+		font-family: $font-body;
+		font-size: $font-size-caption;
+		font-weight: 500;
+		line-height: 1.5;
+		text-align: center;
+		white-space: nowrap;
+		text-transform: capitalize;
+
+		&--primary {
+			background: $color-neon-tide;
+			color: $color-white;
+		}
+
+		&--outline {
+			background: $color-frost;
+			border: 1px solid $color-neon-tide-300;
+			color: $color-neon-tide;
+		}
+		+.block-pdp-console__price-row{
+			margin-top: responsive(8px);
+		}
+	}
+
+	// ---- Other pricing options (not selected) ----
+	&__price-others {
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-24);
+	}
+
+	// ---- Actions ----
+	&__actions {
+		padding: 0 responsive($spacing-48);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: responsive($spacing-16);
+
+		@include tablet-down {
+			padding: 0;
+		}
+	}
+
+	&__one-time {
+		font-family: $font-body;
+		font-size: $font-size-p3;
+		font-weight: 500;
+		line-height: 1.4;
+		color: $color-dark;
+		text-decoration: underline;
+		text-align: center;
+		transition: color 0.3s ease;
+
+		&:hover {
+			color: $color-neon-tide;
+		}
+
+		@include tablet-down {
+			margin-bottom: 8px;
+		}
+	}
+
+	&__add-to-cart {
+		width: 100%;
+	}
+
+	&__disclaimer {
+		font-family: $font-body;
+		font-size: $font-size-caption;
+		font-weight: 400;
+		line-height: 1.4;
+		color: $color-slate;
+		text-align: center;
+		max-width: 294px;
+	}
+
+	// ---- Cross sell ----
+	&__cross-sell {
+		padding: responsive($spacing-32) responsive($spacing-48);
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-32);
+
+		@include tablet-down {
+			padding: 8px 0 $spacing-24;
+		}
+	}
+
+	&__cross-sell-title {
+		@include heading(24px, 400, 1.15, -0.72px);
+	}
+
+	&__cross-sell-list {
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-16);
+	}
+
+	&__cross-sell-item {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__cross-sell-info {
+		display: flex;
+		align-items: center;
+		gap: responsive($spacing-16);
+	}
+
+	&__cross-sell-image {
+		width: responsive(93px);
+		height: responsive(93px);
+		flex-shrink: 0;
+		border-radius: $radius-md;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		@include tablet-down {
+			width: 72px;
+			height: 72px;
+		}
+	}
+
+	&__cross-sell-details {
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-8);
+	}
+
+	&__cross-sell-name {
+		font-family: $font-body;
+		font-size: $font-size-p2;
+		font-weight: 500;
+		line-height: 1.4;
+		color: $color-dark;
+	}
+
+	&__cross-sell-prices {
+		display: flex;
+		align-items: center;
+		gap: $spacing-8;
+		font-family: $font-body;
+		font-size: $font-size-p3;
+		font-weight: 500;
+		line-height: 1.4;
+	}
+
+	&__cross-sell-was {
+		text-decoration: line-through;
+		color: $color-slate;
+	}
+
+	&__cross-sell-now {
+		color: $color-dark;
+	}
+
+	&__cross-sell-desc {
+		font-family: $font-body;
+		font-size: $font-size-caption;
+		font-weight: 400;
+		line-height: 1.4;
+		color: $color-slate;
+	}
+
+	// ---- Accordion ----
+	&__accordion {
+		padding: 0 responsive($spacing-48);
+
+		@include tablet-down {
+			padding: 0;
+		}
+	}
+
+	&__accordion-item {
+		border-top: 1px solid $color-border;
+
+		&:last-child {
+			border-bottom: 1px solid $color-border;
+		}
+	}
+
+	&__accordion-trigger {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: $spacing-8;
+		padding: responsive(18px) 0;
+		cursor: pointer;
+		text-align: left;
+		transition: opacity 0.3s ease;
+
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+
+	&__accordion-title {
+		font-family: $font-body;
+		font-size: $font-size-p2;
+		font-weight: 500;
+		line-height: 1.4;
+		color: $color-dark;
+		flex: 1;
+	}
+
+	&__accordion-icon {
+		font-size: 24px;
+		color: $color-grey-600;
+		flex-shrink: 0;
+		transition: transform 0.3s ease;
+
+		.block-pdp-console__accordion-item--open & {
+			transform: rotate(180deg);
+		}
+	}
+
+	&__accordion-body {
+		display: none;
+		padding-bottom: responsive($spacing-16);
+		padding-right: responsive(32px);
+
+		@include tablet-down {
+			padding-bottom: 32px;
+		}
+
+		// .block-pdp-console__accordion-item--open & {
+		// 	display: block;
+		// }
+
+		p {
+			font-family: $font-body;
+			font-size: $font-size-p2;
+			font-weight: 400;
+			line-height: $lh-p2;
+			color: $color-slate;
+		}
+	}
+}
+
+// ---- PDP Image Lightbox ----
+.pdp-lightbox {
+	// .lightbox__box {
+	// 	max-width: responsive(900px);
+	// 	width: 90%;
+	// }
+
+	.carousel {
+		width: 100%;
+		img {
+			width: 100%;
+			height: auto;
+			max-height: calc(100vh - 240px);
+			object-fit: contain;
+			border-radius: responsive(16px);
+
+			@include tablet-down {
+				border-radius: $radius-md;
+			}
+		}
+
+		.slick-prev,
+		.slick-next {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			z-index: 3;
+			width: responsive(40px);
+			height: responsive(40px);
+			flex-shrink: 0;
+			border-radius: $radius-full;
+			background: $color-white;
+			border: 0.5px solid #e5e5e5;
+			backdrop-filter: blur(4px);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			font-size: 0;
+			color: $color-dark;
+			transition: opacity 0.2s ease;
+
+			&::before {
+				font-family: 'icomoon' !important;
+				font-size: responsive(16px);
+				color: $color-dark;
+			}
+
+			&:hover {
+				opacity: 0.8;
+			}
+
+			@include tablet-down {
+				width: 32px;
+				height: 32px;
+
+				&::before {
+					font-size: 14px;
+				}
+			}
+		}
+
+		.slick-prev {
+			left: responsive(16px);
+
+			&::before {
+				content: '\e91c';
+			}
+		}
+
+		.slick-next {
+			right: responsive(16px);
+
+			&::before {
+				content: '\e915';
+			}
+		}
+	}
+
+	&__counter {
+		text-align: center;
+		margin-top: responsive($spacing-16);
+		font-family: $font-body;
+		font-size: $font-size-p3;
+		font-weight: 400;
+		line-height: 1.4;
+		color: $color-white;
+
+		@include tablet-down {
+			margin-top: $spacing-12;
+		}
+	}
+}
+
+// ==================== block-sticky-cta ====================
+
+
+.sticky-cta {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: $z-sticky - 2;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  &.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  &__gradient {
+    height: responsive(48px);
+    background: linear-gradient(0deg, $color-white 0%, rgba($color-white, 0) 100%);
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 0;
+    transform: translate(-0, -100%);
+
+
+
+
+    @include tablet-down {
+      height: 32px;
+    }
+  }
+
+  &__bar {
+    background: $color-white;
+    border-top: 1px solid $color-border;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: responsive(94px);
+
+    @include tablet-down {
+      height: auto;
+      padding: $spacing-12 0;
+      gap: $spacing-12;
+    }
+  }
+
+  &__product {
+    display: flex;
+    align-items: center;
+    gap: responsive($spacing-16);
+    flex-shrink: 0;
+
+    @include tablet-down {
+      display: none;
+    }
+  }
+
+  &__product-image {
+    width: responsive(60px);
+    height: responsive(62px);
+    flex-shrink: 0;
+    border-radius: $radius-md;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__product-brand {
+    font-family: $font-body;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: $color-dark;
+  }
+
+  &__product-name {
+    font-family: $font-body;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: $color-dark;
+  }
+
+  &__select {
+    margin-left: auto;
+    margin-right: 16px;
+    position: relative;
+    flex: 1;
+    max-width: responsive(340px);
+
+    @include tablet-down {
+      flex: 1;
+      max-width: none;
+      margin-right: 0;
+    }
+  }
+
+  &__select-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: responsive(10px) responsive($spacing-16);
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    background: $color-white;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    min-height: 62px;
+
+    &:hover {
+      border-color: $color-neon-tide;
+    }
+
+    @include tablet-down {
+      padding: $spacing-8 $spacing-12;
+    }
+  }
+
+  &__select-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+  }
+
+  &__select-label {
+    font-family: $font-body;
+    font-size: $font-size-p3;
+    font-weight: 500;
+    line-height: 1.4;
+    color: $color-dark;
+
+    @include tablet-down {
+      font-size: $font-size-caption;
+    }
+  }
+
+  &__select-sub {
+    font-family: $font-body;
+    font-size: $font-size-caption;
+    font-weight: 400;
+    line-height: 1.4;
+    color: $color-slate;
+
+    @include tablet-down {
+      font-size: 11px;
+    }
+  }
+
+  &__select-icon {
+    font-size: 16px;
+    color: $color-dark;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+
+    .sticky-cta__select.is-open & {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__select-menu {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 100%;
+    padding: responsive($spacing-12) 0;
+    background: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    box-shadow: $shadow-card;
+    margin-bottom: $spacing-8;
+    overflow: hidden;
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s 0.2s;
+
+    .sticky-cta__select.is-open & {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition-delay: 0s;
+    }
+  }
+
+  &__select-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: responsive($spacing-12) responsive($spacing-16);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    font-family: $font-body;
+    font-size: $font-size-p3;
+    font-weight: 400;
+    line-height: 1.4;
+    color: $color-dark;
+
+    &:hover {
+      background: $color-cloud;
+    }
+
+    &.is-selected {
+      font-weight: 500;
+      color: $color-neon-tide;
+    }
+
+    @include tablet-down {
+      padding: $spacing-8 $spacing-12;
+      font-size: $font-size-caption;
+    }
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    gap: responsive($spacing-16);
+    flex-shrink: 0;
+
+    @include tablet-down {
+      gap: $spacing-8;
+    }
+
+    .btn {
+      min-height: 62px;
+      font-size: responsive(20px);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+  }
+
+  &__price {
+    font-family: $font-body;
+    font-size: responsive($font-size-p1);
+    font-weight: 500;
+    line-height: 1.5;
+    color: $color-neon-tide-300;
+    margin-right: 20px;
+
+    @include tablet-down {
+      font-size: $font-size-p2;
+    }
+  }
+}
+
+section:has(.sticky-cta){
+  display: contents;
+}
+// ==================== block-get-started ====================
+
+
+.block-get-started {
+  padding: responsive($spacing-48) 0 0;
+
+  @include mobile {
+    padding: $spacing-24 0 0;
+  }
+
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: responsive($spacing-32);
+
+    @include tablet-down {
+      row-gap: 0;
+      margin-inline: calc(-1* var(--container-padding));
+    }
+  }
+
+  &__image {
+    width: size(660px, 1344px);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+
+    @include tablet-down {
+      width: 100%;
+    }
+
+    .img-box {
+      padding-top: size(900px, 660px);
+
+      @include tablet-down  {
+        padding-top: size(336, 428);
+      }
+    }
+  }
+
+  &__info {
+    width: size(440px, 1344px);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @include desktop {
+      transform: translate(16px, 0);
+    }
+    @include tablet-down {
+      width: 100%;
+      margin-top: -$spacing-32;
+      background-color: $color-white;
+      border-radius: 16px;
+      position: relative;
+      z-index: 1;
+      padding: 48px 48px;
+    }
+    @include mobile {
+      padding: 22px 16px;
+    }
+  }
+
+  &__title {
+    @include h1;
+    @include mobile {
+      @include h1-mobile;
+    }
+  }
+
+  &__description {
+    @include body-text($font-size-p1, 400, $lh-p1);
+    color: $color-slate;
+    margin-top: responsive($spacing-20);
+
+    @include mobile {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-top: 18px;
+    }
+  }
+
+  &__includes {
+    margin-top: responsive($spacing-48);
+    max-width: responsive(432px);
+
+    @include tablet-down {
+      margin-top: 40px;
+      max-width: 100%;
+    }
+  }
+
+  &__includes-title {
+    font-family: $font-body;
+    font-size: responsive($font-size-p2);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0;
+    color: $color-dark;
+    padding-bottom: responsive($spacing-16);
+    border-bottom: 1px solid $color-mist;
+
+    @include mobile {
+      font-size: 16px;
+    }
+  }
+
+  &__includes-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__includes-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: responsive($spacing-16) 0;
+    border-bottom: 1px solid $color-mist;
+    gap: responsive($spacing-16);
+  }
+
+  &__includes-name {
+    @include body-text($font-size-p2, 400, $lh-p2);
+    color: $color-dark;
+
+    @include mobile {
+      font-size: 16px;
+    }
+  }
+
+  &__includes-price {
+    display: flex;
+    align-items: center;
+    gap: responsive($spacing-8);
+    flex-shrink: 0;
+  }
+
+  &__price-old {
+    @include body-text($font-size-p2, 500, 1.4);
+    color: $color-slate;
+    text-decoration: line-through;
+
+    @include mobile {
+      font-size: 16px;
+    }
+  }
+
+  &__price-tag {
+    @include body-text($font-size-p2, 500, 1.4);
+    color: $color-neon-tide;
+
+    @include mobile {
+      font-size: 16px;
+    }
+  }
+
+  &__total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: responsive($spacing-16);
+    padding: responsive($spacing-8) 0;
+  }
+
+  &__total-label {
+    font-family: $font-body;
+    font-size: responsive($font-size-p3);
+    font-weight: 500;
+    line-height: 1.4;
+    color: $color-dark;
+  }
+
+  &__total-value {
+    display: flex;
+    align-items: center;
+    gap: responsive($spacing-12);
+
+    strong {
+      font-family: $font-body;
+      font-size: responsive($font-size-p3);
+      font-weight: 700;
+      line-height: $lh-p1;
+      color: $color-neon-tide;
+    }
+  }
+
+  &__total-save {
+    @include body-text($font-size-caption, 400, 1.4);
+    color: $color-neon-tide;
+  }
+
+  &__cta {
+    margin-top: responsive($spacing-16);
+    max-width: responsive(432px);
+
+    [class*="icon-"] {
+      font-size: responsive(22px);
+    }
+
+    @include tablet-down {
+      max-width: 100%;
+    }
+  }
+
+  &__closers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: responsive($spacing-16);
+    margin-top: responsive($spacing-16);
+    max-width: responsive(432px);
+
+    @include tablet-down {
+      max-width: 100%;
+    }
+  }
+
+  &__closer {
+    display: inline-flex;
+    align-items: center;
+    gap: responsive($spacing-8);
+    @include body-text($font-size-caption, 400, 1.4);
+    color: $color-dark;
+
+    [class*="icon-"] {
+      font-size: responsive(16px);
+      color: $color-neon-tide;
+    }
+  }
+}
+
+// ==================== block-product-review ====================
+
+
+.block-product-review {
+  padding: responsive($spacing-64) 0 responsive(72px);
+  background-color: $color-neon-tide;
+  position: relative;
+  overflow: hidden;
+
+  @include mobile {
+    padding: $spacing-40 0;
+  }
+
+  &__bg {
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(29, 78, 216, 0.4);
+      z-index: 1;
+    }
+  }
+
+  .content {
+    @include desktop {
+      max-width: size(1076, 1344);
+    }
+    @include mobile{
+      @include slick-visible;
+    }
+  }
+
+  .intro-text {
+    padding-bottom: responsive(36px);
+
+    @include mobile {
+      padding-bottom: $spacing-32;
+    }
+
+    h2 {
+      color: $color-white;
+
+      @include mobile {
+        font-size: 28px;
+        letter-spacing: -0.84px;
+        line-height: 1.15;
+      }
+    }
+
+  }
+
+  .carousel {
+    --gap: 6px;
+    @include mobile {
+      width: 344px;
+    }
+  }
+
+  &__dots {
+    margin-top: responsive(28px);
+    text-align: center;
+  }
+}
+
+// Card — Review
+.card--review {
+  display: flex;
+  flex-direction: column;
+  gap: responsive($spacing-12);
+  background-color: $color-white;
+  border-radius: var(--radius-lg);
+  padding: responsive($spacing-32) responsive($spacing-24);
+
+  @include mobile {
+    border-radius: $radius-lg;
+  }
+
+  .card__stars {
+    height: responsive(24px);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    [class*="icon-"] {
+      font-size: responsive(16px);
+      flex-shrink: 0;
+      color: $color-neon-tide;
+    }
+  }
+
+  .card__text {
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-16);
+    flex: 1;
+
+    @include mobile {
+      gap: 12px;
+    }
+  }
+
+  .card__title {
+    @include body-text($font-size-p2, 500, $lh-p2);
+    letter-spacing: 0;
+    color: $color-dark;
+  }
+
+  .card__quote {
+    @include body-text($font-size-p3, 400, 1.4);
+    color: $color-slate;
+    flex: 1;
+  }
+
+  .card__author {
+    @include body-text(12px, 400, 1.4);
+    color: $color-slate;
+
+    strong {
+      font-weight: 500;
+      color: $color-dark;
+    }
+  }
+}
+
+// ==================== block-timeline ====================
+
+
+.block-timeline {
+	overflow: hidden;
+	padding: responsive(60px) 0 responsive(63px);
+
+	@include mobile {
+		padding: $spacing-40 0 0;
+	}
+
+	.intro-text {
+		padding-bottom: responsive($spacing-18);
+
+		@include mobile {
+			padding-bottom: 26px;
+			text-align: left;
+		}
+
+		h2 {
+			color: $color-dark;
+		}
+	}
+
+	&__tabs {
+		margin: 0 auto responsive($spacing-48);
+
+		@include mobile {
+			margin-bottom: $spacing-24;
+		}
+		.carousel {
+			width: fit-content;
+			overflow: hidden;
+			margin: 0 auto;
+			--gap: 12px;
+
+			@include tablet-down {
+				width: 100%;
+			}
+
+			.slick-track {
+				border-bottom: 1px solid $color-border;
+
+				@include tablet-up {
+					width: fit-content !important;
+					transform: none !important;
+					justify-content: center;
+				}
+			}
+		}
+	}
+
+	&__tab {
+		font-family: $font-heading;
+		font-size: responsive($font-size-p2);
+		font-weight: 400;
+		line-height: $lh-p2;
+		color: $color-stone;
+		background: none;
+		border: none;
+		padding: responsive($spacing-12) responsive($spacing-16);
+		cursor: pointer;
+		position: relative;
+		transition: color 0.2s ease;
+		white-space: nowrap;
+		min-width: responsive(96px);
+		margin-bottom: -1px;
+
+		@include mobile {
+			padding: 0 $spacing-4 $spacing-12;
+			line-height: 1.4;
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: -1px;
+			left: 0;
+			right: 0;
+			height: 2px;
+			background-color: transparent;
+			transition: background-color 0.2s ease;
+		}
+
+		&:hover {
+			color: $color-neon-tide;
+			font-weight: 600;
+			&::after {
+				background-color: $color-brand-purple;
+			}
+		}
+	}
+
+	&__tab.slick-current {
+		color: $color-neon-tide;
+		font-weight: 600;
+
+		&::after {
+			background-color: $color-neon-tide;
+		}
+	}
+
+	&__content {
+		@include slick-visible;
+
+		.carousel {
+			--gap: 8px;
+			width: size(1228, 1344);
+			@include tablet-down {
+				width: size(369, 396);
+			}
+		}
+	}
+
+	.item {
+		flex-flow: row wrap;
+		gap: 0;
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		background-color: $color-cloud;
+	}
+
+	&__slide-image {
+		flex-shrink: 0;
+		@include desktop {
+			width: size(738px, 1228px);
+			height: 100%;
+		}
+		@include tablet-down {
+			width: 100%;
+		}
+		.img {
+			border-radius: 0;
+			@include desktop {
+				height: 100%;
+			}
+			.img-box {
+				padding-top: size(431px, 738px);
+				@include desktop {
+					height: 100%;
+				}
+				@include tablet-down {
+					padding-top: size(156, 369);
+				}
+			}
+		}
+	}
+
+	&__slide-info {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: responsive($spacing-16);
+		padding-bottom: responsive($spacing-16);
+
+		@include tablet-down {
+			padding: 0 $spacing-24 26px;
+			align-items: stretch;
+			justify-content: flex-start;
+			gap: 0;
+		}
+	}
+
+	&__slide-support {
+		width: size(383px, 490px);
+		border-radius: var(--radius-md);
+		padding: responsive($spacing-24) responsive($spacing-32);
+
+		@include tablet-down {
+			width: 100%;
+			padding: $spacing-24;
+		}
+
+		&.bg-neon-tide {
+			@include tablet-down {
+				padding: $spacing-16 $spacing-24 $spacing-24;
+			}
+		}
+	}
+
+	&__support-heading {
+		@include body-text($font-size-p2, 500, 1.4);
+		color: $color-dark;
+		margin-bottom: responsive(10px);
+		letter-spacing: 0;
+		max-width: 70%;
+
+		@include tablet-down {
+			font-size: $font-size-p3;
+			max-width: 100%;
+		}
+
+		.bg-neon-tide & {
+			color: $color-white;
+		}
+	}
+
+	&__support-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: responsive(6px);
+
+		@include tablet-down {
+			gap: 10px;
+		}
+
+		li {
+			display: flex;
+			align-items: center;
+			gap: responsive($spacing-8);
+			@include body-text($font-size-p3, 400, $lh-p3);
+			color: $color-dark;
+
+			@include tablet-down {
+				line-height: 1.4;
+			}
+
+			[class*='icon-'] {
+				font-size: responsive(16px);
+				flex-shrink: 0;
+				color: $color-sky;
+			}
+		}
+
+		.bg-neon-tide & {
+			li {
+				color: $color-white;
+
+				[class*='icon-'] {
+					color: $color-white;
+				}
+			}
+		}
+	}
+}
+
+// ==================== block-comparison ====================
+
+
+.block-comparison {
+	position: relative;
+
+	.content {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: responsive(28px);
+		padding: responsive(113px) 0 responsive(90px);
+
+		@include desktop {
+			transform: translate(calc(-1 * responsive(18px)), 0);
+		}
+		@include tablet-down {
+			flex-direction: column-reverse;
+			padding: 40px 0 48px;
+			gap: 56px;
+		}
+	}
+
+	&__table-wrap {
+		max-width: size(750px, 1344px);
+		flex: 1;
+		margin: 0 auto;
+		position: relative;
+
+		@include tablet-down {
+			flex: none;
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+
+	&__product-img {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translate(-50%, -60%);
+		width: responsive(135px);
+		z-index: 2;
+
+		.img-box {
+			padding-top: 100%;
+		}
+
+		@include mobile {
+			width: 110px;
+		}
+	}
+
+	&__table {
+		display: flex;
+		position: relative;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 0;
+			width: 100%;
+			height: calc(100% - 30px);
+			transform: translate(0, -50%);
+			background-color: $color-white;
+			border-radius: var(--radius-lg);
+			z-index: 0;
+			@include tablet-down {
+				background-color: #f2f5f8;
+				border-width: 1px;
+				border-style: solid;
+				// border-image-source: linear-gradient(0deg, #FFFFFF, #FFFFFF),linear-gradient(0deg, rgba(203, 203, 203, 0.5), rgba(203, 203, 203, 0.5));
+				border-color: rgba(203, 203, 203, 0.5);
+			}
+		}
+	}
+
+	&__col {
+		width: size(250px, 750px);
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: responsive($spacing-24);
+		padding: responsive($spacing-40) responsive($spacing-12);
+		position: relative;
+		z-index: 1;
+
+		@include mobile {
+			gap: $spacing-24;
+			padding: 40px 12px;
+		}
+
+		&--ours {
+			overflow: hidden;
+			border-radius: var(--radius-lg);
+			border: 1px solid $color-sky;
+			background-color: transparent;
+			box-shadow: 0 6px 14px rgba(24, 39, 75, 0.12), 0 10px 32px rgba(24, 39, 75, 0.1);
+		}
+
+		&--ours .img--bg {
+			z-index: 1;
+		}
+
+		&--ours .block-comparison__th,
+		&--ours .block-comparison__td {
+			color: $color-white;
+			position: relative;
+			z-index: 1;
+			@include mobile {
+				text-align: center;
+				justify-content: center;
+			}
+		}
+
+		&--ours .block-comparison__th {
+			border-color: rgba(255, 255, 255, 0.4);
+		}
+	}
+
+	&__th {
+		@include body-text(14px, 500, 20px);
+		font-size: responsive(14px);
+		color: $color-dark;
+		text-align: center;
+		border: 1px solid transparent;
+		border-radius: 33px;
+		padding: responsive(3px) 0;
+		width: 100%;
+		@include mobile {
+			text-align: left;
+		}
+	}
+
+	&__td {
+		@include body-text(12px, 400, 17px);
+		font-size: responsive(12px);
+		color: $color-slate;
+		text-align: center;
+		width: 100%;
+		@include mobile {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			line-height: 1.4;
+			text-align: left;
+		}
+	}
+
+	&__text {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		width: size(418px, 1344px);
+		padding: responsive(14px) responsive(4px) responsive(16px);
+
+		@include tablet-down {
+			width: 100%;
+		}
+
+		@include mobile {
+			padding: 0;
+		}
+	}
+
+	&__heading {
+		@include heading($font-size-h3, 400, $lh-h3, -0.8px);
+		color: $color-dark;
+		margin-bottom: responsive($spacing-16);
+		overflow-wrap: normal;
+		word-break: normal;
+
+		@include tablet-down {
+			font-size: 32px;
+			letter-spacing: -0.64px;
+		}
+
+		@include mobile {
+			font-size: 32px;
+			line-height: 1.2;
+			letter-spacing: -0.96px;
+		}
+	}
+
+	&__description {
+		@include body-text($font-size-p1, 400, $lh-p1);
+		color: $color-slate;
+
+		@include mobile {
+			font-size: 16px;
+			line-height: 1.5;
+		}
+	}
+}
+
+// ==================== block-benefits ====================
+
+
+.block-benefits {
+	@include desktop {
+		margin: calc(responsive($spacing-24) * -1) 0;
+	}
+	padding: responsive(52px) 0 responsive(56px);
+	background-color: $color-neon-tide;
+	position: relative;
+	overflow: hidden;
+
+	@include mobile {
+		padding: $spacing-40 0;
+	}
+
+	.intro-text {
+		padding-bottom: responsive($spacing-32);
+		@include mobile {
+			text-align: left;
+		}
+
+		h2 {
+			color: $color-white;
+
+			@include mobile {
+				margin-bottom: $spacing-12;
+			}
+		}
+
+		p {
+			@include body-text($font-size-p1, 400, $lh-p1);
+			color: $color-white;
+
+			@include mobile {
+				font-size: 16px;
+				line-height: 1.5;
+			}
+		}
+	}
+
+	.content {
+		@include mobile {
+			@include slick-visible;
+		}
+	}
+
+	.carousel {
+		--gap: 4px;
+
+		@include mobile {
+			width: 170px;
+		}
+	}
+
+	.item {
+		background-color: $color-white;
+		border-radius: var(--radius-md);
+		padding: responsive($spacing-24);
+
+		@include mobile {
+			padding: $spacing-16;
+			min-height: 208px;
+		}
+	}
+
+	&__icon {
+		width: responsive(64px);
+		height: responsive(64px);
+		flex-shrink: 0;
+		border-radius: $radius-full;
+		background-color: $color-neon-tide;
+		@include flex-center;
+		margin-bottom: responsive(18px);
+
+		img {
+			width: responsive(42px);
+			height: responsive(42px);
+			flex-shrink: 0;
+		}
+
+		@include mobile {
+			width: 64px;
+			height: 64px;
+			margin-bottom: 24px;
+
+			img {
+				width: 42px;
+				height: 42px;
+			}
+		}
+	}
+
+	&__card-title {
+		@include body-text(16px, 500, 1.4);
+		font-size: responsive(16px);
+		color: $color-dark;
+		margin-bottom: responsive($spacing-4);
+	}
+
+	&__card-text {
+		@include body-text(12px, 400, 1.4);
+		font-size: responsive(12px);
+		color: $color-slate;
+	}
+
+	.carousel__arrows {
+		justify-content: center;
+		margin-top: responsive($spacing-32);
+
+		@include mobile {
+			justify-content: flex-start;
+		}
+	}
+}
+
+// ==================== block-routine ====================
+
+
+.block-routine {
+  padding-top: size(430, 1440);
+  padding-bottom: responsive($spacing-50);
+  position: relative;
+  overflow: hidden;
+  background-color: $color-neon-tide;
+
+  @include mobile {
+    padding-top: 0;
+    padding-bottom: 0;
+    >.img{
+      display:none;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: responsive($spacing-24);
+    position: relative;
+    z-index: 1;
+
+    @include mobile {
+      margin-inline: calc(-1 * var(--container-padding));
+      gap: 0;
+    }
+  }
+
+  &__before {
+    width: size(430, 1344);
+    background-color: $color-white;
+    border-radius: var(--radius-md);
+    padding: responsive(46px) responsive(48px) responsive(52px);
+    >.img{
+      display: none;
+    }
+    @include tablet-down {
+      width: 100%;
+      padding: 28px 24px;
+    }
+
+    @include mobile {
+      position: relative;
+      background-color: transparent;
+      border-radius: 0;
+      // padding: 28px 16px 76px;
+      padding: 28px 16px 306px;
+      margin-bottom: -230px;
+      &:after{
+        content: '';
+        display: block;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%,0%);
+        background: linear-gradient(180deg, rgba(29, 78, 216, 0) 0%, #1D4ED8 100%);
+        padding-top: size(178,428);
+        z-index: 1;
+        pointer-events: none;
+      }
+      .img ~ *{
+        position: relative;
+        z-index: 2;
+      }
+      >.img{
+        display: block;
+      }
+    }
+  }
+
+  &__after {
+    width: size(888, 1344);
+    background-color: $color-neon-tide;
+    border-radius: var(--radius-md);
+    padding: responsive($spacing-48);
+    color: $color-white;
+    overflow: hidden;
+
+    @include tablet-down {
+      width: 100%;
+      padding: $spacing-24;
+    }
+
+    @include mobile {
+      border-radius: 0;
+      padding: $spacing-24 $spacing-16;
+      overflow: visible;
+      background-color: transparent;
+    }
+  }
+
+  &__heading {
+    @include heading(32px, 400, 1.2, calc(-1 * responsive(0.96px)));
+    color: $color-dark;
+    margin-bottom: responsive(42px);
+
+    @include mobile {
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    &--white {
+      color: $color-white;
+      margin-bottom: 0;
+
+      @include mobile {
+        margin-bottom: 0;
+        text-align: center;
+      }
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: responsive(8px);
+    display: flex;
+    flex-direction: column;
+    @include mobile{
+      gap: 12px;
+    }
+  }
+
+  &__list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @include body-text($font-size-caption, 400, 16px);
+    font-size: responsive($font-size-caption);
+    color: $color-dark;
+    padding: 0 responsive($spacing-16);
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  &__total-old {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $color-neon-tide;
+    color: $color-white;
+    border-radius: var(--radius-md);
+    padding: responsive($spacing-16);
+    margin-top: responsive(14px);
+    @include body-text($font-size-caption, 400, $lh-caption);
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  // After card layout
+  &__after {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include mobile {
+      gap: 24px;
+      align-items: center;
+    }
+  }
+
+  &__after-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: responsive($spacing-24);
+
+    @include mobile {
+      display: contents;
+    }
+  }
+
+  &__cta {
+    color: $color-neon-tide;
+    flex-shrink: 0;
+    min-width: 170px;
+
+    @include mobile {
+      width: 100%;
+      order: 10;
+      justify-content: center;
+      margin-top: -14px;
+    }
+  }
+
+  &__after-body {
+    display: flex;
+    justify-content: space-between;
+    gap: responsive($spacing-24);
+
+    @include tablet-down {
+      flex-direction: column;
+    }
+
+    @include mobile {
+      display: contents;
+    }
+  }
+
+  &__after-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: size(343, 792);
+    flex-shrink: 0;
+    margin-bottom: calc(-1 * responsive(4px));
+
+    @include tablet-down {
+      width: 100%;
+    }
+
+    @include mobile {
+      display: contents;
+    }
+  }
+
+  &__after-right {
+    width: size(385, 792);
+    flex-shrink: 0;
+
+    @include tablet-down {
+      width: 100%;
+    }
+
+    @include mobile {
+      display: contents;
+    }
+  }
+
+  &__price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @include body-text($font-size-p2, 400, 1.5);
+    color: $color-white;
+    padding: responsive($spacing-16) 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+    strong {
+      font-weight: 500;
+      font-size: responsive($font-size-p2);
+    }
+
+    @include mobile {
+      width: 100%;
+      order: 2;
+    }
+  }
+
+  &__price-old {
+    text-decoration: line-through;
+    color: $color-neon-tide-300;
+    margin-right: responsive($spacing-8);
+  }
+
+  &__benefits-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-8);
+    margin-top: responsive($spacing-20);
+
+    @include mobile {
+      width: 100%;
+      order: 3;
+      margin-top: -6px;
+    }
+    li {
+      display: flex;
+      align-items: center;
+      gap: responsive($spacing-8);
+      @include body-text($font-size-p3, 400, 1.4);
+      color: $color-white;
+
+      [class*="icon-"] {
+        font-size: responsive(16px);
+        flex-shrink: 0;
+      }
+    }
+
+  }
+
+  &__savings {
+    display: flex;
+    align-items: center;
+    gap: responsive(28px);
+    background-color: $color-neon-tide-900;
+    border-radius: var(--radius-md);
+    padding: responsive(12px) responsive(26px);
+    margin-bottom: responsive($spacing-20);
+
+    @include mobile {
+      display: contents;
+    }
+  }
+
+  &__savings-image {
+    width: responsive(105px);
+    flex-shrink: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+
+    .img {
+      border-radius: 0;
+    }
+
+    .img-box {
+      padding-top: size(125, 105);
+    }
+
+    .img-box img {
+      object-fit: contain;
+    }
+
+    @include mobile {
+      order: -1;
+      width: 181px;
+      border-radius: 0;
+
+      .img-box {
+        padding-top: size(215, 181);
+      }
+    }
+  }
+
+  &__savings-info {
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-8);
+
+    @include mobile {
+      // flex-flow: row wrap;
+      gap: 4px;
+      width: 100%;
+      justify-content: space-between;
+      background-color: $color-neon-tide-900;
+      border-radius: var(--radius-md);
+      padding: $spacing-16 $spacing-24;
+      order: 5;
+      margin-top: 4px;
+    }
+
+    p {
+      display: flex;
+      align-items: center;
+      gap: responsive($spacing-8);
+      @include body-text($font-size-p2, 400, 1.5);
+      color: $color-teal;
+
+      @include mobile {
+        font-size: 16px;
+        white-space: nowrap;
+      }
+
+      [class*="icon-"] {
+        font-size: responsive(16px);
+        flex-shrink: 0;
+      }
+
+      strong {
+        font-weight: 500;
+      }
+    }
+  }
+
+  &__footnote {
+    @include body-text($font-size-caption, 400, 1.4);
+    color: $color-neon-tide-300;
+
+    @include mobile {
+      text-align: center;
+      order: 11;
+    }
+  }
+}
+
+// ==================== block-ingredients ====================
+
+
+.block-ingredients {
+	padding: responsive(40px) 0;
+	.content {
+		border-radius: 16px;
+		padding: responsive(60px) responsive(60px) responsive(64px);
+
+		@include mobile {
+			padding: 30px 16px;
+		}
+	}
+
+	.intro-text {
+		padding-bottom: responsive(36px);
+
+		@include mobile {
+			padding-bottom: 34px;
+		}
+
+		h2 {
+			color: $color-dark;
+		}
+	}
+
+	&__grid {
+		max-width: responsive(1116px);
+		margin: 0 auto;
+		@include desktop {
+			@include card-layout(3, $spacing-12);
+		}
+
+		@include tablet {
+			@include card-layout(2, $spacing-12);
+		}
+
+		@include mobile {
+			--gap: 8px;
+			width: 100%;
+			max-width: 364px;
+		}
+		.slick-slide {
+			@include mobile {
+				border-radius: 16px;
+				overflow: hidden;
+			}
+			> div {
+				@include mobile {
+					display: flex;
+					+ div:not(:empty) {
+						border-top: solid 1px $color-mist;
+					}
+				}
+			}
+		}
+	}
+	&__dots {
+		text-align: center;
+		@include mobile {
+			margin-top: 30px;
+		}
+
+		&:has(.slick-dots li:only-child) {
+			display: none;
+		}
+	}
+}
+
+// Card — Ingredient
+.card--ingredient {
+	background-color: $color-white;
+	border-radius: var(--radius-md);
+	padding: responsive($spacing-16) responsive($spacing-16) responsive($spacing-20);
+	display: flex;
+	flex-direction: column;
+	gap: responsive($spacing-16);
+	overflow: hidden;
+
+	@include mobile {
+		border-radius: 0;
+	}
+
+	.card__top {
+		display: flex;
+		align-items: flex-start;
+		gap: responsive($spacing-16);
+	}
+
+	.card__image {
+		width: responsive(74px);
+		flex-shrink: 0;
+		border-radius: var(--radius-md);
+		.img-box {
+			padding-top: 100%;
+		}
+	}
+
+	.card__meta {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: responsive(9px);
+	}
+
+	.card__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: responsive(20px);
+	}
+
+	.card__name {
+		@include body-text(16px, 400, 1.5);
+		font-size: responsive(16px);
+		color: $color-dark;
+		letter-spacing: 0;
+		flex: 1;
+	}
+
+	.card__dose {
+		@include body-text(14px, 500, 1.4);
+		font-size: responsive(14px);
+		color: $color-dark;
+		flex-shrink: 0;
+		text-align: right;
+	}
+
+	.card__benefits {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: responsive(5px);
+
+		li {
+			display: flex;
+			align-items: center;
+			gap: responsive($spacing-8);
+			@include body-text(14px, 400, 1.4);
+			font-size: responsive(14px);
+			color: $color-dark;
+
+			[class*='icon-'] {
+				font-size: responsive(17px);
+				flex-shrink: 0;
+				color: $color-neon-tide;
+			}
+		}
+	}
+
+	.card__desc {
+		@include body-text(12px, 400, 1.4);
+		font-size: responsive(12px);
+		color: $color-slate;
+		margin-top: auto;
+	}
+}
+
+// ==================== block-dosage ====================
+
+
+.block-dosage {
+	padding: responsive(46px) 0 responsive(100px);
+	position: relative;
+	overflow: hidden;
+
+	@include desktop {
+		margin: calc(responsive($spacing-24) * -1) 0 responsive($spacing-16);
+	}
+
+	@include tablet-down {
+		border-radius: 8px;
+		overflow: hidden;
+	}
+
+	@include mobile {
+		padding: 16px 0;
+	}
+
+	&__gradient {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to right, #aec9d5 0%, #aec9d5 16.7%, rgba(174, 201, 213, 0) 100%);
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	.content {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		align-items: stretch;
+
+		@include tablet-down {
+			flex-direction: column;
+		}
+	}
+
+	.title-block {
+		width: size(489px, 1344px);
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: space-between;
+		flex-shrink: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+
+		@include tablet-down {
+			width: 100%;
+			flex-direction: row;
+			align-items: center;
+			padding-top: 0;
+			padding-bottom: $spacing-24;
+		}
+	}
+
+	.title-block__overline {
+		color: $color-white;
+	}
+
+	.carousel {
+		width: 100%;
+		--gap: 5.5px;
+		@include desktop {
+			width: calc(100% + 16px);
+			margin-inline-end: -16px;
+		}
+		@include tablet-down {
+			--gap: 6px;
+			width: 362px;
+			margin-top: 366px;
+		}
+		&-box {
+			@include slick-visible;
+			@include desktop {
+				width: size(911px, 1344px);
+			}
+		}
+	}
+
+	&__card {
+		background-color: $color-white;
+		border-radius: var(--radius-md);
+		padding: responsive(22px) responsive($spacing-24) responsive($spacing-24);
+		flex-direction: column;
+		justify-content: space-between;
+		gap: responsive(32px);
+		min-height: responsive(228px);
+
+		@include mobile {
+			padding: $spacing-16;
+			gap: $spacing-12;
+			min-height: 162px;
+		}
+	}
+
+	&__card-top {
+		display: flex;
+		align-items: stretch;
+		gap: responsive($spacing-16);
+
+		@include mobile {
+			gap: 16px;
+		}
+	}
+
+	&__number {
+		width: responsive(55px);
+		height: responsive(55px);
+		border-radius: $radius-full;
+		background-color: $color-neon-tide;
+		color: $color-white;
+		font-family: $font-body;
+		font-size: responsive($font-size-p1);
+		font-weight: 500;
+		@include flex-center;
+		flex-shrink: 0;
+
+		@include mobile {
+			width: 44px;
+			height: 44px;
+			font-size: 16px;
+		}
+	}
+
+	&__card-title {
+		@include body-text($font-size-p1, 500, $lh-p1);
+		color: $color-neon-tide;
+		letter-spacing: 0;
+
+		@include mobile {
+			font-size: 16px;
+			line-height: 1.5;
+		}
+	}
+
+	&__card-subtitle {
+		@include body-text($font-size-p2, 400, $lh-p2);
+		color: $color-stone;
+
+		@include mobile {
+			font-size: 14px;
+		}
+	}
+
+	&__card-text {
+		font-family: $font-heading;
+		font-size: responsive($font-size-p3);
+		font-weight: 400;
+		line-height: $lh-p3;
+		color: $color-stone;
+		@include desktop {
+			transform: translate(4px, 0);
+		}
+
+		@include mobile {
+			font-family: $font-body;
+			font-size: 12px;
+			line-height: 1.4;
+			margin-bottom: 2px;
+		}
+	}
+}
+
+// ==================== block-ambassador ====================
+
+
+.block-ambassador {
+	overflow: hidden;
+	margin-bottom: responsive(40px);
+
+	@include tablet-down {
+		border-radius: 8px;
+		margin-bottom: 36px;
+	}
+
+	.content {
+		position: relative;
+		margin-inline: calc(-1 * var(--container-padding));
+	}
+
+	.item {
+		position: relative;
+		@include tablet-down {
+			padding: 483px 16px 16px;
+		}
+	}
+
+	&__bg {
+		pointer-events: none;
+		border-radius: 0;
+		@include tablet-down {
+			position: absolute;
+			inset: 0;
+		}
+		.img-box {
+			padding-top: size(700px, 1440px);
+
+			@include tablet-down {
+				height: 100%;
+			}
+
+			@include mobile {
+				padding-top: size(632, 428);
+			}
+		}
+		&::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 33%, rgba(0, 0, 0, 0.4) 86%);
+			z-index: 1;
+		}
+	}
+
+	&__card {
+		z-index: 1;
+		background-color: $color-white;
+		border-radius: var(--radius-md);
+		padding: responsive($spacing-24) responsive($spacing-24);
+		width: 100%;
+		max-width: size(659, 1440);
+		@include desktop {
+			position: absolute;
+			left: var(--container-padding);
+			bottom: var(--container-padding);
+		}
+		@include tablet-down {
+			max-width: 659px;
+			position: relative;
+		}
+
+		@include mobile {
+			padding: 12px 12px 12px 19px;
+		}
+	}
+
+	&__card-top {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: responsive($spacing-16);
+		margin-bottom: responsive($spacing-40);
+		> div {
+			transform: translate(0, -5px);
+		}
+
+		@include mobile {
+			margin-bottom: $spacing-16;
+			gap: $spacing-12;
+		}
+	}
+
+	&__name {
+		font-family: $font-heading;
+		font-size: responsive($font-size-h3);
+		font-weight: 400;
+		line-height: $lh-h3;
+		letter-spacing: $ls-h3;
+		color: $color-dark;
+		letter-spacing: 0;
+
+		@include tablet-down {
+			font-size: 32px;
+			// letter-spacing: -0.64px;
+		}
+
+		@include mobile {
+			font-size: 18px;
+			line-height: 28px;
+			margin-top: 4px;
+		}
+	}
+
+	&__role {
+		@include body-text($font-size-p2, 400, $lh-p2);
+		color: $color-grey-600;
+		margin-top: responsive($spacing-4);
+		@include mobile {
+			margin-top: 0;
+		}
+	}
+
+	&__badge {
+		border-radius: $radius-sm;
+		flex-shrink: 0;
+	}
+
+	&__quote {
+		font-family: $font-heading;
+		font-size: responsive($font-size-p3);
+		font-weight: 400;
+		line-height: 1.6;
+		color: $color-grey-600;
+		margin: 0;
+
+		@include mobile {
+			font-family: $font-body;
+			font-size: 14px;
+			line-height: 1.4;
+			color: $color-dark;
+		}
+	}
+
+	.carousel__arrows {
+		position: absolute;
+		z-index: 1;
+		right: var(--container-padding);
+
+		@include desktop {
+			bottom: var(--container-padding);
+		}
+
+		@include tablet-down {
+			top: 16px;
+		}
+	}
+
+	// .slick-arrow {
+	// 	border-color: $color-white;
+
+	// 	&:hover {
+	// 		background-color: $color-white-alpha-10;
+	// 	}
+	// }
+}
+

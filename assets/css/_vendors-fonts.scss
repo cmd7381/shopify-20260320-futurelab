@@ -1,0 +1,141 @@
+// Contents: IcoMoon icon font, BDO Grotesk, Neue Haas Grotesk Text
+
+@font-face {
+  font-family: "icomoon";
+  src: url('{{ "icomoon.eot" | asset_url }}');
+  src: url('{{ "icomoon.eot" | asset_url }}#iefix') format("embedded-opentype"),
+    url('{{ "icomoon.woff" | asset_url }}') format("woff"),
+    url('{{ "icomoon.ttf" | asset_url }}') format("truetype"),
+    url('{{ "icomoon.svg" | asset_url }}#icomoon') format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-Light.woff2" | asset_url }}') format('woff2');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-Regular.woff2" | asset_url }}') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-Medium.woff2" | asset_url }}') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-DemiBold.woff2" | asset_url }}') format('woff2');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-Bold.woff2" | asset_url }}') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-ExtraBold.woff2" | asset_url }}') format('woff2');
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BDO Grotesk';
+	src: url('{{ "BDOGrotesk-Black.woff2" | asset_url }}') format('woff2');
+	font-weight: 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Neue Haas Grotesk Text';
+	src: url('{{ "neuehaasgrottext-55roman-trial.otf" | asset_url }}') format('opentype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Neue Haas Grotesk Text';
+	src: url('{{ "neuehaasgrottext-65medium-trial.otf" | asset_url }}') format('opentype');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Neue Haas Grotesk Text';
+	src: url('{{ "neuehaasgrottext-75bold-trial.otf" | asset_url }}') format('opentype');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+.iconfont {
+  font-family: "icomoon" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-link::before { content: "\e900"; }
+.icon-check-circle-skinny::before { content: "\e901"; }
+.icon-check-circle::before { content: "\e902"; }
+.icon-arrow-right-solid::before { content: "\e903"; }
+.icon-arrow-left-solid::before { content: "\e904"; }
+.icon-alert-circle::before { content: "\e905"; }
+.icon-mail::before { content: "\e906"; }
+.icon-social-youtube::before { content: "\e907"; }
+.icon-social-spotify::before { content: "\e908"; }
+.icon-user::before { content: "\e909"; }
+.icon-star::before { content: "\e90a"; }
+.icon-social-linkedin::before { content: "\e90b"; }
+.icon-social-instagram::before { content: "\e90c"; }
+.icon-social-facebook::before { content: "\e90d"; }
+.icon-shopping-bag::before { content: "\e90e"; }
+.icon-share-x::before { content: "\e90f"; }
+.icon-share-linkedin::before { content: "\e910"; }
+.icon-share-facebook::before { content: "\e911"; }
+.icon-play::before { content: "\e912"; }
+.icon-filter-lines::before { content: "\e913"; }
+.icon-copy-link::before { content: "\e914"; }
+.icon-chevron-right::before { content: "\e915"; }
+.icon-chevron-down::before { content: "\e916"; }
+.icon-chevron-down-nav::before { content: "\e917"; }
+.icon-arrow-up-right::before { content: "\e918"; }
+.icon-arrow-right::before { content: "\e919"; }
+.icon-arrow-narrow-down::before { content: "\e91a"; }
+.icon-arrow-left::before { content: "\e91b"; }
+.icon-chevron-left::before { content: "\e91c"; }
+.icon-phone::before { content: "\e91d"; }
+.icon-share-apple-podcasts::before { content: "\e91e"; }
+.icon-share-spotify::before { content: "\e91f"; }
+.icon-share-youtube::before { content: "\e920"; }
+.icon-menu-close::before { content: "\e921"; }
+

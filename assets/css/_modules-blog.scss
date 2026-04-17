@@ -1,0 +1,391 @@
+// Contents: block-blog-hero, block-blog-grid, block-article, block-callout
+
+@use 'helpers' as *;
+
+// ==================== block-blog-hero ====================
+
+
+.block-blog-hero {
+
+  &__link {
+    display: block;
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-decoration: none;
+    color: $color-white;
+
+    &:hover {
+      .block-blog-hero__image {
+        transform: scale(1.02);
+      }
+    }
+
+    .block-blog-hero__arrow {
+      // flex-shrink: 0;
+      font-size: responsive(24px);
+      // margin-top: responsive(4px);
+    }
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: responsive(624px);
+    object-fit: cover;
+    transition: transform 0.4s ease;
+
+    @include tablet-down {
+      height: 360px;
+    }
+  }
+
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 40%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+    pointer-events: none;
+  }
+
+  &__panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: responsive($spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-24);
+
+    @include tablet-down {
+      padding: $spacing-24 $spacing-16;
+      gap: $spacing-16;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-8);
+  }
+
+  &__title-row {
+    display: flex;
+    gap: responsive($spacing-16);
+    align-items: flex-start;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: responsive(24px);
+    font-weight: 600;
+    line-height: 1.33;
+    letter-spacing: 0;
+    color: $color-white;
+    flex: 1;
+
+    @include tablet-down {
+      font-size: 20px;
+    }
+  }
+
+  &__excerpt {
+    font-family: $font-body;
+    font-size: responsive($font-size-p2);
+    font-weight: 400;
+    line-height: $lh-p2;
+    color: $color-white;
+    max-width: responsive(752px);
+    @include text-truncate(2);
+
+    @include tablet-down {
+      display: none;
+    }
+  }
+
+  &__attribution {
+    display: flex;
+    gap: responsive($spacing-32);
+    align-items: flex-start;
+
+    @include tablet-down {
+      flex-wrap: wrap;
+      gap: $spacing-16;
+    }
+  }
+
+  &__attr-group {
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-8);
+
+    &:nth-child(3) {
+      margin-left: auto;
+
+      @include tablet-down {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__attr-label {
+    font-family: $font-body;
+    font-size: responsive($font-size-p3);
+    font-weight: 600;
+    line-height: 1.43;
+    color: $color-white;
+  }
+
+  &__author {
+    display: flex;
+    align-items: center;
+    gap: responsive($spacing-8);
+  }
+
+  &__avatar {
+    width: responsive(40px);
+    height: responsive(40px);
+    border-radius: $radius-full;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background-color: #e0e0e0;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @include tablet-down {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &__author-name {
+    font-family: $font-body;
+    font-size: responsive($font-size-p3);
+    font-weight: 600;
+    line-height: 1.43;
+    color: $color-white;
+  }
+
+  &__date {
+    font-family: $font-body;
+    font-size: responsive($font-size-p2);
+    font-weight: 600;
+    line-height: $lh-p2;
+    color: $color-white;
+    padding: responsive($spacing-8) 0;
+  }
+
+  &__categories {
+    display: flex;
+    gap: responsive($spacing-8);
+    flex-wrap: wrap;
+    align-items: center;
+    padding: responsive($spacing-8) 0;
+  }
+}
+
+// ==================== block-blog-grid ====================
+
+
+// Card — Blog
+.card--blog {
+  display: flex !important;
+  flex-direction: column;
+  gap: responsive($spacing-16);
+
+  @include hover-img-scale;
+
+  @include mobile {
+    gap: 18px;
+  }
+
+  .card__image .img-box {
+    padding-top: size(256, 384);
+  }
+
+  .card__content {
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-4);
+    @include mobile {
+      gap: 8px;
+    }
+  }
+
+  .card__title {
+    font-family: $font-heading;
+    font-size: responsive($font-size-h6);
+    font-weight: 600;
+    line-height: $lh-h6;
+    letter-spacing: 0;
+    color: $color-dark;
+    @include tablet-down {
+      font-size: 16px;
+    }
+    @include mobile {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .card__excerpt {
+    font-family: $font-heading;
+    font-size: responsive($font-size-p3);
+    font-weight: 400;
+    line-height: $lh-p3;
+    color: $color-slate;
+    @include text-truncate(2);
+
+    @include mobile {
+      font-family: $font-body;
+      -webkit-line-clamp: 2;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+  }
+
+}
+
+// Blog listing section wrapper
+.block-blog-listing {
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-64);
+    padding-top: responsive(34px);
+    padding-bottom: responsive(96px);
+
+    @include tablet-down {
+      gap: $spacing-32;
+      padding-top: $spacing-40;
+      padding-bottom: $spacing-40;
+    }
+  }
+  .title-block {
+    padding: responsive(48px) 0 responsive(24px);
+  }
+
+  .dropdown__toggle{
+		font-size: responsive($font-size-p2);
+		line-height: $lh-p2;
+  }
+  .filter-bar .dropdown__toggle span{
+    font-weight: 500;
+  }
+}
+
+// ==================== block-article ====================
+
+
+// Article Hero (author + image, inside page-header)
+
+.block-article-hero {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  gap: responsive(64px);
+  margin-top: responsive($spacing-32);
+
+  @include tablet-down {
+    gap: $spacing-32;
+    margin-top: $spacing-24;
+  }
+
+  &__image {
+    width: 100%;
+    .img-box {
+      padding-top: size(640, 1216);
+
+      @include tablet-down {
+        padding-top: size(240, 396);
+      }
+    }
+  }
+}
+
+// Article Footer (author + share)
+
+.block-article-footer {
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: responsive($spacing-24);
+    border-top: 1px solid $color-border;
+    padding-top: responsive($spacing-24);
+
+    @include tablet-down {
+      padding-top: $spacing-16;
+    }
+  }
+  .share p{
+    border-left: 1px solid $color-border;
+    @include mobile {
+      border-left: none;
+    }
+  }
+}
+
+// ==================== block-callout ====================
+
+
+.block-callout {
+  .text {
+    background-color: $color-frost;
+    border-radius: var(--radius-lg);
+    padding: responsive($spacing-32);
+
+    @include tablet-down {
+      padding: $spacing-24;
+    }
+
+    h2,
+    h3,
+    h4 {
+      font-family: $font-heading;
+      font-size: responsive($font-size-h4);
+      font-weight: 400;
+      line-height: $lh-h4;
+      letter-spacing: 0;
+      color: $color-dark;
+      margin-bottom: responsive($spacing-16);
+      margin-top: 0;
+
+      @include tablet-down {
+        font-size: 22px;
+      }
+    }
+
+    p {
+      font-family: $font-body;
+      font-size: responsive($font-size-p2);
+      font-weight: 400;
+      line-height: $lh-p2;
+      color: $color-dark;
+      margin-bottom: responsive(10px);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+

@@ -271,19 +271,82 @@ var App = (function($) {
 	// Show More (SEO Text)
 	// ============================================
 	var ShowMore = (function() {
+		function measure() {
+			$(".block-seo-text__visible").each(function() {
+				var el = this;
+				var text = el.querySelector(".text");
+				if (!text) return;
+				el.style.setProperty("--max-height", text.scrollHeight + "px");
+			});
+		}
+
 		function init() {
+			measure();
+
+			var resizeTimer;
+			$(window).on("resize", function() {
+				clearTimeout(resizeTimer);
+				resizeTimer = setTimeout(measure, 150);
+			});
+
 			$(".block-seo-text__toggle").on("click", function() {
 				var $btn = $(this);
-				var $hidden = $btn.siblings(".block-seo-text__hidden");
-				var $icon = $btn.find("img");
+				var $visible = $btn.siblings(".block-seo-text__visible");
 				var expanding = $btn.toggleClass("is-active").hasClass("is-active");
 
-				$hidden.stop().slideToggle(300);
+				$visible.toggleClass("is-active", expanding);
 
 				var textNode = this.firstChild;
 				if (textNode && textNode.nodeType === Node.TEXT_NODE) {
 					textNode.textContent = expanding ? "Show Less " : "Show More ";
 				}
+			});
+		}
+
+		return {
+			init: init
+		};
+	})();
+
+	// ============================================
+	// Page Header Show More (inline toggle after ellipsis)
+	// ============================================
+	var PageHeaderShowMore = (function() {
+		function check() {
+			$(".page-header__description").each(function() {
+				var el = this;
+				el.style.setProperty("--max-height", el.scrollHeight + "px");
+				var truncated = el.scrollHeight > el.clientHeight + 2;
+				el.classList.toggle("is-truncated", truncated);
+				var $wrap = $(el).find(".page-header__toggle-wrap");
+				if (truncated && !$wrap.length) {
+					$(el).append(
+						'<span class="page-header__toggle-wrap">' +
+						'<span class="page-header__toggle-ellipsis">\u2026\u00a0\u00a0</span>' +
+						'<a href="#" class="page-header__toggle">Show more</a>' +
+						'</span>'
+					);
+				} else if (!truncated && $wrap.length) {
+					$wrap.remove();
+				}
+			});
+		}
+
+		function init() {
+			check();
+
+			var resizeTimer;
+			$(window).on("resize", function() {
+				clearTimeout(resizeTimer);
+				resizeTimer = setTimeout(check, 150);
+			});
+
+			$(document).on("click", ".page-header__toggle", function(e) {
+				e.preventDefault();
+				var $desc = $(this).closest(".page-header__description");
+				var expanding = !$desc.hasClass("is-active");
+				$desc.toggleClass("is-active", expanding);
+				this.textContent = expanding ? "Show less" : "Show more";
 			});
 		}
 
@@ -1536,6 +1599,7 @@ var App = (function($) {
 		SmoothScroll.init();
 		FilterTabs.init();
 		ShowMore.init();
+		PageHeaderShowMore.init();
 		ToggleSwitch.init();
 		Dropdown.init();
 		NavMenu.init();

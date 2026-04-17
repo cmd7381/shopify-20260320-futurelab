@@ -1,0 +1,274 @@
+// Contents: reset, typography, utilities
+
+@use "sass:meta";
+@use "sass:string";
+@use "sass:color" as sasscolor;
+@use 'helpers' as vars;
+@use 'helpers' as *;
+
+
+// Modern CSS Reset
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	user-select: text;
+	aspect-ratio: unset !important;
+}
+
+html {
+	-moz-text-size-adjust: none;
+	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
+	scroll-behavior: smooth;
+}
+
+body {
+	min-height: 100vh;
+	line-height: 1.5;
+	overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	word-break: break-word;
+	overflow-wrap: break-word;
+	font-weight: normal;
+}
+
+p {
+	overflow-wrap: break-word;
+
+	a {
+		text-decoration: underline;
+		text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
+		transition: text-decoration-color 0.3s ease, color 0.3s ease;
+
+		&:hover {
+			text-decoration-color: currentColor;
+		}
+	}
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+	transition: opacity 0.3s ease, color 0.3s ease;
+
+	[class*='icon-arrow'] {
+		transition: transform 0.2s ease;
+	}
+
+	&:hover {
+		.icon-arrow-right {
+			transform: translateX(4px);
+		}
+
+		.icon-arrow-left {
+			transform: translateX(-4px);
+		}
+
+		.icon-arrow-up-right {
+			transform: translate(4px, -4px);
+		}
+	}
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
+	font-size: responsive(16px);
+
+	@include tablet-down {
+		font-size: 1rem;
+	}
+}
+
+.icon-arrow-right,
+.icon-arrow-left,
+.icon-arrow-up-right {
+	font-size: responsive(20px);
+	transition: transform 0.3s ease;
+	flex-shrink: 0;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+	color: inherit;
+}
+
+button {
+	cursor: pointer;
+	background: none;
+	border: none;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+// Base Typography
+
+body {
+	font-family: $font-body;
+	font-size: responsive($font-size-p2);
+	font-weight: 400;
+	line-height: $lh-p2;
+	color: $color-dark;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+
+	@include mobile {
+		font-size: 14px;
+		line-height: 1.5;
+	}
+}
+
+h1,
+.h1 {
+	@include h1;
+	@include desktop-small {
+		@include h2;
+	}
+	@include tablet-down {
+		@include h3;
+	}
+	@include mobile {
+		@include h1-mobile;
+	}
+}
+
+h2,
+.h2 {
+	@include h2;
+	@include tablet-down {
+		@include h3;
+	}
+	@include mobile {
+		@include h1-mobile;
+	}
+}
+
+h3,
+.h3 {
+	@include h3;
+	@include tablet-down {
+		@include h4;
+	}
+	@include mobile {
+		@include h4;
+	}
+}
+
+h4,
+.h4 {
+	@include h4;
+	@include mobile {
+		font-size: 24px;
+		line-height: 1.2;
+	}
+}
+
+h5,
+.h5 {
+	font-family: $font-heading;
+	font-size: responsive($font-size-h5);
+	font-weight: 600;
+	line-height: $lh-h5;
+
+	@include tablet-down {
+		font-size: 18px;
+		line-height: 1.3;
+	}
+}
+
+h6,
+.h6 {
+	font-family: $font-heading;
+	font-size: responsive($font-size-h6);
+	font-weight: 600;
+	line-height: $lh-h6;
+
+	@include tablet-down {
+		font-size: 16px;
+		line-height: 1.4;
+	}
+}
+
+// ============================================
+// Background Color Utilities
+// Auto-generated from all $color-* variables
+// ============================================
+@each $name, $value in meta.module-variables("vars") {
+  @if string.index($name, "color-") ==
+    1 and
+    meta.type-of($value) ==
+    "color" and
+    sasscolor.alpha($value) ==
+    1
+  {
+    .bg-#{string.slice($name, 7)} {
+      background-color: $value;
+    }
+  }
+}
+
+// Responsive visibility
+.desktop-only {
+  @include tablet-down {
+    display: none !important;
+  }
+}
+
+.mobile-only {
+  @include desktop {
+    display: none !important;
+  }
+}
+
+// When .content has a bg- class, add border-radius and clip
+.content[class*="bg-"] {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+// Vendor overrides
+.jdgm-star {
+  color: $color-neon-tide !important;
+}
