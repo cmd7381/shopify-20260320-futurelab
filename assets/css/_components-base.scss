@@ -45,6 +45,17 @@
 		}
 	}
 
+	&--neon-tide-300 {
+		background-color: $color-neon-tide-300;
+		color: $color-neon-tide;
+		border-color: transparent;
+
+		&:hover {
+			background-color: $color-neon-tide-500;
+			color: $color-white;
+		}
+	}
+
 	&--white {
 		background-color: $color-white;
 		color: $color-dark;
