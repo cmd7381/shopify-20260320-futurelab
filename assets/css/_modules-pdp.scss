@@ -21,7 +21,7 @@
 
 	// ---- Left: Images ----
 	&__images {
-		width: size(660, 1344);
+		width: size(645, 1344);
 		flex-shrink: 0;
 		display: flex;
 		flex-direction: column;
@@ -2089,9 +2089,9 @@ section:has(.sticky-cta){
   @include mobile {
     padding-top: 0;
     padding-bottom: 0;
-    >.img{
-      display:none;
-    }
+    // >.img{
+    //   display:none;
+    // }
   }
 
   .content {
@@ -2108,89 +2108,57 @@ section:has(.sticky-cta){
     }
   }
 
-  &__before {
-    width: size(430, 1344);
-    background-color: $color-white;
-    border-radius: var(--radius-md);
-    padding: responsive(46px) responsive(48px) responsive(52px);
-    >.img{
-      display: none;
-    }
-    @include tablet-down {
-      width: 100%;
-      padding: 28px 24px;
-    }
-
-    @include mobile {
-      position: relative;
-      background-color: transparent;
-      border-radius: 0;
-      // padding: 28px 16px 76px;
-      padding: 28px 16px 306px;
-      margin-bottom: -230px;
-      &:after{
-        content: '';
-        display: block;
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translate(-50%,0%);
-        background: linear-gradient(180deg, rgba(29, 78, 216, 0) 0%, #1D4ED8 100%);
-        padding-top: size(178,428);
-        z-index: 1;
-        pointer-events: none;
-      }
-      .img ~ *{
-        position: relative;
-        z-index: 2;
-      }
-      >.img{
-        display: block;
-      }
-    }
-  }
-
-  &__after {
-    width: size(888, 1344);
-    background-color: $color-neon-tide;
-    border-radius: var(--radius-md);
-    padding: responsive($spacing-48);
-    color: $color-white;
-    overflow: hidden;
-
-    @include tablet-down {
+	&__before,
+	&__after {
+		width: size(645, 1344);
+    border-radius: var(--radius-lg);
+		padding: responsive(40px);
+		@include tablet-down {
       width: 100%;
       padding: $spacing-24;
     }
+	}
+
+	&__top{
+    margin-bottom: responsive($spacing-32);
+    text-align: center;
+		@include mobile {
+      margin-bottom: 24px;
+    }
+	}
+
+  &__before {
+    background-color: rgba($color-white,0.84);
+		display: flex;
+		flex-direction: column;
+		.block-routine__body{
+			padding: 10px 32px;
+		}
+		.block-routine__bottom{
+			margin: auto responsive(-40px) responsive(-40px);
+		}
+  }
+
+  &__after {
+    background-color: $color-neon-tide;
+    color: $color-white;
 
     @include mobile {
-      border-radius: 0;
-      padding: $spacing-24 $spacing-16;
-      overflow: visible;
       background-color: transparent;
+			padding:0;
     }
   }
 
   &__heading {
-    @include heading(32px, 400, 1.2, calc(-1 * responsive(0.96px)));
+    @include heading(40px, 400, 1.26, calc(-1 * responsive(0.4px)));
     color: $color-dark;
-    margin-bottom: responsive(42px);
 
     @include mobile {
       font-size: 32px;
-      text-align: center;
-      margin-bottom: 24px;
     }
 
     &--white {
       color: $color-white;
-      margin-bottom: 0;
-
-      @include mobile {
-        margin-bottom: 0;
-        text-align: center;
-      }
     }
   }
 
@@ -2198,66 +2166,66 @@ section:has(.sticky-cta){
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: responsive(8px);
+    gap: responsive($spacing-12);
     display: flex;
     flex-direction: column;
-    @include mobile{
-      gap: 12px;
-    }
-  }
 
-  &__list-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    @include body-text($font-size-caption, 400, 16px);
-    font-size: responsive($font-size-caption);
-    color: $color-dark;
-    padding: 0 responsive($spacing-16);
+		&-item {
+			@include body-text(17px, 500, 1.14);
+			color: $color-dark;
 
-    strong {
-      font-weight: 700;
-    }
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			flex-flow: row nowrap;
+			gap: 12px;
+			span{
+				flex:1;
+			}
+			strong {
+				text-align: left;
+				font-weight: 500;
+				min-width: 38px;
+			}
+		}
   }
 
   &__total {
-    margin-top: responsive($spacing-16);
-    border-top: 1px solid rgba($color-dark, 0.1);
-    padding-top: responsive($spacing-12);
-    display: flex;
-    flex-direction: column;
-    gap: responsive($spacing-8);
-  }
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		&-old,
+		&-new{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: responsive(12px);
+			padding: responsive(18px) responsive(65px);
+			@include body-text(17px, 500, 1.14);
+			span{
+				flex:1;
+			}
+			strong {
+				text-align: left;
+				min-width: 60px;
+			}
+		}
+		&-old {
+			color: $color-dark;
+			background-color: $color-white;
+			strong {
+				font-weight: 500;
+				text-decoration: line-through;
+			}
+		}
 
-  &__total-old {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: $color-dark;
-    padding: 0 responsive($spacing-16);
-    @include body-text($font-size-caption, 400, $lh-caption);
-
-    strong {
-      font-weight: 400;
-      text-decoration: line-through;
-      color: $color-dark;
-    }
-  }
-
-  &__total-new {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: responsive($spacing-16);
-    @include body-text($font-size-caption, 500, $lh-caption);
-    color: $color-white;
-    background-color: $color-neon-tide;
-    border-radius: var(--radius-md);
-    padding: responsive($spacing-16);
-
-    strong {
-      font-weight: 700;
-    }
+		&-new {
+			color: $color-white;
+			background-color: $color-neon-tide;
+			strong {
+				font-weight: 700;
+				font-size: 18px;
+			}
+		}
   }
 
   // After card layout
@@ -2270,39 +2238,22 @@ section:has(.sticky-cta){
       gap: 24px;
       align-items: center;
     }
-  }
 
-  &__after-top {
-    margin-bottom: responsive($spacing-24);
-    text-align: center;
+    .block-routine__body {
+      display: flex;
+      justify-content: space-between;
+      gap: responsive($spacing-24);
 
-    @include mobile {
-      display: contents;
+      @include tablet-down {
+        flex-direction: column;
+      }
     }
-  }
 
-  &__cta {
-    color: $color-neon-tide;
-    width: 100%;
-    justify-content: center;
-
-    @include mobile {
-      order: 10;
-      margin-top: -14px;
-    }
-  }
-
-  &__after-body {
-    display: flex;
-    justify-content: space-between;
-    gap: responsive($spacing-24);
-
-    @include tablet-down {
+    .block-routine__bottom {
+      display: flex;
       flex-direction: column;
-    }
-
-    @include mobile {
-      display: contents;
+      gap: responsive($spacing-12);
+      margin-top: responsive($spacing-24);
     }
   }
 
@@ -2336,13 +2287,24 @@ section:has(.sticky-cta){
     }
   }
 
+  &__cta {
+    color: $color-neon-tide;
+    width: 100%;
+    justify-content: center;
+
+    @include mobile {
+      order: 10;
+      margin-top: -14px;
+    }
+  }
+
   &__benefits-list {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: responsive($spacing-8);
+    gap: responsive($spacing-20);
     margin-top: responsive($spacing-20);
 
     @include mobile {
@@ -2353,12 +2315,12 @@ section:has(.sticky-cta){
     li {
       display: flex;
       align-items: center;
-      gap: responsive($spacing-8);
-      @include body-text($font-size-p3, 400, 1.4);
+      gap: responsive($spacing-12);
+      @include body-text(17px, 400, 1.24);
       color: $color-white;
 
       [class*="icon-"] {
-        font-size: responsive(16px);
+        font-size: responsive(26px);
         flex-shrink: 0;
       }
     }
@@ -2373,83 +2335,69 @@ section:has(.sticky-cta){
     @include mobile {
       display: contents;
     }
-  }
 
-  &__savings-image {
-    width: 100%;
-    transform: rotate(-5.87deg);
-    transform-origin: center;
+		&-image {
+			width: 100%;
 
-    .img-box {
-      padding-top: size(953, 740);
-    }
+			.img-box {
+				padding-top: size(953, 740);
+			}
 
-    .img-box img {
-      object-fit: contain;
-    }
+			.img-box img {
+				object-fit: contain;
+			}
 
-    @include mobile {
-      order: -1;
-      width: 220px;
-      transform: rotate(-5.87deg);
+			@include mobile {
+				order: -1;
+				width: 220px;
 
-      .img-box {
-        padding-top: size(283, 220);
-      }
-    }
-  }
+				.img-box {
+					padding-top: size(283, 220);
+				}
+			}
+		}
 
-  &__after-bottom {
-    display: flex;
-    flex-direction: column;
-    gap: responsive($spacing-12);
-    margin-top: responsive($spacing-24);
+		&-info {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: responsive($spacing-4);
+			background-color: $color-neon-tide-300;
+			border-radius: var(--radius-md);
+			padding: responsive($spacing-16) responsive($spacing-24);
+			text-align: center;
 
-    @include mobile {
-      display: contents;
-    }
-  }
+			@include mobile {
+				width: 100%;
+				order: 5;
+				margin-top: 4px;
+			}
 
-  &__savings-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: responsive($spacing-4);
-    background-color: $color-neon-tide-300;
-    border-radius: var(--radius-md);
-    padding: responsive($spacing-16) responsive($spacing-24);
-    text-align: center;
+			p {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: responsive($spacing-8);
+				color: $color-neon-tide;
+				margin: 0;
 
-    @include mobile {
-      width: 100%;
-      order: 5;
-      margin-top: 4px;
-    }
+				&:first-child {
+					@include heading(27px, 700, 1.2, 0);
+				}
 
-    p {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: responsive($spacing-8);
-      color: $color-neon-tide;
-      margin: 0;
+				&:last-child {
+					@include body-text(21px, 400, 1.2);
+				}
 
-      &:first-child {
-        @include heading(28px, 700, 1.2, 0);
-      }
+				[class*="icon-"] {
+					display: none;
+				}
 
-      &:last-child {
-        @include body-text($font-size-p2, 400, 1.4);
-      }
-
-      [class*="icon-"] {
-        display: none;
-      }
-
-      strong {
-        font-weight: inherit;
-      }
-    }
+				strong {
+					font-weight: inherit;
+				}
+			}
+		}
   }
 
   &__footnote {
