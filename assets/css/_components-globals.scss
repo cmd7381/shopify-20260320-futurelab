@@ -533,56 +533,11 @@
       line-height: 1.5;
     }
 
-    position: relative;
-    overflow: hidden;
+    @include inline-show-more("page-header");
     max-height: calc(responsive($font-size-p1) * $lh-p1 * var(--max-lines, 3));
-    transition: max-height 0.4s ease;
 
     @include mobile {
       max-height: calc($font-size-p2 * 1.5 * var(--max-lines, 3));
-    }
-
-    &.is-active {
-      max-height: var(--max-height);
-    }
-
-    &:not(.is-truncated) .page-header__toggle-wrap {
-      display: none;
-    }
-
-  }
-
-  &__toggle-wrap {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    padding-left: responsive(24px);
-    background: linear-gradient(to right, transparent, $color-white responsive(24px));
-
-    .page-header__description.is-active & {
-      position: static;
-      padding-left: 0;
-      margin-left: 6px;
-      background: none;
-    }
-  }
-
-  &__toggle-ellipsis {
-    .page-header__description.is-active & {
-      display: none;
-    }
-  }
-
-  &__toggle {
-    cursor: pointer;
-    color: inherit;
-    text-decoration: underline;
-    text-decoration-color: #707c8680;
-    transition: text-decoration-color 0.3s ease, color 0.3s ease;
-
-    &:hover {
-      text-decoration: underline;
-      text-decoration-color: $color-slate;
     }
   }
 
@@ -852,4 +807,3 @@ section:has(section.page-header--hidden){
 		}
 	}
 }
-

@@ -1091,6 +1091,10 @@
 	background: $color-neon-tide;
 	border-radius: 0 0 $radius-md $radius-md;
 	z-index: 2;
+
+	.cart-items__variant-select{
+		margin: 8px 0;
+	}
 }
 
 .cart-drawer__subscribe-benefits {

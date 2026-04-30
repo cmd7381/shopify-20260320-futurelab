@@ -339,6 +339,12 @@
 		}
 	}
 
+	&__disclaimer-text {
+		@include body-text($font-size-p1, 400);
+		color: $color-white;
+		position: relative;
+	}
+
 	&__rating {
 		display: flex;
 		align-items: center;
@@ -450,17 +456,33 @@
 
 
 .block-usps {
+	margin-bottom: 16px;
+	.container:has(.img--bg){
+		@include mobile {
+			display: contents;
+		}
+	}
+
   .content {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
+    // align-items: flex-start;
     justify-content: center;
     gap: responsive($spacing-32);
     padding: responsive($spacing-80) responsive($spacing-16);
     border-radius: 16px;
+		position: relative;
+
     @include mobile {
       padding: 46px 16px;
       gap: 42px 40px;
+
+			&:has(.img--bg){
+				@include mobile {
+					padding: 46px 26px;
+					gap: 16px;
+				}
+			}
     }
   }
 
@@ -478,6 +500,14 @@
     @include mobile {
       display: block;
     }
+
+		.block-usps:has(.img--bg) &{
+			color: $color-white;
+			max-width: 80%;
+			@include mobile {
+				margin-bottom: 16px;
+			}
+		}
   }
 
   &__item {
@@ -488,19 +518,37 @@
     width: responsive(216px);
     text-align: center;
 
+		.block-usps:has(.img--bg) &{
+			border-radius: 16px;
+			background-color: rgba($color-neon-tide, 0.8);
+			overflow: hidden;
+			box-shadow: 2px 11px 20.1px 0px #00000017;
+			padding: 0 16px 16px;
+		}
+
     @include mobile {
       // width: calc(50% - 8px);
       width: 128px;
       gap: $spacing-12;
+			.block-usps:has(.img--bg) &{
+				width: calc(50% - 8px);
+				max-width: 190px;
+			}
+
+			&:nth-of-type(n + 6) {
+				display: none;
+			}
     }
   }
 
   &__icon {
-    width: responsive(147px);
-    height: responsive(147px);
-    border-radius: var(--radius-lg);
-    background-color: $color-neon-tide;
-    overflow: hidden;
+		width: responsive(147px);
+		height: responsive(147px);
+		.block-usps:not(:has(.img--bg)) &{
+			border-radius: var(--radius-lg);
+			background-color: $color-neon-tide;
+			overflow: hidden;
+		}
     position: relative;
     @include flex-center;
 
@@ -519,6 +567,11 @@
       @include mobile {
         width: 60px;
         height: 60px;
+
+				.block-usps:has(.img--bg) &{
+					width: 75px;
+					height: 75px;
+				}
       }
     }
   }
@@ -550,6 +603,10 @@
     margin-left: auto;
     margin-right: auto;
 
+		.block-usps:has(.img--bg) &{
+			color: $color-white;
+		}
+
     @include mobile {
       font-size: 14px;
       line-height: 1.5;
@@ -565,6 +622,9 @@
       @include mobile {
         font-size: 14.03px;
         line-height: 160%;
+				.block-usps:has(.img--bg) &{
+					line-height: 140%;
+				}
       }
     }
   }
@@ -578,6 +638,11 @@
     text-align: center;
     color: $color-slate;
     margin-top: calc(responsive(12px) * -1);
+
+		.block-usps:has(.img--bg) &{
+			color: $color-white;
+		}
+
     @include mobile {
       font-size: 12.27px;
     }
@@ -917,7 +982,7 @@
 		display: flex;
 		align-items: center;
 		gap: responsive($spacing-4);
-		@include body-text($font-size-p2, 400);
+		@include body-text($font-size-p2, 500);
 		color: $color-dark;
 		white-space: nowrap;
 	}
@@ -1735,18 +1800,18 @@
   }
 
   &__title {
-    @include h4;
+    // @include h4;
     letter-spacing: 0;
     color: $color-dark;
     margin-bottom: responsive($spacing-32);
 
-    @include mobile {
-      font-size: 24px;
-      letter-spacing: -0.72px;
-      line-height: 1.15;
-      margin-bottom: 26px;
-      max-width: 75%;
-    }
+    // @include mobile {
+    //   font-size: 24px;
+    //   letter-spacing: -0.72px;
+    //   line-height: 1.15;
+    //   margin-bottom: 26px;
+    //   max-width: 75%;
+    // }
   }
 
   // Thumbnail row — mobile only
@@ -1757,9 +1822,10 @@
       display: flex;
       gap: $spacing-8;
       margin-bottom: 26px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
       flex-shrink: 0;
+			margin-inline-end: -24px;
+    	width: calc(100% + 24px);
+      @include fade-scroll(48px);
     }
   }
 

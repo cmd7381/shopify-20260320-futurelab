@@ -243,13 +243,13 @@
 		justify-content: center;
 
 		img {
-			height: responsive(26px);
-			width: auto;
+			width: responsive(156px);
+      height: auto;
+      max-width: none;
 
 			@include mobile {
 				width: 128px;
-				max-width: none;
-				height: auto;
+
 			}
 		}
 	}

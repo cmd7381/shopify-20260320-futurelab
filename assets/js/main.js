@@ -198,6 +198,69 @@ var App = (function($) {
 	})();
 
 	// ============================================
+	// Warnings Lightbox
+	// ============================================
+	var WarningsLightbox = (function() {
+		var $lightbox;
+
+		function open(title, body) {
+			if (title !== undefined) $lightbox.find(".warnings-lightbox__title").text(title);
+			if (body !== undefined) $lightbox.find(".warnings-lightbox__body").html(body);
+			$lightbox.addClass("is-open");
+			PageScroll.lock();
+			requestAnimationFrame(updateScrollbar);
+		}
+
+		function updateScrollbar() {
+			var scroll = $lightbox.find(".warnings-lightbox__scroll")[0];
+			var $track = $lightbox.find(".warnings-lightbox__track");
+			var $thumb = $lightbox.find(".warnings-lightbox__thumb");
+			if (!scroll) return;
+			var sh = scroll.scrollHeight;
+			var ch = scroll.clientHeight;
+			var overflows = sh > ch + 1;
+			$track.toggle(overflows);
+			$thumb.toggle(overflows);
+			if (!overflows) return;
+			var thumbH = Math.max(20, ch * ch / sh);
+			var maxScroll = sh - ch;
+			var thumbTop = maxScroll ? (scroll.scrollTop / maxScroll) * (ch - thumbH) : 0;
+			$thumb.css({ top: thumbTop + "px", height: thumbH + "px" });
+		}
+
+		function close() {
+			$lightbox.removeClass("is-open");
+			PageScroll.unlock();
+		}
+
+		function init() {
+			$lightbox = $("#warnings-lightbox");
+			if (!$lightbox.length) return;
+
+			$(document).on("click", ".card__warnings a", function(e) {
+				e.preventDefault();
+				var $a = $(this);
+				var title = $a.data("warnings-title");
+				var body = $a.data("warnings-body");
+				open(title, body);
+			});
+
+			$lightbox.find(".warnings-lightbox__scroll").on("scroll", updateScrollbar);
+			$(window).on("resize.warningslb", updateScrollbar);
+
+			$lightbox.find(".warnings-lightbox__close").on("click", close);
+			$lightbox.on("click", function(e) {
+				if ($(e.target).closest(".warnings-lightbox__content").length === 0) close();
+			});
+			$(document).on("keydown.warningslb", function(e) {
+				if (e.key === "Escape" && $lightbox.hasClass("is-open")) close();
+			});
+		}
+
+		return { init: init };
+	})();
+
+	// ============================================
 	// FAQ Accordion
 	// ============================================
 	var FAQAccordion = (function() {
@@ -277,6 +340,10 @@ var App = (function($) {
 				var text = el.querySelector(".text");
 				if (!text) return;
 				el.style.setProperty("--max-height", text.scrollHeight + "px");
+				if (!el.classList.contains("is-active")) {
+					var $toggle = $(el).siblings(".block-seo-text__toggle");
+					$toggle.toggle(text.scrollHeight - el.clientHeight > 1);
+				}
 			});
 		}
 
@@ -309,50 +376,164 @@ var App = (function($) {
 	})();
 
 	// ============================================
-	// Page Header Show More (inline toggle after ellipsis)
+	// Inline Show More (truncate + inline toggle after ellipsis)
 	// ============================================
-	var PageHeaderShowMore = (function() {
-		function check() {
-			$(".page-header__description").each(function() {
+	// Usage: InlineShowMore.register({ selector: ".foo", prefix: "foo" });
+	// Requires SCSS on `selector` (overflow:hidden, max-height, transition,
+	// `&.is-active { max-height: var(--max-height) }`) and on the generated
+	// `${prefix}__toggle-wrap`, `${prefix}__toggle-ellipsis`, `${prefix}__toggle`.
+	var InlineShowMore = (function() {
+		var instances = [];
+
+		function check(cfg) {
+			$(cfg.selector).each(function() {
 				var el = this;
+				// Temporarily collapse to measure natural truncation state
+				var wasActive = el.classList.contains("is-active");
+				if (wasActive) el.classList.remove("is-active");
+				// Suppress transition during measurement
+				var prevTransition = el.style.transition;
+				el.style.transition = "none";
+
 				el.style.setProperty("--max-height", el.scrollHeight + "px");
 				var truncated = el.scrollHeight > el.clientHeight + 2;
 				el.classList.toggle("is-truncated", truncated);
-				var $wrap = $(el).find(".page-header__toggle-wrap");
+				var $wrap = $(el).find("." + cfg.prefix + "__toggle-wrap");
 				if (truncated && !$wrap.length) {
 					$(el).append(
-						'<span class="page-header__toggle-wrap">' +
-						'<span class="page-header__toggle-ellipsis">\u2026\u00a0\u00a0</span>' +
-						'<a href="#" class="page-header__toggle">Show more</a>' +
+						'<span class="' + cfg.prefix + '__toggle-wrap">' +
+						'<span class="' + cfg.prefix + '__toggle-ellipsis">\u2026\u00a0\u00a0</span>' +
+						'<a href="#" class="' + cfg.prefix + '__toggle">' + (wasActive ? cfg.lessText : cfg.moreText) + '</a>' +
 						'</span>'
 					);
 				} else if (!truncated && $wrap.length) {
 					$wrap.remove();
 				}
+
+				if (wasActive && truncated) {
+					el.classList.add("is-active");
+					// Re-measure after expand: inline toggle may add a line
+					el.style.setProperty("--max-height", el.scrollHeight + "px");
+				}
+				// Force reflow then restore transition
+				void el.offsetHeight;
+				el.style.transition = prevTransition;
+			});
+		}
+
+		function register(cfg) {
+			cfg = $.extend({ moreText: "Show more", lessText: "Show less" }, cfg);
+			if (!cfg.selector || !cfg.prefix) return;
+			instances.push(cfg);
+			check(cfg);
+
+			$(document).on("click", "." + cfg.prefix + "__toggle", function(e) {
+				e.preventDefault();
+				var $desc = $(this).closest(cfg.selector);
+				var expanding = !$desc.hasClass("is-active");
+				$desc.toggleClass("is-active", expanding);
+				this.textContent = expanding ? cfg.lessText : cfg.moreText;
+				if (expanding) {
+					// Toggle switches to inline flow after expand; re-measure so
+					// --max-height accounts for the extra line it may create.
+					var el = $desc[0];
+					el.style.setProperty("--max-height", el.scrollHeight + "px");
+				}
 			});
 		}
 
 		function init() {
-			check();
-
 			var resizeTimer;
 			$(window).on("resize", function() {
 				clearTimeout(resizeTimer);
-				resizeTimer = setTimeout(check, 150);
+				resizeTimer = setTimeout(function() {
+					instances.forEach(check);
+				}, 150);
 			});
 
-			$(document).on("click", ".page-header__toggle", function(e) {
-				e.preventDefault();
-				var $desc = $(this).closest(".page-header__description");
-				var expanding = !$desc.hasClass("is-active");
-				$desc.toggleClass("is-active", expanding);
-				this.textContent = expanding ? "Show less" : "Show more";
-			});
+			register({ selector: ".page-header__description", prefix: "page-header" });
+			register({ selector: ".card--ingredient .card__desc", prefix: "card-desc" });
 		}
 
 		return {
-			init: init
+			init: init,
+			register: register
 		};
+	})();
+
+	// ============================================
+	// Fade Scroll (horizontal overflow fade hint, paired with fade-scroll mixin)
+	// ============================================
+	// Usage: FadeScroll.register(".block-experts__thumbs");
+	var FadeScroll = (function() {
+		var selectors = [];
+
+		function update(el) {
+			var max = el.scrollWidth - el.clientWidth;
+			var overflows = max > 1;
+			el.classList.toggle("is-start", !overflows || el.scrollLeft <= 1);
+			el.classList.toggle("is-end", !overflows || el.scrollLeft >= max - 1);
+		}
+
+		function register(selector) {
+			if (selectors.indexOf(selector) === -1) selectors.push(selector);
+			$(selector).each(function() {
+				var el = this;
+				if (el.__fadeScrollBound) return;
+				el.__fadeScrollBound = true;
+				el.addEventListener("scroll", function() { update(el); }, { passive: true });
+				update(el);
+			});
+		}
+
+		function refresh() {
+			selectors.forEach(function(sel) {
+				$(sel).each(function() { update(this); });
+			});
+		}
+
+		function init() {
+			var t;
+			$(window).on("resize", function() {
+				clearTimeout(t);
+				t = setTimeout(refresh, 150);
+			});
+			register(".block-experts__thumbs");
+		}
+
+		return { init: init, register: register, refresh: refresh };
+	})();
+
+	// ============================================
+	// Horizontal wheel scroll (vertical wheel → horizontal scroll)
+	// ============================================
+	var HorizontalWheelScroll = (function() {
+		var selectors = [".block-pdp-console__benefits-cards"];
+
+		function bind(el) {
+			if (el.__hWheelBound) return;
+			el.__hWheelBound = true;
+			el.setAttribute("data-lenis-prevent", "");
+			el.addEventListener("wheel", function(e) {
+				if (e.deltaY === 0) return;
+				var max = el.scrollWidth - el.clientWidth;
+				if (max <= 1) return;
+				var atStart = el.scrollLeft <= 0 && e.deltaY < 0;
+				var atEnd = el.scrollLeft >= max && e.deltaY > 0;
+				if (atStart || atEnd) return;
+				e.preventDefault();
+				e.stopPropagation();
+				el.scrollLeft += e.deltaY;
+			}, { passive: false });
+		}
+
+		function init() {
+			selectors.forEach(function(sel) {
+				$(sel).each(function() { bind(this); });
+			});
+		}
+
+		return { init: init };
 	})();
 
 	// ============================================
@@ -399,7 +580,7 @@ var App = (function($) {
 				$dropdown.find(".dropdown__item").removeClass("is-selected");
 				$(this).addClass("is-selected");
 
-				$toggle.find(".dropdown__title").text($(this).text());
+				$toggle.find(".dropdown__title").html($(this).html());
 
 				$toggle.removeClass("is-active");
 				$menu.stop().slideUp(200);
@@ -993,38 +1174,40 @@ var App = (function($) {
 
 		function initGallery() {
 			$gallery = $(".block-pdp-console__gallery .carousel");
-			$thumbs = $(".block-pdp-console__thumbs .carousel");
-			if (!$gallery.length || !$thumbs.length) return;
+			// $thumbs = $(".block-pdp-console__thumbs .carousel");
+			if (!$gallery.length) return;
 
-			// Clone both carousels so slidesToShow:6 has enough for infinite
+			// Clone gallery for infinite loop
 			var $gItems = $gallery.children(".item");
-			var $tItems = $thumbs.children(".item");
+			// var $tItems = $thumbs.children(".item");
 			$gItems.clone().appendTo($gallery);
 			$gItems.clone().appendTo($gallery);
-			$tItems.clone().appendTo($thumbs);
-			$tItems.clone().appendTo($thumbs);
+			// $tItems.clone().appendTo($thumbs);
+			// $tItems.clone().appendTo($thumbs);
 
 			// Main gallery
 			$gallery.slick({
 				infinite: true,
 				slidesToShow: 1,
 				slidesToScroll: 1,
-				arrows: false,
+				arrows: true,
 				fade: true,
-				asNavFor: ".block-pdp-console__thumbs .carousel"
+				prevArrow: '<button type="button" class="slick-arrow-prev" aria-label="Previous image"><span class="iconfont icon-chevron-right" aria-hidden="true"></span></button>',
+				nextArrow: '<button type="button" class="slick-arrow-next" aria-label="Next image"><span class="iconfont icon-chevron-right" aria-hidden="true"></span></button>'
+				// asNavFor: ".block-pdp-console__thumbs .carousel"
 			});
 
-			// Thumbs nav
-			$thumbs.slick({
-				infinite: true,
-				slidesToShow: 6,
-				slidesToScroll: 1,
-				asNavFor: ".block-pdp-console__gallery .carousel",
-				dots: false,
-				focusOnSelect: true,
-				prevArrow: $(".block-pdp-console__thumbs .slick-arrow-prev"),
-				nextArrow: $(".block-pdp-console__thumbs .slick-arrow-next")
-			});
+			// Thumbs nav — disabled (static 2-col list)
+			// $thumbs.slick({
+			// 	infinite: true,
+			// 	slidesToShow: 6,
+			// 	slidesToScroll: 1,
+			// 	asNavFor: ".block-pdp-console__gallery .carousel",
+			// 	dots: false,
+			// 	focusOnSelect: true,
+			// 	prevArrow: $(".block-pdp-console__thumbs .slick-arrow-prev"),
+			// 	nextArrow: $(".block-pdp-console__thumbs .slick-arrow-next")
+			// });
 
 			// Click main image → open lightbox
 			var realSlideCount = $gItems.length;
@@ -1032,6 +1215,12 @@ var App = (function($) {
 				var idx = $(this).data("slick-index") % realSlideCount;
 				if (idx < 0) idx += realSlideCount;
 				openLightbox(idx);
+			});
+
+			// Click thumb → go to matching gallery slide
+			$(".block-pdp-console__thumbs .carousel").on("click", "> .item", function() {
+				var idx = $(this).index();
+				$gallery.slick("slickGoTo", idx);
 			});
 		}
 
@@ -1519,15 +1708,15 @@ var App = (function($) {
 			});
 
 			// ---- Resize ----
-			resize({
-				selector: '.block-ingredients',
-				breakpoint: 767,
-				dots: '.block-ingredients__dots',
-				options: {
-					rows: 3,
-					slidesPerRow: 1
-				}
-			});
+			// resize({
+			// 	selector: '.block-ingredients',
+			// 	breakpoint: 767,
+			// 	dots: '.block-ingredients__dots',
+			// 	options: {
+			// 		rows: 3,
+			// 		slidesPerRow: 1
+			// 	}
+			// });
 		}
 
 		return {
@@ -1595,11 +1784,14 @@ var App = (function($) {
 	function init() {
 		LenisScroll.init();
 		VideoLightbox.init();
+		WarningsLightbox.init();
 		FAQAccordion.init();
 		SmoothScroll.init();
 		FilterTabs.init();
 		ShowMore.init();
-		PageHeaderShowMore.init();
+		InlineShowMore.init();
+		FadeScroll.init();
+		HorizontalWheelScroll.init();
 		ToggleSwitch.init();
 		Dropdown.init();
 		NavMenu.init();

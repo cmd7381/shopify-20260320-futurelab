@@ -12,7 +12,8 @@ $color-neon-tide-500: #3b6cf6;
 $color-neon-tide-600: #2559eb;
 $color-neon-tide-900: #1e3a8a;
 
-$color-brand-purple: #9e77ed;
+// $color-brand-purple: #9e77ed;
+$color-brand-purple: #1d4ed8;
 
 // Colors — Neutrals
 $color-dark: #232527;
@@ -65,8 +66,8 @@ $color-white-alpha-90: rgba(255, 255, 255, 0.9);
 
 // Typography — Fonts
 $font-heading: 'BDO Grotesk', sans-serif;
-$font-body: 'Neue Haas Grotesk Text', sans-serif;
-// $font-body: 'BDO Grotesk', sans-serif;
+// $font-body: 'Neue Haas Grotesk Text', sans-serif;
+$font-body: 'BDO Grotesk', sans-serif;
 $font-system: 'Inter', sans-serif;
 
 // Typography — Sizes (Desktop)
@@ -433,6 +434,77 @@ $btn-desktop-large-px: 28px;
 	}
 }
 
+// Inline show-more toggle (paired with JS InlineShowMore.register)
+// Caller is responsible for setting max-height on the container (e.g.
+// via line-height * --max-lines). Mixin handles overflow, transition,
+// is-active expansion, and the appended toggle-wrap/ellipsis/toggle styles.
+@mixin inline-show-more($prefix, $bg: $color-white) {
+	position: relative;
+	overflow: hidden;
+	transition: max-height 0.4s ease;
+
+	&.is-active {
+		max-height: var(--max-height);
+	}
+
+	&:not(.is-truncated) .#{$prefix}__toggle-wrap {
+		display: none;
+	}
+
+	.#{$prefix}__toggle-wrap {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		padding-left: responsive(24px);
+		background: linear-gradient(to right, transparent, $bg responsive(24px));
+	}
+	&.is-active .#{$prefix}__toggle-wrap {
+		position: static;
+		padding-left: 0;
+		margin-left: 6px;
+		background: none;
+	}
+	&.is-active .#{$prefix}__toggle-ellipsis {
+		display: none;
+	}
+
+	.#{$prefix}__toggle {
+		cursor: pointer;
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-color: #707c8680;
+		transition: text-decoration-color 0.3s ease, color 0.3s ease;
+
+		&:hover {
+			text-decoration-color: $color-slate;
+		}
+	}
+}
+
+// Horizontal fade-scroll mask (paired with JS FadeScroll.register)
+// Shows a gradient fade on the overflow side(s) to hint at scrollable content.
+// JS toggles .is-start / .is-end based on scrollLeft position.
+@mixin fade-scroll($fade: 48px) {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	-webkit-mask-image: linear-gradient(to right, transparent 0, #000 #{$fade}, #000 calc(100% - #{$fade}), transparent 100%);
+	        mask-image: linear-gradient(to right, transparent 0, #000 #{$fade}, #000 calc(100% - #{$fade}), transparent 100%);
+	transition: -webkit-mask-image 0.3s ease, mask-image 0.3s ease;
+
+	&.is-start {
+		-webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - #{$fade}), transparent 100%);
+		        mask-image: linear-gradient(to right, #000 0, #000 calc(100% - #{$fade}), transparent 100%);
+	}
+	&.is-end {
+		-webkit-mask-image: linear-gradient(to right, transparent 0, #000 #{$fade}, #000 100%);
+		        mask-image: linear-gradient(to right, transparent 0, #000 #{$fade}, #000 100%);
+	}
+	&.is-start.is-end {
+		-webkit-mask-image: none;
+		        mask-image: none;
+	}
+}
+
 @mixin slick-visible($side: 1) {
 	overflow: hidden;
 
@@ -485,7 +557,7 @@ $btn-desktop-large-px: 28px;
 
 // Wowo — Scroll-triggered animations
 
-html .wowo {
+html.js .wowo {
   opacity: 0;
 
   &.animated {
