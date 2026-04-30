@@ -7993,11 +7993,10 @@ section:has(.sticky-cta) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #1d4ed8;
-  color: #ffffff;
-  border-radius: var(--radius-md);
-  padding: clamp(16px, 1.1111111111vw, 16px);
-  margin-top: clamp(14px, 0.9722222222vw, 14px);
+  color: #232527;
+  padding: clamp(16px, 1.1111111111vw, 16px) clamp(16px, 1.1111111111vw, 16px) clamp(12px, 0.8333333333vw, 12px);
+  margin-top: clamp(16px, 1.1111111111vw, 16px);
+  border-top: 1px solid rgba(35, 37, 39, 0.1);
   font-family: "BDO Grotesk", sans-serif;
   font-size: 12px;
   font-weight: 400;
@@ -8009,7 +8008,9 @@ section:has(.sticky-cta) {
   }
 }
 .block-routine__total-old strong {
-  font-weight: 700;
+  font-weight: 400;
+  text-decoration: line-through;
+  color: #232527;
 }
 .block-routine__after {
   display: flex;
@@ -8023,10 +8024,8 @@ section:has(.sticky-cta) {
   }
 }
 .block-routine__after-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
   margin-bottom: clamp(24px, 1.6666666667vw, 24px);
+  text-align: center;
 }
 @media (max-width: 767px) {
   .block-routine__after-top {
@@ -8035,14 +8034,12 @@ section:has(.sticky-cta) {
 }
 .block-routine__cta {
   color: #1d4ed8;
-  flex-shrink: 0;
-  min-width: 170px;
+  width: 100%;
+  justify-content: center;
 }
 @media (max-width: 767px) {
   .block-routine__cta {
-    width: 100%;
     order: 10;
-    justify-content: center;
     margin-top: -14px;
   }
 }
@@ -8098,35 +8095,35 @@ section:has(.sticky-cta) {
   align-items: center;
   justify-content: space-between;
   font-family: "BDO Grotesk", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
 }
 @media (min-width: 1024px) {
   .block-routine__price-row {
-    font-size: clamp(16px, 1.1111111111vw, 16px);
+    font-size: clamp(12px, 0.8333333333vw, 12px);
   }
 }
 .block-routine__price-row {
   color: #ffffff;
-  padding: clamp(16px, 1.1111111111vw, 16px) 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #1d4ed8;
+  border-radius: var(--radius-md);
+  padding: clamp(16px, 1.1111111111vw, 16px);
+  margin-top: clamp(8px, 0.5555555556vw, 8px);
 }
 .block-routine__price-row strong {
-  font-weight: 500;
-  font-size: clamp(16px, 1.1111111111vw, 16px);
+  font-weight: 700;
 }
 @media (max-width: 767px) {
   .block-routine__price-row {
     width: 100%;
-    order: 2;
   }
 }
 .block-routine__price-old {
   text-decoration: line-through;
   color: #93affd;
   margin-right: clamp(8px, 0.5555555556vw, 8px);
+  font-weight: 400;
 }
 .block-routine__benefits-list {
   list-style: none;
@@ -8168,11 +8165,7 @@ section:has(.sticky-cta) {
 .block-routine__savings {
   display: flex;
   align-items: center;
-  gap: clamp(28px, 1.9444444444vw, 28px);
-  background-color: #1e3a8a;
-  border-radius: var(--radius-md);
-  padding: clamp(12px, 0.8333333333vw, 12px) clamp(26px, 1.8055555556vw, 26px);
-  margin-bottom: clamp(20px, 1.3888888889vw, 20px);
+  justify-content: center;
 }
 @media (max-width: 767px) {
   .block-routine__savings {
@@ -8180,18 +8173,12 @@ section:has(.sticky-cta) {
   }
 }
 .block-routine__savings-image {
-  width: clamp(105px, 7.2916666667vw, 105px);
-  flex-shrink: 0;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-}
-.block-routine__savings-image .img {
-  border-radius: 0;
+  width: 100%;
+  transform: rotate(-5.87deg);
+  transform-origin: center;
 }
 .block-routine__savings-image .img-box {
-  padding-top: 119.0476190476%;
+  padding-top: 128.7837837838%;
 }
 .block-routine__savings-image .img-box img {
   object-fit: contain;
@@ -8199,26 +8186,37 @@ section:has(.sticky-cta) {
 @media (max-width: 767px) {
   .block-routine__savings-image {
     order: -1;
-    width: 181px;
-    border-radius: 0;
+    width: 220px;
+    transform: rotate(-5.87deg);
   }
   .block-routine__savings-image .img-box {
-    padding-top: 118.7845303867%;
+    padding-top: 128.6363636364%;
+  }
+}
+.block-routine__after-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 0.8333333333vw, 12px);
+  margin-top: clamp(24px, 1.6666666667vw, 24px);
+}
+@media (max-width: 767px) {
+  .block-routine__after-bottom {
+    display: contents;
   }
 }
 .block-routine__savings-info {
   display: flex;
   flex-direction: column;
-  gap: clamp(8px, 0.5555555556vw, 8px);
+  align-items: center;
+  gap: clamp(4px, 0.2777777778vw, 4px);
+  background-color: #93affd;
+  border-radius: var(--radius-md);
+  padding: clamp(16px, 1.1111111111vw, 16px) clamp(24px, 1.6666666667vw, 24px);
+  text-align: center;
 }
 @media (max-width: 767px) {
   .block-routine__savings-info {
-    gap: 4px;
     width: 100%;
-    justify-content: space-between;
-    background-color: #1e3a8a;
-    border-radius: var(--radius-md);
-    padding: 16px 24px;
     order: 5;
     margin-top: 4px;
   }
@@ -8226,32 +8224,38 @@ section:has(.sticky-cta) {
 .block-routine__savings-info p {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: clamp(8px, 0.5555555556vw, 8px);
+  color: #1d4ed8;
+  margin: 0;
+}
+.block-routine__savings-info p:first-child {
+  font-family: "BDO Grotesk", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+@media (min-width: 1024px) {
+  .block-routine__savings-info p:first-child {
+    font-size: clamp(28px, 1.9444444444vw, 28px);
+  }
+}
+.block-routine__savings-info p:last-child {
   font-family: "BDO Grotesk", sans-serif;
   font-size: 16px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 @media (min-width: 1024px) {
-  .block-routine__savings-info p {
+  .block-routine__savings-info p:last-child {
     font-size: clamp(16px, 1.1111111111vw, 16px);
   }
 }
-.block-routine__savings-info p {
-  color: #4dd7fa;
-}
-@media (max-width: 767px) {
-  .block-routine__savings-info p {
-    font-size: 16px;
-    white-space: nowrap;
-  }
-}
 .block-routine__savings-info p [class*=icon-] {
-  font-size: clamp(16px, 1.1111111111vw, 16px);
-  flex-shrink: 0;
+  display: none;
 }
 .block-routine__savings-info p strong {
-  font-weight: 500;
+  font-weight: inherit;
 }
 .block-routine__footnote {
   font-family: "BDO Grotesk", sans-serif;
