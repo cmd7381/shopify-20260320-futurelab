@@ -7994,6 +7994,12 @@ section:has(.sticky-cta) {
   font-weight: 700;
   font-size: 18px;
 }
+.block-routine__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 0.8333333333vw, 12px);
+  margin-top: clamp(24px, 1.6666666667vw, 24px);
+}
 .block-routine__after {
   display: flex;
   flex-direction: column;
@@ -8014,12 +8020,6 @@ section:has(.sticky-cta) {
   .block-routine__after .block-routine__body {
     flex-direction: column;
   }
-}
-.block-routine__after .block-routine__bottom {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(12px, 0.8333333333vw, 12px);
-  margin-top: clamp(24px, 1.6666666667vw, 24px);
 }
 .block-routine__after-left {
   display: flex;

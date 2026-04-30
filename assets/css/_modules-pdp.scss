@@ -2228,6 +2228,13 @@ section:has(.sticky-cta){
 		}
   }
 
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-12);
+    margin-top: responsive($spacing-24);
+  }
+
   // After card layout
   &__after {
     display: flex;
@@ -2249,41 +2256,34 @@ section:has(.sticky-cta){
       }
     }
 
-    .block-routine__bottom {
+    &-left {
       display: flex;
       flex-direction: column;
-      gap: responsive($spacing-12);
-      margin-top: responsive($spacing-24);
-    }
-  }
+      justify-content: space-between;
+      width: size(343, 792);
+      flex-shrink: 0;
+      margin-bottom: calc(-1 * responsive(4px));
 
-  &__after-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: size(343, 792);
-    flex-shrink: 0;
-    margin-bottom: calc(-1 * responsive(4px));
+      @include tablet-down {
+        width: 100%;
+      }
 
-    @include tablet-down {
-      width: 100%;
+      @include mobile {
+        display: contents;
+      }
     }
 
-    @include mobile {
-      display: contents;
-    }
-  }
+    &-right {
+      width: size(385, 792);
+      flex-shrink: 0;
 
-  &__after-right {
-    width: size(385, 792);
-    flex-shrink: 0;
+      @include tablet-down {
+        width: 100%;
+      }
 
-    @include tablet-down {
-      width: 100%;
-    }
-
-    @include mobile {
-      display: contents;
+      @include mobile {
+        display: contents;
+      }
     }
   }
 
