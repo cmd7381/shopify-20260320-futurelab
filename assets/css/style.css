@@ -7989,14 +7989,20 @@ section:has(.sticky-cta) {
 .block-routine__list-item strong {
   font-weight: 700;
 }
+.block-routine__total {
+  margin-top: clamp(16px, 1.1111111111vw, 16px);
+  border-top: 1px solid rgba(35, 37, 39, 0.1);
+  padding-top: clamp(12px, 0.8333333333vw, 12px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 0.5555555556vw, 8px);
+}
 .block-routine__total-old {
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: #232527;
-  padding: clamp(16px, 1.1111111111vw, 16px) clamp(16px, 1.1111111111vw, 16px) clamp(12px, 0.8333333333vw, 12px);
-  margin-top: clamp(16px, 1.1111111111vw, 16px);
-  border-top: 1px solid rgba(35, 37, 39, 0.1);
+  padding: 0 clamp(16px, 1.1111111111vw, 16px);
   font-family: "BDO Grotesk", sans-serif;
   font-size: 12px;
   font-weight: 400;
@@ -8011,6 +8017,30 @@ section:has(.sticky-cta) {
   font-weight: 400;
   text-decoration: line-through;
   color: #232527;
+}
+.block-routine__total-new {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(16px, 1.1111111111vw, 16px);
+  font-family: "BDO Grotesk", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+@media (min-width: 1024px) {
+  .block-routine__total-new {
+    font-size: clamp(12px, 0.8333333333vw, 12px);
+  }
+}
+.block-routine__total-new {
+  color: #ffffff;
+  background-color: #1d4ed8;
+  border-radius: var(--radius-md);
+  padding: clamp(16px, 1.1111111111vw, 16px);
+}
+.block-routine__total-new strong {
+  font-weight: 700;
 }
 .block-routine__after {
   display: flex;
@@ -8089,41 +8119,6 @@ section:has(.sticky-cta) {
   .block-routine__after-right {
     display: contents;
   }
-}
-.block-routine__price-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: "BDO Grotesk", sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.35;
-}
-@media (min-width: 1024px) {
-  .block-routine__price-row {
-    font-size: clamp(12px, 0.8333333333vw, 12px);
-  }
-}
-.block-routine__price-row {
-  color: #ffffff;
-  background-color: #1d4ed8;
-  border-radius: var(--radius-md);
-  padding: clamp(16px, 1.1111111111vw, 16px);
-  margin-top: clamp(8px, 0.5555555556vw, 8px);
-}
-.block-routine__price-row strong {
-  font-weight: 700;
-}
-@media (max-width: 767px) {
-  .block-routine__price-row {
-    width: 100%;
-  }
-}
-.block-routine__price-old {
-  text-decoration: line-through;
-  color: #93affd;
-  margin-right: clamp(8px, 0.5555555556vw, 8px);
-  font-weight: 400;
 }
 .block-routine__benefits-list {
   list-style: none;

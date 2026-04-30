@@ -2220,20 +2220,43 @@ section:has(.sticky-cta){
     }
   }
 
+  &__total {
+    margin-top: responsive($spacing-16);
+    border-top: 1px solid rgba($color-dark, 0.1);
+    padding-top: responsive($spacing-12);
+    display: flex;
+    flex-direction: column;
+    gap: responsive($spacing-8);
+  }
+
   &__total-old {
     display: flex;
     align-items: center;
     justify-content: space-between;
     color: $color-dark;
-    padding: responsive($spacing-16) responsive($spacing-16) responsive($spacing-12);
-    margin-top: responsive($spacing-16);
-    border-top: 1px solid rgba($color-dark, 0.1);
+    padding: 0 responsive($spacing-16);
     @include body-text($font-size-caption, 400, $lh-caption);
 
     strong {
       font-weight: 400;
       text-decoration: line-through;
       color: $color-dark;
+    }
+  }
+
+  &__total-new {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: responsive($spacing-16);
+    @include body-text($font-size-caption, 500, $lh-caption);
+    color: $color-white;
+    background-color: $color-neon-tide;
+    border-radius: var(--radius-md);
+    padding: responsive($spacing-16);
+
+    strong {
+      font-weight: 700;
     }
   }
 
@@ -2311,33 +2334,6 @@ section:has(.sticky-cta){
     @include mobile {
       display: contents;
     }
-  }
-
-  &__price-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    @include body-text($font-size-caption, 500, $lh-caption);
-    color: $color-white;
-    background-color: $color-neon-tide;
-    border-radius: var(--radius-md);
-    padding: responsive($spacing-16);
-    margin-top: responsive($spacing-8);
-
-    strong {
-      font-weight: 700;
-    }
-
-    @include mobile {
-      width: 100%;
-    }
-  }
-
-  &__price-old {
-    text-decoration: line-through;
-    color: $color-neon-tide-300;
-    margin-right: responsive($spacing-8);
-    font-weight: 400;
   }
 
   &__benefits-list {
