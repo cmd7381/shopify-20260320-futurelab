@@ -351,6 +351,7 @@ form{
 .dropdown {
 	position: relative;
 	flex-shrink: 0;
+  margin-left: auto;
 
 	&__toggle {
 		display: flex;

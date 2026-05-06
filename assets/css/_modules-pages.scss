@@ -2,10 +2,9 @@
 //           block-product-grid, block-seo-text, block-about-hero,
 //           block-vision, block-cta, block-contact, block-richtext
 
-@use 'helpers' as *;
+@use "helpers" as *;
 
 // ==================== block-newsletter ====================
-
 
 // Newsletter CTA
 .newsletter {
@@ -58,16 +57,16 @@
 	// Shopify wraps newsletter in form.contact-form — pass through flex
 	.contact-form {
 		display: flex;
-    flex-direction: column;
-    width: fit-content;
+		flex-direction: column;
+		width: fit-content;
 		position: relative;
 		@include tablet-down {
 			width: 100%;
 		}
-		.newsletter__success{
+		.newsletter__success {
 			margin-top: 6px;
 			order: 1;
-			@include desktop  {
+			@include desktop {
 				position: absolute;
 				top: 100%;
 				left: 0;
@@ -140,51 +139,49 @@
 	}
 }
 
-.h-captcha{
+.h-captcha {
 	display: none;
 }
 // ==================== block-listings ====================
 
-
 .listings {
-  // Products variant (3 cols)
-  &.listings--products {
-    @include card-layout(3, responsive($spacing-24));
+	// Products variant (3 cols)
+	&.listings--products {
+		@include card-layout(3, responsive($spacing-24));
 
-    @include tablet-down {
-      @include card-layout(2, $spacing-8);
-      row-gap: $spacing-16;
-    }
-  }
+		@include tablet-down {
+			@include card-layout(2, $spacing-8);
+			row-gap: $spacing-16;
+		}
+	}
 
-  // Experts variant
-  &.listings--testimonials {
-    @include card-layout(2, $spacing-32, $spacing-24);
+	// Experts variant
+	&.listings--testimonials {
+		@include card-layout(2, $spacing-32, $spacing-24);
 
-    @include tablet-down {
-      @include card-layout(1, $spacing-32);
-    }
-  }
+		@include tablet-down {
+			@include card-layout(1, $spacing-32);
+		}
+	}
 
-  // Blogs variant
-  &.listings--blogs {
-    @include card-layout(3, responsive($spacing-24));
-    row-gap: responsive(48px);
+	// Blogs variant
+	&.listings--blogs {
+		@include card-layout(3, responsive($spacing-24));
+		row-gap: responsive(48px);
 
-    @include tablet-down {
-      @include card-layout(2, $spacing-24);
-      row-gap: $spacing-32;
-    }
+		@include tablet-down {
+			@include card-layout(2, $spacing-24);
+			row-gap: $spacing-32;
+		}
 
-    @include mobile {
-      @include card-layout(1, $spacing-24);
-      row-gap: $spacing-32;
-    }
-  }
+		@include mobile {
+			@include card-layout(1, $spacing-24);
+			row-gap: $spacing-32;
+		}
+	}
 }
 
 // ==================== block-text-image ====================
-
 
 .block-text-image {
 	.content {
@@ -220,7 +217,7 @@
 		}
 
 		&::after {
-			content: '';
+			content: "";
 			position: absolute;
 			inset: 0;
 			background-color: rgba($color-sky, 0.4);
@@ -385,473 +382,472 @@
 
 // ==================== block-product-grid ====================
 
-
-
 // Card — Product
 .card--product {
-  display: flex;
-  flex-direction: column;
-  gap: responsive($spacing-8);
-  border: 1px solid #D8D9D9;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  padding-bottom: responsive($spacing-24);
-  background-color: $color-white;
-  transition: box-shadow 0.2s ease;
-  @include hover-img-scale;
+	display: flex;
+	flex-direction: column;
+	gap: responsive($spacing-8);
+	border: 1px solid #d8d9d9;
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	padding-bottom: responsive($spacing-24);
+	background-color: $color-white;
+	transition: box-shadow 0.2s ease;
+	@include hover-img-scale;
 
-  &:hover {
-    box-shadow: $shadow-card;
-  }
+	&:hover {
+		box-shadow: $shadow-card;
+	}
 
-  @include mobile {
-    gap: $spacing-12;
-    padding-bottom: $spacing-12;
-    border-radius: $radius-lg;
-  }
+	@include mobile {
+		gap: $spacing-12;
+		padding-bottom: $spacing-12;
+		border-radius: $radius-lg;
+	}
 
-  .card__image {
-    border-radius: 0;
+	.card__image {
+		border-radius: 0;
 
-    .img-box {
-      padding-top: 100%;
-    }
-  }
+		.img-box {
+			padding-top: 100%;
+		}
+	}
 
-  .card__badge {
-    position: absolute;
-    top: responsive($spacing-20);
-    left: responsive($spacing-20);
+	.card__badge {
+		position: absolute;
+		top: responsive($spacing-20);
+		left: responsive($spacing-20);
 
-    @include mobile {
-      top: $spacing-8;
-      left: $spacing-8;
-    }
-  }
+		@include mobile {
+			top: $spacing-8;
+			left: $spacing-8;
+		}
+	}
 
-  .card__content {
-    display: flex;
-    flex-direction: column;
-    gap: responsive($spacing-4);
-    padding: 0 responsive($spacing-24);
+	.card__content {
+		display: flex;
+		flex-direction: column;
+		gap: responsive($spacing-4);
+		padding: 0 responsive($spacing-24);
 
-    @include mobile {
-      padding: 0 $spacing-12;
-    }
-  }
+		@include mobile {
+			padding: 0 $spacing-12;
+		}
+	}
 
-  .card__rating {
-    display: flex;
+	.card__rating {
+		display: flex;
 		flex-wrap: wrap;
-    align-items: center;
-    gap: responsive($spacing-4);
-    padding: responsive($spacing-8) 0 responsive($spacing-12);
+		align-items: center;
+		gap: responsive($spacing-4);
+		padding: responsive($spacing-8) 0 responsive($spacing-12);
 
-    @include mobile {
-      padding: 0 0 $spacing-8;
-    }
-  }
+		@include mobile {
+			padding: 0 0 $spacing-8;
+		}
+	}
 
-  .card__stars {
-    display: flex;
-    gap: 1.67px;
+	.card__stars {
+		display: flex;
+		gap: 1.67px;
 
-    [class*="icon-"] {
-      font-size: responsive(13.33px);
-      flex-shrink: 0;
-      color: $color-neon-tide;
+		[class*="icon-"] {
+			font-size: responsive(13.33px);
+			flex-shrink: 0;
+			color: $color-neon-tide;
 
-      @include mobile {
-        width: 13.33px;
-        height: 13.33px;
-      }
-    }
-  }
+			@include mobile {
+				width: 13.33px;
+				height: 13.33px;
+			}
+		}
+	}
 
-  .card__count {
-    @include body-text($font-size-caption, 400, 1.4);
-    letter-spacing: 0.02em;
-    color: $color-dark;
-  }
+	.card__count {
+		@include body-text($font-size-caption, 400, 1.4);
+		letter-spacing: 0.02em;
+		color: $color-dark;
+	}
 
-  .card__vendor {
-    margin-right: auto;
-    font-family: $font-body;
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 1.4;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #8B9298;
+	.card__vendor {
+		margin-right: auto;
+		font-family: $font-body;
+		font-weight: 400;
+		font-size: 10px;
+		line-height: 1.4;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		color: #8b9298;
 		order: -1;
 		@include mobile {
 			width: 100%;
 			margin-bottom: 14px;
 			// margin-bottom: -8px;
 		}
-  }
+	}
 
-  .card__name {
-    font-family: $font-heading;
-    font-size: responsive($font-size-h5);
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: 0.01em;
-    color: $color-dark;
+	.card__name {
+		font-family: $font-heading;
+		font-size: responsive($font-size-h5);
+		font-weight: 600;
+		line-height: 1.2;
+		letter-spacing: 0.01em;
+		color: $color-dark;
 
-    @include tablet-down {
-      font-size: 18px;
-    }
+		@include tablet-down {
+			font-size: 18px;
+		}
 
-    @include mobile {
-      font-family: "Manrope", sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.35;
-      letter-spacing: -0.54px;
-    }
-  }
+		@include mobile {
+			font-family: "Manrope", sans-serif;
+			font-size: 18px;
+			font-weight: 700;
+			line-height: 1.35;
+			letter-spacing: -0.54px;
+		}
+	}
 
-  .card__subtitle {
-    @include body-text($font-size-p3, 400, $lh-p3);
-    letter-spacing: 0.01em;
-    color: $color-slate;
+	.card__subtitle {
+		@include body-text($font-size-p3, 400, $lh-p3);
+		letter-spacing: 0.01em;
+		color: $color-slate;
 
-    @include mobile {
-      font-size: $font-size-caption;
-      line-height: 1.4;
-    }
-  }
+		@include mobile {
+			font-size: $font-size-caption;
+			line-height: 1.4;
+		}
+	}
 
-  .card__actions {
-    padding: 0 responsive($spacing-24);
+	.card__actions {
+		padding: 0 responsive($spacing-24);
 
-    @include mobile {
-      padding: 0 $spacing-12;
-      display: flex;
-      flex-direction: column;
-      gap: $spacing-8;
-    }
-  }
+		@include mobile {
+			padding: 0 $spacing-12;
+			display: flex;
+			flex-direction: column;
+			gap: $spacing-8;
+		}
+	}
 
-  .card__price {
-    display: flex;
-    align-items: baseline;
-    gap: responsive($spacing-4);
-    @include body-text($font-size-p2, 500, 1.6);
-    color: $color-dark;
-    margin-bottom: responsive(8px);
+	.card__price {
+		display: flex;
+		align-items: baseline;
+		gap: responsive($spacing-4);
+		@include body-text($font-size-p2, 500, 1.6);
+		color: $color-dark;
+		margin-bottom: responsive(8px);
 
-    @include mobile {
-      font-size: $font-size-p3;
-      padding-top: $spacing-8;
-      margin-bottom: 0;
-    }
-  }
+		@include mobile {
+			font-size: $font-size-p3;
+			padding-top: $spacing-8;
+			margin-bottom: 0;
+		}
+	}
 
-  .card__price-old {
-    text-decoration: line-through;
-    color: $color-slate;
-  }
+	.card__price-old {
+		text-decoration: line-through;
+		color: $color-slate;
+	}
 
-  .card__select {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: responsive(42px);
-    padding: 0 responsive($spacing-16);
-    border-radius: var(--radius-md);
-    background-color: $color-white;
-    box-shadow: $shadow-xs, $shadow-skeuomorphic;
-    cursor: pointer;
-    border: none;
-    margin-bottom: responsive(12px);
+	.card__select {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: responsive(42px);
+		padding: 0 responsive($spacing-16);
+		border-radius: var(--radius-md);
+		background-color: $color-white;
+		box-shadow: $shadow-xs, $shadow-skeuomorphic;
+		cursor: pointer;
+		border: none;
+		margin-bottom: responsive(12px);
+		width: 100%;
+		
+		@include mobile {
+			height: 40px;
+			padding: 0 $spacing-16;
+			margin-bottom: 0;
+		}
 
-    @include mobile {
-      height: 40px;
-      padding: 0 $spacing-16;
-      margin-bottom: 0;
-    }
+		span {
+			font-family: $font-body;
+			font-size: responsive($font-size-p3);
+			font-weight: 400;
+			line-height: 1.4;
+			color: $color-slate;
 
-    span {
-      font-family: $font-body;
-      font-size: responsive($font-size-p3);
-      font-weight: 400;
-      line-height: 1.4;
-      color: $color-slate;
+			@include mobile {
+				font-size: $font-size-caption;
+			}
+		}
 
-      @include mobile {
-        font-size: $font-size-caption;
-      }
-    }
+		[class*="icon-"] {
+			font-size: responsive(20px);
+			flex-shrink: 0;
+			color: $color-black;
+		}
+	}
 
-    [class*="icon-"] {
-      font-size: responsive(20px);
-      flex-shrink: 0;
-      color: $color-black;
-    }
-  }
+	.card__cart {
+		width: 100%;
 
-  .card__cart {
-    width: 100%;
-
-    @include mobile {
-      font-size: $font-size-caption;
+		@include mobile {
+			font-size: $font-size-caption;
 			white-space: nowrap;
-    }
-  }
+		}
+	}
 
-  .card__text {
-    display: flex;
-    flex-direction: column;
-    gap: responsive(22px);
-    justify-content: space-between;
-    flex: 1;
+	.card__text {
+		display: flex;
+		flex-direction: column;
+		gap: responsive(22px);
+		justify-content: space-between;
+		flex: 1;
 
-    @include mobile {
-      gap: 0;
-    }
-  }
+		@include mobile {
+			gap: 0;
+		}
+	}
 
-  .card__info {
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid $color-border;
-    padding-bottom: responsive($spacing-20);
-  }
+	.card__info {
+		display: flex;
+		flex-direction: column;
+		border-bottom: 1px solid $color-border;
+		padding-bottom: responsive($spacing-20);
+	}
 
-  .card__benefits {
-    display: flex;
-    flex-direction: column;
-    gap: responsive(10px);
-  }
+	.card__benefits {
+		display: flex;
+		flex-direction: column;
+		gap: responsive(10px);
+	}
 
-  .card__benefit {
-    display: flex;
-    align-items: flex-start;
-    gap: responsive($spacing-8);
-  }
+	.card__benefit {
+		display: flex;
+		align-items: flex-start;
+		gap: responsive($spacing-8);
+	}
 
-  .card__benefit-icon {
-    font-size: responsive(15px);
-    flex-shrink: 0;
-    margin-top: 2px;
-    color: $color-neon-tide;
-    @include tablet-down {
-      font-size: 15px;
-    }
-  }
+	.card__benefit-icon {
+		font-size: responsive(15px);
+		flex-shrink: 0;
+		margin-top: 2px;
+		color: $color-neon-tide;
+		@include tablet-down {
+			font-size: 15px;
+		}
+	}
 
-  .card__benefit-text {
-    @include body-text($font-size-p3, 400, 1.4);
-    color: $color-slate;
-  }
+	.card__benefit-text {
+		@include body-text($font-size-p3, 400, 1.4);
+		color: $color-slate;
+	}
 
-  .dropdown__menu{
-    width: 100%;
-    top: unset;
-    bottom: calc(100% + 4px);
-    .dropdown__item{
-      white-space: unset;
-      .desktop-only {
-        color: inherit;
-      }
-    }
-  }
+	.dropdown__menu {
+		width: 100%;
+		top: unset;
+		bottom: calc(100% + 4px);
+		.dropdown__item {
+			white-space: unset;
+			.desktop-only {
+				color: inherit;
+			}
+		}
+	}
 
-  .card__warnings {
-    font-family: $font-body;
-    font-size: 12px;
-    line-height: 1.35;
-    color: $color-slate;
-    margin-top: 12px;
-    text-align: center;
-    margin-bottom: -8px;
+	.card__warnings {
+		font-family: $font-body;
+		font-size: 12px;
+		line-height: 1.35;
+		color: $color-slate;
+		margin-top: 12px;
+		text-align: center;
+		margin-bottom: -8px;
 
-    a {
-      // display: block;
-      color: inherit;
-      text-decoration: underline;
-      transition: color 0.3s ease;
+		a {
+			// display: block;
+			color: inherit;
+			text-decoration: underline;
+			transition: color 0.3s ease;
 
-      &:hover {
-        color: $color-dark;
-      }
-    }
-  }
+			&:hover {
+				color: $color-dark;
+			}
+		}
+	}
 }
 
 .block-product-grid {
-  .card__cart {
-    @include mobile {
-      padding: 5px $spacing-16;
-    }
-  }
+	.card__cart {
+		@include mobile {
+			padding: 5px $spacing-16;
+		}
+	}
 
-  .filter-bar {
-    padding: responsive($spacing-16) 0;
-    margin-bottom: responsive($spacing-24);
+	.filter-bar {
+		padding: responsive($spacing-16) 0;
+		margin-bottom: responsive($spacing-24);
 
-    @include mobile {
-      padding: 0 0 $spacing-16;
-      margin-bottom: 0;
-    }
-  }
-  .pagination {
-    margin-top: responsive($spacing-18);
-  }
-
+		@include mobile {
+			padding: 0 0 $spacing-16;
+			margin-bottom: 0;
+		}
+	}
+	.pagination {
+		margin-top: responsive($spacing-18);
+	}
 }
 
 // ==================== Warnings Lightbox ====================
 
 .warnings-lightbox {
-  .lightbox__box {
-    max-height: none;
-    overflow: visible;
-  }
+	.lightbox__box {
+		max-height: none;
+		overflow: visible;
+	}
 
-  &__content {
-    background: $color-white;
-    border-radius: 16px;
-    max-width: 660px;
-    margin: 0 auto;
-    max-height: calc(100dvh - 160px);
-    overflow: hidden;
-    padding: 24px;
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 16px;
+	&__content {
+		background: $color-white;
+		border-radius: 16px;
+		max-width: 660px;
+		margin: 0 auto;
+		max-height: calc(100dvh - 160px);
+		overflow: hidden;
+		padding: 24px;
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 16px;
 
-    @include mobile {
-      max-height: calc(100dvh - 120px);
-			padding:16px;
-    }
-  }
+		@include mobile {
+			max-height: calc(100dvh - 120px);
+			padding: 16px;
+		}
+	}
 
-  &__scroll-row {
-    position: relative;
-    flex: 1 1 auto;
-    min-height: 0;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: stretch;
-    width: 100%;
-  }
+	&__scroll-row {
+		position: relative;
+		flex: 1 1 auto;
+		min-height: 0;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: stretch;
+		width: 100%;
+	}
 
-  &__scroll {
-    flex: 1 1 auto;
-    min-width: 0;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    padding-right: 12px;
+	&__scroll {
+		flex: 1 1 auto;
+		min-width: 0;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		padding-right: 12px;
 
-    scrollbar-width: none;
-    &::-webkit-scrollbar { display: none; }
-  }
+		scrollbar-width: none;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
 
-  &__track {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 4px;
-    background: $color-mist-50;
-    border-radius: 9999px;
-    pointer-events: none;
-  }
+	&__track {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		width: 4px;
+		background: $color-mist-50;
+		border-radius: 9999px;
+		pointer-events: none;
+	}
 
-  &__thumb {
-    position: absolute;
-    right: 0;
-    width: 4px;
-    background: $color-mist;
-    border-radius: 9999px;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-  }
+	&__thumb {
+		position: absolute;
+		right: 0;
+		width: 4px;
+		background: $color-mist;
+		border-radius: 9999px;
+		pointer-events: none;
+		transition: opacity 0.2s ease;
+	}
 
-  &__header {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    width: 100%;
-  }
+	&__header {
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		width: 100%;
+	}
 
-  &__title {
-    font-family: $font-body;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.4;
-    color: $color-dark;
-    margin: 0;
+	&__title {
+		font-family: $font-body;
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 1.4;
+		color: $color-dark;
+		margin: 0;
 
-    @include mobile {
-      font-size: 12px;
-      line-height: 1.3;
-    }
-  }
+		@include mobile {
+			font-size: 12px;
+			line-height: 1.3;
+		}
+	}
 
-  &__close {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    padding: 0;
-    background: transparent;
-    border: 0;
-    flex-shrink: 0;
-    color: $color-stone;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
+	&__close {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		padding: 0;
+		background: transparent;
+		border: 0;
+		flex-shrink: 0;
+		color: $color-stone;
+		cursor: pointer;
+		transition: opacity 0.3s ease;
 
-    &:hover {
-      opacity: 0.6;
-    }
+		&:hover {
+			opacity: 0.6;
+		}
 
-    .iconfont {
+		.iconfont {
 			font-weight: bold;
-    }
+		}
 
-    @include mobile {
-      width: 16px;
-      height: 16px;
+		@include mobile {
+			width: 16px;
+			height: 16px;
 
-      .iconfont {
-        font-size: 12px;
-      }
-    }
-  }
+			.iconfont {
+				font-size: 12px;
+			}
+		}
+	}
 
-  &__body {
-    font-family: $font-body;
-    font-size: 12px;
-    line-height: 1.35;
-    color: $color-slate;
+	&__body {
+		font-family: $font-body;
+		font-size: 12px;
+		line-height: 1.35;
+		color: $color-slate;
 
-    p {
-      margin: 0 0 6px;
+		p {
+			margin: 0 0 6px;
 
 			@include mobile {
 				margin: 0 0 10px;
 			}
-    }
+		}
 
 		*:last-child {
 			margin-bottom: 0;
 		}
 
-    strong {
-      font-weight: 700;
-    }
-  }
+		strong {
+			font-weight: 700;
+		}
+	}
 }
 
 // ==================== block-seo-text ====================
-
 
 .block-seo-text {
 	border-top: 1px solid $color-border;
@@ -934,12 +930,12 @@
 			background-color: $color-cloud;
 		}
 
-		[class*='icon-'] {
+		[class*="icon-"] {
 			font-size: responsive(20px);
 			transition: transform 0.3s ease;
 		}
 
-		&.is-active [class*='icon-'] {
+		&.is-active [class*="icon-"] {
 			transform: rotate(180deg);
 		}
 
@@ -954,67 +950,64 @@
 
 // ==================== block-about-hero ====================
 
-
 // About — Hero (image + product bottles)
 .block-about-hero {
+	// .content {
+	//   position: relative;
+	//   padding-bottom: 11.7%;
 
-  // .content {
-  //   position: relative;
-  //   padding-bottom: 11.7%;
+	//   // @include mobile {
+	//   //   padding-bottom: 20%;
+	//   // }
+	// }
 
-  //   // @include mobile {
-  //   //   padding-bottom: 20%;
-  //   // }
-  // }
+	&__image {
+		.img-box {
+			padding-top: size(707, 1344);
+			// padding-top: size(472, 1344);
 
-  &__image {
-    .img-box {
-      padding-top: size(707, 1344);
-      // padding-top: size(472, 1344);
+			// @include mobile {
+			//   padding-top: size(240, 396);
+			// }
+		}
+	}
 
-      // @include mobile {
-      //   padding-top: size(240, 396);
-      // }
-    }
-  }
+	&__products {
+		position: absolute;
+		z-index: 1;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-51.5%);
+		width: 100%;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+	}
 
-  &__products {
-    position: absolute;
-    z-index: 1;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-51.5%);
-    width: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-  }
+	&__product {
+		width: 24.9%;
+		height: auto;
+		object-fit: contain;
 
-  &__product {
-    width: 24.9%;
-    height: auto;
-    object-fit: contain;
+		// @include mobile {
+		//   width: 33%;
+		// }
 
-    // @include mobile {
-    //   width: 33%;
-    // }
+		&--center {
+			margin: 0 -12.3%;
+			position: relative;
+			top: responsive(48px);
+			z-index: 1;
 
-    &--center {
-      margin: 0 -12.3%;
-      position: relative;
-      top: responsive(48px);
-      z-index: 1;
-
-      // @include mobile {
-      //   margin: 0 -10%;
-      //   top: 24px;
-      // }
-    }
-  }
+			// @include mobile {
+			//   margin: 0 -10%;
+			//   top: 24px;
+			// }
+		}
+	}
 }
 
 // ==================== block-vision ====================
-
 
 .block-vision {
 	position: relative;
@@ -1105,7 +1098,7 @@
 			margin-bottom: -5px;
 		}
 
-		@include desktop-small  {
+		@include desktop-small {
 			width: 60%;
 		}
 
@@ -1174,7 +1167,6 @@
 
 // ==================== block-cta ====================
 
-
 .block-cta {
 	padding: responsive($spacing-80) 0;
 
@@ -1194,11 +1186,11 @@
 	}
 
 	&__left {
-		width: size(456,1344);
+		width: size(456, 1344);
 		@include tablet-down {
 			width: 100%;
 		}
-		h2{
+		h2 {
 			margin-bottom: responsive($spacing-18);
 		}
 		p {
@@ -1215,7 +1207,7 @@
 	}
 
 	&__right {
-		width: size(656,1344);
+		width: size(656, 1344);
 		display: flex;
 		flex-direction: column;
 		gap: responsive($spacing-32);
@@ -1277,7 +1269,6 @@
 
 // ==================== block-contact ====================
 
-
 .block-contact {
 	background-color: $color-white;
 
@@ -1309,7 +1300,7 @@
 		.img-box {
 			padding-top: size(660, 660);
 			@include tablet-down {
-				padding-top: size(9 ,16);
+				padding-top: size(9, 16);
 			}
 		}
 	}
@@ -1334,7 +1325,7 @@
 			}
 		}
 		.form__errors,
-		.form__success{
+		.form__success {
 			font-family: $font-body;
 			font-weight: 400;
 			font-size: 16px;
@@ -1342,10 +1333,10 @@
 			letter-spacing: 0%;
 			color: $color-stone;
 		}
-		.form__errors{
+		.form__errors {
 			margin-bottom: responsive(20px);
 		}
-		.form__success{
+		.form__success {
 			margin-top: responsive(20px);
 		}
 	}
@@ -1359,19 +1350,18 @@
 			margin-bottom: $spacing-32;
 		}
 
-		p{
+		p {
 			color: $color-slate;
 		}
-
 	}
-	.social-btn{
+	.social-btn {
 		[class*="icon-"] {
-			@include desktop  {
+			@include desktop {
 				font-size: responsive(32px);
 			}
 		}
 	}
-	a:has( .social-btn ){
+	a:has(.social-btn) {
 		display: inline-flex;
 		flex-flow: row nowrap;
 		justify-content: flex-start;
@@ -1382,100 +1372,100 @@
 
 // ==================== block-richtext ====================
 
-
 .block-richtext {
-  img,video,iframe{
-    overflow: hidden;
-    border-radius: $radius-lg;
-  }
+	img,
+	video,
+	iframe {
+		overflow: hidden;
+		border-radius: $radius-lg;
+	}
 
-  .text {
-    color: $color-slate;
+	.text {
+		color: $color-slate;
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      letter-spacing: 0;
-      color: $color-dark;
-      margin-top: responsive(28px);
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			letter-spacing: 0;
+			color: $color-dark;
+			margin-top: responsive(28px);
 
-      @include tablet-down {
-        margin-top: $spacing-24;
-      }
+			@include tablet-down {
+				margin-top: $spacing-24;
+			}
 
-      &:first-child {
-        // margin-top: 0;
-        margin-bottom: responsive($spacing-24);
-      }
-    }
+			&:first-child {
+				// margin-top: 0;
+				margin-bottom: responsive($spacing-24);
+			}
+		}
 
-    h2 {
-      font-size: responsive($font-size-h4);
-      line-height: $lh-h4;
+		h2 {
+			font-size: responsive($font-size-h4);
+			line-height: $lh-h4;
 
-      @include tablet-down {
-        font-size: 22px;
-      }
-    }
+			@include tablet-down {
+				font-size: 22px;
+			}
+		}
 
-    h3 {
-      font-size: responsive($font-size-h5);
-      line-height: $lh-h5;
+		h3 {
+			font-size: responsive($font-size-h5);
+			line-height: $lh-h5;
 
-      @include tablet-down {
-        font-size: $font-size-h6;
-      }
-    }
+			@include tablet-down {
+				font-size: $font-size-h6;
+			}
+		}
 
-    h4,
-    h5,
-    h6 {
-      font-size: responsive($font-size-h6);
-      line-height: $lh-h6;
-    }
+		h4,
+		h5,
+		h6 {
+			font-size: responsive($font-size-h6);
+			line-height: $lh-h6;
+		}
 
-    > p {
-      &:has(+ul, +ol){
-        margin-bottom: responsive(10px);
-      }
-    }
+		> p {
+			&:has(+ ul, + ol) {
+				margin-bottom: responsive(10px);
+			}
+		}
 
-    ol > li {
-      margin-bottom: 0;
-    }
-  }
+		ol > li {
+			margin-bottom: 0;
+		}
+	}
 
-  .content[class*="bg-"] .text {
-    padding: responsive($spacing-32);
+	.content[class*="bg-"] .text {
+		padding: responsive($spacing-32);
 
-    @include tablet-down {
-      padding: $spacing-24;
-    }
-  }
+		@include tablet-down {
+			padding: $spacing-24;
+		}
+	}
 
-  &--privacy {
-    .text {
-      ul,
-      ol {
-        > li:not(:first-child) {
-          margin-bottom: 0;
-          margin-top: responsive($spacing-18);
+	&--privacy {
+		.text {
+			ul,
+			ol {
+				> li:not(:first-child) {
+					margin-bottom: 0;
+					margin-top: responsive($spacing-18);
 
-          @include tablet-down {
-            margin-top: $spacing-12;
-          }
-        }
-        ul,
-        ol {
-          > li:not(:first-child) {
-            margin-top: 0;
-          }
-        }
-      }
-    }
-  }
+					@include tablet-down {
+						margin-top: $spacing-12;
+					}
+				}
+				ul,
+				ol {
+					> li:not(:first-child) {
+						margin-top: 0;
+					}
+				}
+			}
+		}
+	}
 }
-
