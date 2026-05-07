@@ -704,6 +704,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		.btn{
+			white-space: nowrap;
+		}
 	}
 
 	&__cross-sell-info {

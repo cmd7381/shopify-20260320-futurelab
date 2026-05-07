@@ -1648,6 +1648,7 @@ form {
 .dropdown {
   position: relative;
   flex-shrink: 0;
+  margin-left: auto;
 }
 .dropdown__toggle {
   display: flex;
@@ -2949,7 +2950,7 @@ section:has(section.page-header--hidden) {
 }
 
 .filter-tabs {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: flex-start;
   flex: 1;
@@ -3723,7 +3724,8 @@ section:has(section.page-header--hidden) {
   pointer-events: none;
   z-index: 0;
 }
-.block-hero__product-bg video {
+.block-hero__product-bg video,
+.block-hero__product-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -3732,7 +3734,7 @@ section:has(section.page-header--hidden) {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, #1d4ed8 0%, rgba(29, 78, 216, 0) 26.14%);
+  background: var(--background-color);
 }
 .block-hero__trust {
   display: flex;
@@ -4209,7 +4211,7 @@ section:has(section.page-header--hidden) {
   }
 }
 .block-product-hero .card--product .card__subheading {
-  color: #7B7B7B;
+  color: #7b7b7b;
 }
 @media (min-width: 1024px) {
   .block-product-hero .card--product .card__subheading {
@@ -4266,7 +4268,7 @@ section:has(section.page-header--hidden) {
   }
 }
 .block-product-hero .card--product .card__benefits .card__benefit-text {
-  color: #28292B;
+  color: #28292b;
 }
 @media (min-width: 1024px) {
   .block-product-hero .card--product .card__benefits .card__benefit-text {
@@ -5287,6 +5289,12 @@ section:has(section.page-header--hidden) {
   border-top-left-radius: var(--radius-lg);
   border-top-right-radius: var(--radius-lg);
 }
+@media (max-width: 767px) {
+  .block-product-carousel .card--product .card__image {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+}
 @media (min-width: 1024px) {
   .block-product-carousel .card--product {
     padding-bottom: clamp(16px, 1.1111111111vw, 16px);
@@ -6072,9 +6080,9 @@ section:has(section.page-header--hidden) {
   }
 }
 .block-pdp-console {
-  --gap:24px;
+  --gap: 24px;
 }
-@media (max-width: 390px) {
+@media (max-width: 440px) {
   .block-pdp-console {
     --gap: 16px;
   }
@@ -6100,10 +6108,25 @@ section:has(section.page-header--hidden) {
   background: #f2f5f8;
   border: 2px solid #1d4ed8;
 }
+.block-pdp-console__price-option[data-pricing-mode=onetime] .block-pdp-console__price-frequency {
+  opacity: 0;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+  max-height: 0px;
+}
+.block-pdp-console__price-option[data-pricing-mode=onetime].is-selected .block-pdp-console__price-frequency {
+  opacity: 1;
+  max-height: 34px;
+}
 .block-pdp-console__price-row {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+}
+@media (max-width: 575px) {
+  .block-pdp-console__price-row {
+    flex-wrap: wrap;
+    gap: clamp(8px, 0.5555555556vw, 8px);
+  }
 }
 .block-pdp-console__price-radio {
   display: flex;
@@ -6144,12 +6167,27 @@ section:has(section.page-header--hidden) {
   flex-direction: column;
   gap: 2px;
 }
+@media (max-width: 575px) {
+  .block-pdp-console__price-info {
+    white-space: nowrap;
+  }
+}
 .block-pdp-console__price-name {
   font-family: "BDO Grotesk", sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.4;
   color: #232527;
+}
+@media (max-width: 440px) {
+  .block-pdp-console__price-name {
+    font-size: 14px;
+  }
+}
+@media (max-width: 360px) {
+  .block-pdp-console__price-name {
+    font-size: 12px;
+  }
 }
 .block-pdp-console__price-frequency {
   font-family: "BDO Grotesk", sans-serif;
@@ -6158,12 +6196,22 @@ section:has(section.page-header--hidden) {
   line-height: 1.4;
   color: #707c86;
 }
+@media (max-width: 440px) {
+  .block-pdp-console__price-frequency {
+    font-size: 10px;
+  }
+}
 .block-pdp-console__price-amounts {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 2px;
   flex-shrink: 0;
+}
+@media (max-width: 440px) {
+  .block-pdp-console__price-amounts {
+    margin-left: auto;
+  }
 }
 .block-pdp-console__price-row-prices {
   display: flex;
@@ -6179,12 +6227,32 @@ section:has(section.page-header--hidden) {
   color: #a7a7a7;
   text-decoration: line-through;
 }
+@media (max-width: 440px) {
+  .block-pdp-console__price-was {
+    font-size: 14px;
+  }
+}
+@media (max-width: 360px) {
+  .block-pdp-console__price-was {
+    font-size: 12px;
+  }
+}
 .block-pdp-console__price-now {
   font-family: "BDO Grotesk", sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.4;
   color: #1d4ed8;
+}
+@media (max-width: 440px) {
+  .block-pdp-console__price-now {
+    font-size: 14px;
+  }
+}
+@media (max-width: 360px) {
+  .block-pdp-console__price-now {
+    font-size: 12px;
+  }
 }
 .block-pdp-console__price-per-day {
   font-family: "BDO Grotesk", sans-serif;
@@ -6194,6 +6262,11 @@ section:has(section.page-header--hidden) {
   color: #232527;
   text-align: right;
   width: 100%;
+}
+@media (max-width: 440px) {
+  .block-pdp-console__price-per-day {
+    font-size: 10px;
+  }
 }
 .block-pdp-console__price-details {
   border-top: 1px solid #c9d3dc;
@@ -6352,6 +6425,9 @@ section:has(section.page-header--hidden) {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.block-pdp-console__cross-sell-item .btn {
+  white-space: nowrap;
 }
 .block-pdp-console__cross-sell-info {
   display: flex;
@@ -6842,8 +6918,14 @@ section:has(.sticky-cta) {
     width: 100%;
   }
 }
-.block-get-started__image .img-box {
-  padding-top: 136.3636363636%;
+.block-get-started__image .img {
+  height: 100%;
+}
+@media (min-width: 1024px) {
+  .block-get-started__image .img-box {
+    padding-top: 90.9090909091%;
+    height: 100%;
+  }
 }
 @media (max-width: 1023px) {
   .block-get-started__image .img-box {
@@ -6851,7 +6933,7 @@ section:has(.sticky-cta) {
   }
 }
 .block-get-started__info {
-  width: 32.7380952381%;
+  width: 40.1785714286%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -6930,7 +7012,7 @@ section:has(.sticky-cta) {
 }
 .block-get-started__includes {
   margin-top: clamp(48px, 3.3333333333vw, 48px);
-  max-width: clamp(432px, 30vw, 432px);
+  max-width: clamp(540px, 37.5vw, 540px);
 }
 @media (max-width: 1023px) {
   .block-get-started__includes {
@@ -7072,7 +7154,7 @@ section:has(.sticky-cta) {
 }
 .block-get-started__cta {
   margin-top: clamp(16px, 1.1111111111vw, 16px);
-  max-width: clamp(432px, 30vw, 432px);
+  max-width: clamp(540px, 37.5vw, 540px);
 }
 .block-get-started__cta [class*=icon-] {
   font-size: clamp(22px, 1.5277777778vw, 22px);
@@ -7088,7 +7170,7 @@ section:has(.sticky-cta) {
   justify-content: center;
   gap: clamp(16px, 1.1111111111vw, 16px);
   margin-top: clamp(16px, 1.1111111111vw, 16px);
-  max-width: clamp(432px, 30vw, 432px);
+  max-width: clamp(540px, 37.5vw, 540px);
 }
 @media (max-width: 1023px) {
   .block-get-started__closers {
@@ -7263,6 +7345,11 @@ section:has(.sticky-cta) {
 .card--review .card__author strong {
   font-weight: 500;
   color: #232527;
+}
+.card--review .card__author strong::after {
+  content: " ";
+  display: inline-block;
+  width: 6px;
 }
 
 .block-timeline {
@@ -7593,7 +7680,7 @@ section:has(.sticky-cta) {
   width: 50%;
   height: calc(100% - 65px);
   transform: translate(0, -50%);
-  background-color: #F1F1F1;
+  background-color: #f1f1f1;
   border-radius: var(--radius-lg);
   z-index: 0;
 }
@@ -7653,7 +7740,7 @@ section:has(.sticky-cta) {
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #28292B;
+  color: #28292b;
 }
 .block-comparison__th {
   font-family: "BDO Grotesk", sans-serif;
@@ -7784,7 +7871,7 @@ section:has(.sticky-cta) {
   }
 }
 .block-comparison__description {
-  color: #75808A;
+  color: #75808a;
 }
 @media (max-width: 767px) {
   .block-comparison__description {
@@ -7964,7 +8051,7 @@ section:has(.sticky-cta) {
     left: 0;
     bottom: 0;
     position: absolute;
-    background: linear-gradient(180deg, rgba(29, 78, 216, 0) 0%, #1D4ED8 100%);
+    background: linear-gradient(180deg, rgba(29, 78, 216, 0) 0%, #1d4ed8 100%);
   }
 }
 .block-routine .content {
@@ -8018,7 +8105,7 @@ section:has(.sticky-cta) {
 }
 @media (max-width: 1023px) {
   .block-routine__before {
-    background-color: #EBEEF4;
+    background-color: #ebeef4;
   }
 }
 @media (max-width: 767px) {
@@ -8260,6 +8347,11 @@ section:has(.sticky-cta) {
   width: 49.5575221239%;
   flex-shrink: 0;
 }
+@media (max-width: 767px) {
+  .block-routine__after-right {
+    width: 44.5103857567%;
+  }
+}
 .block-routine__benefits-list {
   list-style: none;
   margin: 0;
@@ -8319,7 +8411,7 @@ section:has(.sticky-cta) {
   flex-direction: column;
   align-items: center;
   gap: clamp(4px, 0.2777777778vw, 4px);
-  background-color: #78D6F8;
+  background-color: #78d6f8;
   border-radius: var(--radius-md);
   padding: clamp(16px, 1.1111111111vw, 16px) clamp(24px, 1.6666666667vw, 24px) clamp(8px, 0.5555555556vw, 8px);
   text-align: center;
@@ -8334,7 +8426,7 @@ section:has(.sticky-cta) {
   align-items: center;
   justify-content: center;
   gap: clamp(8px, 0.5555555556vw, 8px);
-  color: #1D4ED8;
+  color: #1d4ed8;
   margin: 0;
 }
 .block-routine__savings-info p:first-child {
@@ -9926,7 +10018,7 @@ section:has(.sticky-cta) {
   display: flex;
   flex-direction: column;
   gap: clamp(8px, 0.5555555556vw, 8px);
-  border: 1px solid #D8D9D9;
+  border: 1px solid #d8d9d9;
   border-radius: var(--radius-lg);
   overflow: hidden;
   padding-bottom: clamp(24px, 1.6666666667vw, 24px);
@@ -10027,7 +10119,7 @@ section:has(.sticky-cta) {
   line-height: 1.4;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #8B9298;
+  color: #8b9298;
   order: -1;
 }
 @media (max-width: 767px) {
@@ -10131,6 +10223,7 @@ section:has(.sticky-cta) {
   cursor: pointer;
   border: none;
   margin-bottom: clamp(12px, 0.8333333333vw, 12px);
+  width: 100%;
 }
 @media (max-width: 767px) {
   .card--product .card__select {
@@ -10885,7 +10978,9 @@ section:has(.sticky-cta) {
   gap: 14px;
 }
 
-.block-richtext img, .block-richtext video, .block-richtext iframe {
+.block-richtext img,
+.block-richtext video,
+.block-richtext iframe {
   overflow: hidden;
   border-radius: 16px;
 }
@@ -11142,13 +11237,13 @@ section:has(.sticky-cta) {
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
-  width: var(--cart-gap);
-  height: var(--cart-gap);
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
   color: #232527 !important;
   margin-right: 0 !important;
-  top: var(--cart-gap);
-  right: var(--cart-gap);
+  top: var(--cart-gap) !important;
+  right: var(--cart-gap) !important;
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -11515,7 +11610,7 @@ section:has(.sticky-cta) {
   flex-shrink: 0;
   display: flex !important;
   flex-flow: column nowrap !important;
-  gap: 0;
+  gap: 0 !important;
   padding: var(--cart-gap) !important;
   background-color: #ffffff !important;
   mask-image: none !important;
@@ -11529,6 +11624,7 @@ section:has(.sticky-cta) {
 @media (max-width: 767px) {
   .cart-drawer__summary {
     padding: 12px var(--cart-gap) var(--cart-gap) !important;
+    position: sticky !important;
   }
 }
 @media (max-height: 500px) {
@@ -11639,19 +11735,15 @@ section:has(.sticky-cta) {
   transform: translateX(4px);
 }
 @media (max-width: 767px) {
-  .cart__ctas .cart__checkout-button,
-  .cart__checkout-button {
-    min-height: 48px !important;
-    font-size: 16px !important;
-    padding: 12px var(--cart-gap) !important;
+  .cart__ctas .cart__checkout-button .cart__checkout-price, .cart__ctas .cart__checkout-button .cart__checkout-cta,
+  .cart__checkout-button .cart__checkout-price,
+  .cart__checkout-button .cart__checkout-cta {
+    font-size: 20px;
   }
-}
-@media (max-height: 500px) {
-  .cart__ctas .cart__checkout-button,
-  .cart__checkout-button {
-    min-height: 48px !important;
-    font-size: 16px !important;
-    padding: 12px var(--cart-gap) !important;
+  .cart__ctas .cart__checkout-button .cart__checkout-price [class*=icon-], .cart__ctas .cart__checkout-button .cart__checkout-cta [class*=icon-],
+  .cart__checkout-button .cart__checkout-price [class*=icon-],
+  .cart__checkout-button .cart__checkout-cta [class*=icon-] {
+    font-size: 120%;
   }
 }
 
@@ -11880,6 +11972,14 @@ section:has(.sticky-cta) {
   line-height: 1.4;
   border-radius: 8px;
   transition: background-color 0.3s ease;
+}
+.cart-drawer__upsell-add[disabled] {
+  cursor: not-allowed;
+  background-color: #707c86;
+  border-color: #707c86;
+}
+.cart-drawer__upsell-add[disabled]:hover {
+  background-color: #707c86;
 }
 .cart-drawer__upsell-add:hover {
   background-color: #3b6cf6;
