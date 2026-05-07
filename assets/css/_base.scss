@@ -23,7 +23,11 @@ html {
 	-moz-text-size-adjust: none;
 	-webkit-text-size-adjust: none;
 	text-size-adjust: none;
-	scroll-behavior: smooth;
+	// Override Shopify's base.css `html { scroll-behavior: smooth }`.
+	// Lenis handles smooth scroll for the user; CSS smooth-scroll
+	// makes programmatic scrollTo (e.g. Shopify dialog close path)
+	// animate, which on Safari shows a slide from top of page.
+	scroll-behavior: auto !important;
 }
 
 body {

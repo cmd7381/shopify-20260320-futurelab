@@ -912,11 +912,53 @@ var App = (function($) {
 		var dialog = document.querySelector('.cart-drawer__dialog');
 		if (!dialog) return;
 		$(dialog).find('.cart-items-component').attr('data-lenis-prevent', '');
+
 		new MutationObserver(function() {
 			if (dialog.open) {
 				$(dialog).find('.slick-initialized').slick('setPosition');
 			}
 		}).observe(dialog, { attributes: true, attributeFilter: ['open'] });
+
+		// On dialog close, Shopify scrolls window to its saved Y
+		// but Lenis's internal target stayed at 0 during the modal
+		// lock and pulls scroll back next raf. Capture Y from
+		// body.style.top BEFORE Shopify clears it (via mutation
+		// oldValue), then aggressively sync Lenis target = Y for
+		// ~15 frames so it wins every race against Lenis raf.
+		new MutationObserver(function(mutations) {
+			mutations.forEach(function(m) {
+				if (m.attributeName !== 'style') return;
+				var oldStyle = m.oldValue || '';
+				var newStyle = document.body.getAttribute('style') || '';
+				if (!/top:\s*-?\d+px/.test(oldStyle) || /top:\s*-?\d+px/.test(newStyle)) return;
+				var match = oldStyle.match(/top:\s*(-?\d+)px/);
+				if (!match) return;
+				var y = -parseInt(match[1], 10);
+				var frames = 15;
+				if (typeof LenisScroll !== 'undefined' && LenisScroll.stop) {
+					LenisScroll.stop();
+				}
+				function lockY() {
+					if (typeof LenisScroll !== 'undefined' && LenisScroll.scrollTo) {
+						LenisScroll.scrollTo(y, true);
+					}
+					window.scrollTo(0, y);
+					if (--frames > 0) {
+						requestAnimationFrame(lockY);
+					} else if (typeof LenisScroll !== 'undefined' && LenisScroll.start) {
+						LenisScroll.start();
+					}
+				}
+				lockY();
+				requestAnimationFrame(lockY);
+			});
+		}).observe(document.body, {
+			attributes: true,
+			attributeFilter: ['style'],
+			attributeOldValue: true
+		});
+
+
 
 		// Custom fade overlay tracking scroll position. Replaces
 		// Shopify scroll-hint's mask-image (killed in SCSS) so the
@@ -1050,10 +1092,15 @@ var App = (function($) {
 			if (lenis) lenis.start();
 		}
 
+		function scrollTo(y, immediate) {
+			if (lenis) lenis.scrollTo(y, { immediate: !!immediate, force: true, lock: true });
+		}
+
 		return {
 			init: init,
 			stop: stop,
-			start: start
+			start: start,
+			scrollTo: scrollTo
 		};
 	})();
 
