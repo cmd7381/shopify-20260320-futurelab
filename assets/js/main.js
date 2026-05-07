@@ -918,12 +918,55 @@ var App = (function($) {
 			}
 		}).observe(dialog, { attributes: true, attributeFilter: ['open'] });
 
+		// Lock cart items scroll while a dropdown / subscribe
+		// panel is open so the floating panel stays glued to its
+		// trigger. Toggle `is-scroll-locked` on .cart-drawer__content;
+		// the SCSS rule sets overflow:hidden when the class is on.
+		var scroller = dialog.querySelector(".cart-drawer__content");
+		function syncScrollLock() {
+			if (!scroller) return;
+			var anyOpen = !!(
+				dialog.querySelector(".dropdown__toggle.is-active") ||
+				dialog.querySelector(".cart-drawer__subscribe.is-open")
+			);
+			scroller.classList.toggle("is-scroll-locked", anyOpen);
+		}
+
 		// Subscribe toggle
 		$(dialog).on("click", ".cart-drawer__subscribe-toggle", function(e) {
 			e.stopPropagation();
 			var $subscribe = $(this).closest(".cart-drawer__subscribe");
+			// Mutual exclusion: close any variant dropdown that is
+			// not a descendant of this subscribe panel.
+			$(dialog).find(".dropdown__toggle.is-active").each(function() {
+				if (!$.contains($subscribe[0], this)) {
+					$(this).removeClass("is-active");
+					$(this).closest(".dropdown").find(".dropdown__menu").stop().slideUp(200);
+				}
+			});
 			$subscribe.toggleClass("is-open");
 			$subscribe.find(".cart-drawer__subscribe-body").slideToggle(300);
+			syncScrollLock();
+		});
+
+		// Mutual exclusion the other way: opening a variant dropdown
+		// outside a subscribe panel closes any open subscribe.
+		$(dialog).on("click", ".dropdown__toggle", function() {
+			var $toggle = $(this);
+			if (!$toggle.closest(".cart-drawer__subscribe").length) {
+				$(dialog).find(".cart-drawer__subscribe.is-open").each(function() {
+					$(this).removeClass("is-open");
+					$(this).find(".cart-drawer__subscribe-body").stop().slideUp(300);
+				});
+			}
+			// Defer until the global Dropdown handler has toggled
+			// is-active class on the toggle.
+			setTimeout(syncScrollLock, 0);
+		});
+
+		// Items inside dropdown / outside-click also change state.
+		$(dialog).on("click", ".dropdown__item", function() {
+			setTimeout(syncScrollLock, 0);
 		});
 
 		// Close subscribe on click outside
@@ -932,7 +975,14 @@ var App = (function($) {
 			if ($subscribe.length && !$(e.target).closest(".cart-drawer__subscribe").length) {
 				$subscribe.removeClass("is-open");
 				$subscribe.find(".cart-drawer__subscribe-body").slideUp(300);
+				syncScrollLock();
 			}
+		});
+
+		// Catch-all: outside-click on document closes any active
+		// dropdown via global Dropdown handler — sync after.
+		$(document).on("click", function() {
+			setTimeout(syncScrollLock, 0);
 		});
 	})();
 
