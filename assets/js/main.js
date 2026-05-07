@@ -918,6 +918,38 @@ var App = (function($) {
 			}
 		}).observe(dialog, { attributes: true, attributeFilter: ['open'] });
 
+		// Custom fade overlay tracking scroll position. Replaces
+		// Shopify scroll-hint's mask-image (killed in SCSS) so the
+		// sticky footer is not faded — pseudo-elements driven by
+		// --cart-fade-top / --cart-fade-bottom CSS vars.
+		var stickyEl = dialog.querySelector(".cart-drawer__sticky");
+		var fadeRaf = null;
+		function updateCartFade() {
+			fadeRaf = null;
+			var scr = dialog.querySelector(".cart-drawer__content");
+			if (!scr) return;
+			var max = scr.scrollHeight - scr.clientHeight;
+			if (max <= 0) {
+				scr.style.setProperty("--cart-fade-top", 0);
+				if (stickyEl) stickyEl.style.setProperty("--cart-fade-bottom", 0);
+				return;
+			}
+			var pct = scr.scrollTop / max;
+			scr.style.setProperty("--cart-fade-top", Math.min(1, pct * 10).toFixed(3));
+			if (stickyEl) stickyEl.style.setProperty("--cart-fade-bottom", Math.min(1, (1 - pct) * 10).toFixed(3));
+		}
+		function onCartScroll() {
+			if (fadeRaf !== null) return;
+			fadeRaf = requestAnimationFrame(updateCartFade);
+		}
+		(function() {
+			var scr = dialog.querySelector(".cart-drawer__content");
+			if (!scr) return;
+			scr.addEventListener("scroll", onCartScroll, { passive: true });
+			new ResizeObserver(updateCartFade).observe(scr);
+			updateCartFade();
+		})();
+
 		// Lock cart items scroll while a dropdown / subscribe
 		// panel is open so the floating panel stays glued to its
 		// trigger. Toggle `is-scroll-locked` on .cart-drawer__content;

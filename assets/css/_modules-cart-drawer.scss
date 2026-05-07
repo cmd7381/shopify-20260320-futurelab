@@ -254,6 +254,64 @@
 	// }
 }
 
+// Replace Shopify's scroll-hint mask-image with custom pseudo
+// fades so the sticky footer is not affected by the mask. Mask
+// applies to all descendants of the masked element — there is
+// no opt-out — so we kill it and reproduce the smart fade using
+// CSS vars updated from a JS scroll listener (see main.js).
+.cart-drawer__dialog scroll-hint.cart-drawer__content {
+	mask-image: none !important;
+	-webkit-mask-image: none !important;
+
+	&::before {
+		content: "";
+		position: sticky;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 48px;
+		margin-bottom: -48px;
+		background: linear-gradient(180deg, $color-white 0%, rgba(255, 255, 255, 0) 100%);
+		pointer-events: none;
+		opacity: var(--cart-fade-top, 0);
+		flex-shrink: 0;
+		z-index: 2;
+	}
+}
+
+.cart-drawer__sticky::before {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	right: 0;
+	height: 48px;
+	background: linear-gradient(0deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
+	pointer-events: none;
+	opacity: var(--cart-fade-bottom, 0);
+
+	// Mobile: .cart-drawer__sticky becomes `display: contents`,
+	// so its ::before has no host box. Move the bottom fade to
+	// .cart-drawer__summary instead (sticky on mobile).
+	@include mobile {
+		display: none;
+	}
+}
+
+@include mobile {
+	.cart-drawer__summary::before {
+		content: "";
+		position: absolute;
+		bottom: 100%;
+		left: 0;
+		right: 0;
+		height: 48px;
+		background: linear-gradient(0deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
+		pointer-events: none;
+		opacity: var(--cart-fade-bottom, 0);
+	}
+}
+
 // Lock cart drawer scroll when a dropdown / subscribe panel is
 // open. Specificity must beat Shopify Horizon's inline rule:
 //   .cart-drawer__dialog scroll-hint.cart-drawer__content { overflow-y: auto !important }
@@ -572,6 +630,8 @@
 	width: 100%;
 	bottom: 0;
 	margin-top: auto;
+	padding-top: 16px;
+	background: #fff;
 	@include mobile {
 		display: contents;
 	}
@@ -1053,7 +1113,7 @@
 // ---- Subscribe & Save ----
 .cart-drawer__subscribe {
 	width: 100%;
-	z-index: 1;
+	// z-index: 1;
 	background: $color-neon-tide;
 	border-radius: $radius-md;
 	overflow: visible;
