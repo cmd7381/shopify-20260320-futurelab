@@ -191,6 +191,10 @@
 		@include tablet-down {
 			flex-direction: column;
 		}
+
+		@include mobile {
+			margin: 24px 0;
+		}
 	}
 
 	&__text {
@@ -562,7 +566,7 @@
 		border: none;
 		margin-bottom: responsive(12px);
 		width: 100%;
-		
+
 		@include mobile {
 			height: 40px;
 			padding: 0 $spacing-16;

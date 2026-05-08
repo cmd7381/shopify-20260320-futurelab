@@ -7207,6 +7207,7 @@ section:has(.sticky-cta) {
 @media (max-width: 767px) {
   .block-product-review {
     padding: 40px 0;
+    margin-top: 24px;
   }
 }
 .block-product-review__bg::after {
@@ -9813,6 +9814,11 @@ section:has(.sticky-cta) {
     flex-direction: column;
   }
 }
+@media (max-width: 767px) {
+  .block-text-image .content {
+    margin: 24px 0;
+  }
+}
 .block-text-image__text {
   flex: 1;
   position: relative;
@@ -11665,10 +11671,14 @@ section:has(.sticky-cta) {
 
 .cart-drawer__upsell {
   padding-top: 16px;
-  padding-bottom: 24px;
   border-top: 1px solid #e6eaed;
   width: 100%;
   background: #ffffff;
+}
+@media (max-width: 767px) {
+  .cart-drawer__upsell {
+    padding-bottom: 4px;
+  }
 }
 .cart-drawer__upsell-header {
   display: flex;

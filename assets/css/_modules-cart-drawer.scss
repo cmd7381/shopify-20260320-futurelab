@@ -640,10 +640,13 @@
 // ---- Upsell Section ----
 .cart-drawer__upsell {
 	padding-top: 16px;
-	padding-bottom: 24px;
+
 	border-top: 1px solid $color-mist-50;
 	width: 100%;
 	background: $color-white;
+	@include mobile {
+		padding-bottom: 4px;
+	}
 	&-header {
 		display: flex;
 		flex-flow: row wrap;

@@ -1460,6 +1460,7 @@ section:has(.sticky-cta) {
 
 	@include mobile {
 		padding: $spacing-40 0;
+		margin-top: 24px;
 	}
 
 	&__bg {
