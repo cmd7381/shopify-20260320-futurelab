@@ -298,8 +298,7 @@
 		&[data-submenu-toggle] {
 			flex-wrap: wrap;
 		}
-		&:hover,
-		&.is-active {
+		@mixin nav-menu-link-active {
 			.icon-arrow-right {
 				transform: translate(0, 0);
 			}
@@ -311,6 +310,14 @@
 				background: $color-neon-tide;
 				border-radius: $radius-full;
 				color: $color-white;
+			}
+		}
+		&.is-active {
+			@include nav-menu-link-active;
+		}
+		@media (hover: hover) {
+			&:hover {
+				@include nav-menu-link-active;
 			}
 		}
 	}
@@ -373,8 +380,10 @@
 		color: $color-grey-600;
 		cursor: pointer;
 
-		&:hover {
-			border-color: $color-mist;
+		@media (hover: hover) {
+			&:hover {
+				border-color: $color-mist;
+			}
 		}
 	}
 
@@ -408,8 +417,10 @@
 			gap: 0;
 		}
 
-		&:hover [class*='icon-'] {
-			transform: none;
+		@media (hover: hover) {
+			&:hover [class*='icon-'] {
+				transform: none;
+			}
 		}
 	}
 }

@@ -363,8 +363,10 @@ $btn-desktop-large-px: 28px;
 		transition: transform $duration ease;
 	}
 
-	&:hover .img-box {
-		transform: scale($scale);
+	@media (hover: hover) {
+		&:hover .img-box {
+			transform: scale($scale);
+		}
 	}
 }
 

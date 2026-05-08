@@ -68,8 +68,10 @@ p:not(.btn) a:not(.btn, .button, .button-secondary) {
 	text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
 	transition: text-decoration-color 0.3s ease, color 0.3s ease;
 
-	&:hover {
-		text-decoration-color: currentColor;
+	@media (hover: hover) {
+		&:hover {
+			text-decoration-color: currentColor;
+		}
 	}
 }
 
@@ -87,17 +89,19 @@ a {
 		transition: transform 0.2s ease;
 	}
 
-	&:hover {
-		.icon-arrow-right {
-			transform: translateX(4px);
-		}
+	@media (hover: hover) {
+		&:hover {
+			.icon-arrow-right {
+				transform: translateX(4px);
+			}
 
-		.icon-arrow-left {
-			transform: translateX(-4px);
-		}
+			.icon-arrow-left {
+				transform: translateX(-4px);
+			}
 
-		.icon-arrow-up-right {
-			transform: translate(4px, -4px);
+			.icon-arrow-up-right {
+				transform: translate(4px, -4px);
+			}
 		}
 	}
 }
