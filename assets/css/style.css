@@ -2794,9 +2794,6 @@ section[class*=block-]:has(.dropdown) {
 .page-header--hidden {
   display: none;
 }
-.page-header.text-center {
-  padding: clamp(120px, 8.3333333333vw, 120px) 0;
-}
 .page-header.text-center .page-header__title,
 .page-header.text-center .page-header__description,
 .page-header.text-center .btn {
@@ -4116,6 +4113,21 @@ section:has(section.page-header--hidden) {
 @media (max-width: 767px) {
   .block-usps__desc {
     font-size: 12.27px;
+  }
+}
+
+.page--stockists .block-usps__icon {
+  background-color: transparent !important;
+  border-radius: 0 !important;
+}
+.page--stockists .block-usps__icon img {
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 767px) {
+  .page--stockists .block-usps__icon img {
+    width: 75%;
+    height: 75%;
   }
 }
 
